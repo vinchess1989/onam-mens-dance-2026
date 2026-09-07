@@ -401,6 +401,37 @@
       100% { transform: scale(0.7); opacity: 0; }
     }
 
+    
+    .indicator-tag.clickable {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+    .indicator-tag.clickable:hover, .indicator-tag.clickable:active {
+      transform: scale(1.05);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .countdown-tap-hint {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 0.6rem 1.4rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+    }
+    .countdown-tap-hint:active {
+      transform: scale(0.96);
+      background: var(--primary);
+      color: #090c15;
+    }
+    
     /* SONG SECTIONS GRID */
     .section-title {
       font-size: 1.25rem;
@@ -636,6 +667,7 @@
   <div id="countdownOverlay" class="countdown-overlay">
     <div id="countdownNum" class="countdown-number">3</div>
     <div class="countdown-label">GET INTO POSITION!</div>
+    <div class="countdown-tap-hint" id="btnSkipCountdown">Tap anywhere to Start Immediately (Skip)</div>
   </div>
 
   <div class="container">
@@ -658,6 +690,7 @@
         </div>
         <div class="status-indicators">
           <span class="indicator-tag" id="loopTag">🔁 Loop Off</span>
+          <span class="indicator-tag active clickable" id="countdownTag" title="Tap to Toggle Countdown">⏱ Countdown: ON</span>
           <span class="indicator-tag" id="speedTag">1.0x</span>
         </div>
       </div>
@@ -707,9 +740,9 @@
           </button>
 
           <!-- 3s Countdown Toggle -->
-          <button class="btn-toggle active" id="btnCountdownToggle" title="3s Ready Countdown before song play">
+          <button class="btn-toggle active" id="btnCountdownToggle" title="Toggle 3-second ready countdown">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61 1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-            <span>3s Ready</span>
+            <span id="countdownBtnText">⏱ Countdown: ON</span>
           </button>
 
           <!-- Playback Speed Control -->
@@ -1082,9 +1115,40 @@
       setLoopState(!isLoopingCurrentSection);
     });
 
+    function updateCountdownUI() {
+      btnCountdownToggle.classList.toggle('active', isCountdownEnabled);
+      const textSpan = document.getElementById('countdownBtnText');
+      if (textSpan) {
+        textSpan.textContent = isCountdownEnabled ? '⏱ Countdown: ON' : '⏱ Countdown: OFF';
+      }
+      const tag = document.getElementById('countdownTag');
+      if (tag) {
+        tag.classList.toggle('active', isCountdownEnabled);
+        tag.textContent = isCountdownEnabled ? '⏱ Countdown: ON' : '⏱ Countdown: OFF';
+      }
+    }
+
     btnCountdownToggle.addEventListener('click', () => {
       isCountdownEnabled = !isCountdownEnabled;
-      btnCountdownToggle.classList.toggle('active', isCountdownEnabled);
+      updateCountdownUI();
+    });
+
+    const countdownTag = document.getElementById('countdownTag');
+    if (countdownTag) {
+      countdownTag.addEventListener('click', () => {
+        isCountdownEnabled = !isCountdownEnabled;
+        updateCountdownUI();
+      });
+    }
+
+    // Allow tapping countdown overlay to start immediately
+    countdownOverlay.addEventListener('click', () => {
+      if (countdownTimer) {
+        clearInterval(countdownTimer);
+        countdownTimer = null;
+      }
+      countdownOverlay.classList.remove('show');
+      audio.play().catch(() => {});
     });
 
     // SPEED SELECTOR
