@@ -1,0 +1,17 @@
+# Large video files and temporary recordings
+*.mp4
+*.part
+*.m4a
+*.webm
+*.avi
+*.mov
+
+# Python cache & temp files
+__pycache__/
+*.pyc
+*.pyo
+.claude/
+_temp*
+test_*
+*backup*
+youtube_cookies.txt

@@ -1,0 +1,42 @@
+{
+  "output_audio": "onam_mens_final_26_0906.mp3",
+  "html_player": "dance_practice_player.html",
+  "tracks": [
+    {
+      "file": "Kalyanaraman (5m21s-5m30s).mp3",
+      "title": "Kalyanaraman (Intro)",
+      "badge": "Intro Hook",
+      "color": "#f59e0b"
+    },
+    {
+      "file": "chettikulangara_extended_44s.mp3",
+      "title": "Chettikulangara (+3s Transition)",
+      "badge": "Song 1",
+      "color": "#10b981"
+    },
+    {
+      "file": "sablazki dialogue.mp3",
+      "title": "Sablazki Dialogue",
+      "badge": "Dialogue",
+      "color": "#06b6d4"
+    },
+    {
+      "file": "Songs 2 + Dialogue 2 + Song 3.mp3",
+      "title": "Songs 2 + Dialogue 2 + Song 3",
+      "badge": "Dance Medley",
+      "color": "#8b5cf6"
+    },
+    {
+      "file": "mani_and_vel_muruga.mp3",
+      "title": "Mani & Vel Muruga",
+      "badge": "Fast Beats",
+      "color": "#ec4899"
+    },
+    {
+      "file": "Onam Mood with Applause (Appended).mp3",
+      "title": "Onam Mood + Crowd Applause",
+      "badge": "Grand Finale",
+      "color": "#f97316"
+    }
+  ]
+}
