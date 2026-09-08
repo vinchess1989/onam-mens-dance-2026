@@ -7,19 +7,19 @@ Interactive practice hub and audio player with instant section seeking, A-B repe
 
 ---
 
-## 🎵 Current Routine (9 Songs • 04:10)
+## 🎵 Current Routine (9 Songs • 04:09)
 1. **Kalyanaraman (Intro Hook)** (`00:00 - 00:09.5`) - 9.5s
 2. **Chettikulangara** (`00:09.5 - 00:50.5`) - 41.0s
 3. **Sablazki Dialogue (+3s Reverb Tail)** (`00:50.5 - 01:12.9`) - 22.4s
 4. **Shanthamee Rathri** (`01:12.9 - 01:41.9`) - 29.0s
-5. **Pondicherry Dialogue** (`01:41.9 - 01:52.4`) - 10.5s *(followed by 3s pause)*
-   *⏸ 3-second gap / silence (`01:52.4 - 01:55.4`)*
-6. **Ivalkoruvan Song** (`01:55.4 - 02:24.9`) - 29.5s
-7. **Njanondaliyanum** (`02:24.9 - 03:18.9`) - 54.0s
-8. **Velmuruka Harohara** (`03:18.9 - 04:01.9`) - 43.0s *(2s fade-out as applause begins at 03:59.9)*
-9. **Crowd Applause & Cheering** (`03:59.9 - 04:09.9`) - 10.0s *(Overlaps last 2s of Velmuruka)*
+5. **Pondicherry Dialogue** (`01:41.9 - 01:51.9`) - 10.0s *(followed by 3s pause)*
+   *⏸ 3-second gap / silence (`01:51.9 - 01:54.9`)*
+6. **Ivalkoruvan Song** (`01:54.9 - 02:24.4`) - 29.5s
+7. **Njanondaliyanum** (`02:24.4 - 03:18.4`) - 54.0s
+8. **Velmuruka Harohara** (`03:18.4 - 04:01.4`) - 43.0s *(2s fade-out as applause begins at 03:59.4)*
+9. **Crowd Applause & Cheering** (`03:59.4 - 04:09.4`) - 10.0s *(Overlaps last 2s of Velmuruka)*
 
-**Total Duration:** 4 minutes 10 seconds (`onam_mens_final_26_0906.mp3`)
+**Total Duration:** 4 minutes 09 seconds (`onam_mens_final_26_0906.mp3`)
 
 ---
 
