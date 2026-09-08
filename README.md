@@ -1,6 +1,6 @@
 # Onam Men's Dance 2026 - Rehearsal Studio
 
-Interactive practice hub and audio player with instant section seeking, A-B repeat loops, tempo controls, countdown ready timers, and multi-version routine tabs.
+Interactive practice hub and audio player with instant section seeking, A-B repeat loops, tempo controls, countdown ready timers, pause cue beat preview system, and multi-version routine tabs.
 
 ### 🌐 Live Rehearsal Player (GitHub Pages)
 👉 **[Open Dance Practice Player](https://vinchess1989.github.io/onam-mens-dance-2026/)**
@@ -14,6 +14,11 @@ Interactive practice hub and audio player with instant section seeking, A-B repe
 4. **Shanthamee Rathri** (`01:12.9 - 01:41.9`) - 29.0s
 5. **Pondicherry Dialogue** (`01:41.9 - 01:52.2`) - 10.25s *(followed by 3s pause)*
    *⏸ 3-second gap / silence (`01:52.2 - 01:55.2`)*
+   - 💡 **Pause Cue Beat Options Available in Player**:
+     - **Option 0**: Clean Silence
+     - **Option 1**: Stick Clicks (3 crisp metronome ticks: 1, 2, 3 ➔ Drop)
+     - **Option 2**: Heartbeat Thump (3 deep sub-bass kicks)
+     - **Option 3**: Energy Riser (Ascending swoosh swell)
 6. **Ivalkoruvan Song** (`01:55.2 - 02:24.7`) - 29.5s
 7. **Njanondaliyanum** (`02:24.7 - 03:18.7`) - 54.0s
 8. **Velmuruka Harohara** (`03:18.7 - 04:01.7`) - 43.0s *(2s fade-out as applause begins at 03:59.7)*

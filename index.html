@@ -712,6 +712,230 @@
       .version-tabs-nav { width: 100%; border-radius: 16px; }
       .tab-btn { flex: 1 1 auto; justify-content: center; font-size: 0.78rem; padding: 0.5rem 0.65rem; }
     }
+  
+    /* PAUSE CUE BEAT PANEL */
+    .cue-beat-panel {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.06);
+      margin-top: 0.5rem;
+    }
+
+    .cue-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cue-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .cue-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cue-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(168, 85, 247, 0.2);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #c084fc;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .cue-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c084fc;
+      box-shadow: 0 0 8px #c084fc;
+    }
+
+    .cue-title-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .cue-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .btn-jump-transition {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      padding: 0.55rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-jump-transition:hover {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(236, 72, 153, 0.35) 100%);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .cue-options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .cue-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .cue-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .cue-card.active {
+      background: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 0 16px -4px rgba(168, 85, 247, 0.35);
+    }
+
+    .cue-card-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .cue-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .cue-card.active .cue-radio {
+      border-color: #c084fc;
+    }
+
+    .cue-card.active .cue-radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c084fc;
+    }
+
+    .cue-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+
+    .cue-card-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cue-card-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-cue-preview {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .btn-cue-preview:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .btn-cue-preview.playing {
+      background: #c084fc;
+      border-color: #c084fc;
+      color: #090c15;
+      font-weight: 800;
+    }
+
+    .cue-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .cue-status-bar strong {
+      color: #fbbf24;
+    }
+
   </style>
 </head>
 <body>
@@ -822,7 +1046,92 @@
           </div>
         </div>
       </div>
+
+      <!-- PAUSE TIMING CUE BEAT PANEL (TEST & PREVIEW 3 OPTIONS) -->
+      <div class="cue-beat-panel" id="cueBeatPanel">
+        <div class="cue-panel-header">
+          <div class="cue-title-group">
+            <div class="cue-badge-row">
+              <span class="cue-pill">
+                <span class="cue-pulse"></span>
+                Lead-in Timing Cue
+              </span>
+              <span class="cue-title-text">Pause Timing Beat (01:52 ➔ 01:55)</span>
+            </div>
+            <p class="cue-desc">Overlaps the 3s silence between <em>Pondicherry Dialogue</em> and <em>Ivalkoruvan</em> so dancers hear the exact entry count.</p>
+          </div>
+
+          <button class="btn-jump-transition" id="btnJumpTransition" title="Jump to 01:50 to listen to the dialogue ending, cue beat, and song entry">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 3 4 14h7v7l9-11h-7z"/></svg>
+            <span>⚡ Test Transition (01:50)</span>
+          </button>
+        </div>
+
+        <div class="cue-options-grid">
+          <!-- Option 0: None -->
+          <div class="cue-card active" data-cue="none">
+            <div class="cue-card-left">
+              <div class="cue-radio"></div>
+              <div class="cue-card-info">
+                <div class="cue-card-name">🔇 Off (Clean)</div>
+                <div class="cue-card-sub">3s clean silence</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Option 1: Stick Clicks -->
+          <div class="cue-card" data-cue="sticks">
+            <div class="cue-card-left">
+              <div class="cue-radio"></div>
+              <div class="cue-card-info">
+                <div class="cue-card-name">🥢 Stick Clicks</div>
+                <div class="cue-card-sub">3 crisp ticks (1, 2, 3 ➔ Drop)</div>
+              </div>
+            </div>
+            <button class="btn-cue-preview" data-preview="sticks" title="Listen to sound effect solo">
+              <span class="preview-icon">▶</span>
+              <span class="preview-label">Preview</span>
+            </button>
+          </div>
+
+          <!-- Option 2: Heartbeat Thump -->
+          <div class="cue-card" data-cue="thump">
+            <div class="cue-card-left">
+              <div class="cue-radio"></div>
+              <div class="cue-card-info">
+                <div class="cue-card-name">💓 Heartbeat Thump</div>
+                <div class="cue-card-sub">3 deep sub-kicks (Feel the pulse)</div>
+              </div>
+            </div>
+            <button class="btn-cue-preview" data-preview="thump" title="Listen to sound effect solo">
+              <span class="preview-icon">▶</span>
+              <span class="preview-label">Preview</span>
+            </button>
+          </div>
+
+          <!-- Option 3: Energy Riser -->
+          <div class="cue-card" data-cue="riser">
+            <div class="cue-card-left">
+              <div class="cue-radio"></div>
+              <div class="cue-card-info">
+                <div class="cue-card-name">🚀 Energy Riser</div>
+                <div class="cue-card-sub">Ascending swoosh to song beat</div>
+              </div>
+            </div>
+            <button class="btn-cue-preview" data-preview="riser" title="Listen to sound effect solo">
+              <span class="preview-icon">▶</span>
+              <span class="preview-label">Preview</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="cue-status-bar" id="cueStatusBar">
+          <span style="font-size: 1rem;">💡</span>
+          <span id="cueStatusText">Playing <strong>pure silence</strong> during the 3s pause. Select an option above to test it live during routine playback, or tap <strong>Preview</strong>.</span>
+        </div>
+      </div>
     </main>
+
 
     <!-- TRACK SECTIONS LIST -->
     <section>
@@ -1076,6 +1385,23 @@
       }
     };
 
+    // CUE BEAT SYSTEM STATE & AUDIO OBJECTS
+    let activeCueOption = "none"; // "none", "sticks", "thump", "riser"
+    const GAP_START = 112.16; // Dialogue 2 ends
+    const GAP_END = 115.16;   // Ivalkoruvan starts
+    let previewingAudio = null;
+    let activePreviewKey = null;
+
+    const cueAudios = {
+      sticks: new Audio('cue_option1_sticks.mp3'),
+      thump: new Audio('cue_option2_thump.mp3'),
+      riser: new Audio('cue_option3_riser.mp3')
+    };
+
+    Object.values(cueAudios).forEach(a => {
+      a.preload = 'auto';
+    });
+
     // ACTIVE STATE
     let currentRoutineKey = "current";
     let activeRoutine = ROUTINES.current;
@@ -1110,6 +1436,9 @@
     const tracksGrid = document.getElementById('tracksGrid');
     const activeRoutineSubtext = document.getElementById('activeRoutineSubtext');
     const sectionCountLabel = document.getElementById('sectionCountLabel');
+    const cueBeatPanel = document.getElementById('cueBeatPanel');
+    const cueStatusText = document.getElementById('cueStatusText');
+    const btnJumpTransition = document.getElementById('btnJumpTransition');
 
     function formatTime(sec) {
       if (isNaN(sec) || sec < 0) sec = 0;
@@ -1168,7 +1497,15 @@
           <div class="track-time-range">
             <span>Range:</span>
             <span class="range-badge">${formatTime(sec.start)} → ${formatTime(sec.end)}</span>
-            ${sec.note ? `<span class="range-badge" style="margin-left:auto; font-size:0.75rem; color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:0.15rem 0.5rem; border-radius:999px;">${sec.note}</span>` : ''}
+            ${(() => {
+          if (!sec.note) return '';
+          let noteText = sec.note;
+          if (sec.id === 5 && activeCueOption !== 'none') {
+            const cueNames = { sticks: 'Stick Clicks Active', thump: 'Heartbeat Thump Active', riser: 'Energy Riser Active' };
+            noteText = `3s Gap (${cueNames[activeCueOption]})`;
+          }
+          return `<span class="range-badge" style="margin-left:auto; font-size:0.75rem; color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:0.15rem 0.5rem; border-radius:999px;">${noteText}</span>`;
+        })()}
           </div>
 
           <div class="card-progress-bg">
@@ -1209,6 +1546,11 @@
       tabCurrent.classList.toggle('active-tab', routineKey === 'current');
       tabBackup.classList.toggle('active-tab', routineKey === 'backup');
       tabLegacy.classList.toggle('active-tab', routineKey === 'legacy');
+      if (cueBeatPanel) {
+        cueBeatPanel.style.display = (routineKey === 'current') ? 'flex' : 'none';
+      }
+      stopAllCues();
+      stopPreview();
 
       // Pause audio and load new source
       audio.pause();
@@ -1318,6 +1660,127 @@
       });
     }
 
+    // CUE BEAT SYNCHRONIZATION LOGIC
+    function stopAllCues() {
+      Object.values(cueAudios).forEach(a => {
+        a.pause();
+        a.currentTime = 0;
+      });
+    }
+
+    function syncCueBeat() {
+      if (currentRoutineKey !== 'current' || activeCueOption === 'none') {
+        stopAllCues();
+        return;
+      }
+
+      const cur = audio.currentTime;
+      const isPlaying = !audio.paused && !audio.ended;
+
+      if (isPlaying && cur >= GAP_START && cur < GAP_END) {
+        const cue = cueAudios[activeCueOption];
+        if (cue) {
+          const targetCueTime = cur - GAP_START;
+          cue.playbackRate = audio.playbackRate;
+          if (cue.paused || Math.abs(cue.currentTime - targetCueTime) > 0.08) {
+            cue.currentTime = Math.max(0, targetCueTime);
+            cue.play().catch(() => {});
+          }
+        }
+      } else {
+        stopAllCues();
+      }
+    }
+
+    // CUE BEAT UI INTERACTIONS
+    function setCueOption(optKey) {
+      activeCueOption = optKey;
+      stopAllCues();
+      stopPreview();
+
+      // Update card UI active classes
+      document.querySelectorAll('.cue-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.cue === optKey);
+      });
+
+      // Update status explanation text
+      const descriptions = {
+        none: 'Playing <strong>pure silence</strong> during the 3s pause. Select an option to test it live during playback or click <strong>Preview</strong>.',
+        sticks: '<strong>🥢 Option 1: Stick Clicks</strong> enabled! 3 crisp metronome ticks will count down (1, 2, 3 ➔ Drop) at 01:52.9, 01:53.6, and 01:54.4.',
+        thump: '<strong>💓 Option 2: Heartbeat Thump</strong> enabled! 3 deep sub-bass pulses will guide dancers through the 3s silence into the drop.',
+        riser: '<strong>🚀 Option 3: Energy Riser</strong> enabled! A smooth ascending swoosh will swell through the 3s silence and hit the drop at 01:55.2.'
+      };
+      cueStatusText.innerHTML = descriptions[optKey] || '';
+
+      // Re-render track cards to show updated note badge on Part 5
+      renderTrackCards();
+    }
+
+    document.querySelectorAll('.cue-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Ignore if clicked directly on preview button
+        if (e.target.closest('.btn-cue-preview')) return;
+        setCueOption(card.dataset.cue);
+      });
+    });
+
+    // CUE PREVIEW BUTTONS
+    function stopPreview() {
+      if (previewingAudio) {
+        previewingAudio.pause();
+        previewingAudio.currentTime = 0;
+        previewingAudio = null;
+      }
+      document.querySelectorAll('.btn-cue-preview').forEach(btn => {
+        btn.classList.remove('playing');
+        btn.innerHTML = '<span class="preview-icon">▶</span><span class="preview-label">Preview</span>';
+      });
+      activePreviewKey = null;
+    }
+
+    document.querySelectorAll('.btn-cue-preview').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const cueKey = btn.dataset.preview;
+
+        if (activePreviewKey === cueKey) {
+          // Toggle off
+          stopPreview();
+          return;
+        }
+
+        stopPreview();
+        // Pause routine audio if playing to hear preview cleanly
+        if (!audio.paused) {
+          audio.pause();
+        }
+
+        const previewSound = new Audio(`cue_option${cueKey === 'sticks' ? '1_sticks' : (cueKey === 'thump' ? '2_thump' : '3_riser')}.mp3`);
+        previewingAudio = previewSound;
+        activePreviewKey = cueKey;
+
+        btn.classList.add('playing');
+        btn.innerHTML = '<span class="preview-icon">⏹</span><span class="preview-label">Stop</span>';
+
+        previewSound.play().catch(() => {});
+        previewSound.onended = () => {
+          stopPreview();
+        };
+      });
+    });
+
+    // QUICK JUMP TO TEST TRANSITION (01:50)
+    btnJumpTransition.addEventListener('click', () => {
+      stopPreview();
+      // Ensure on Current Routine
+      if (currentRoutineKey !== 'current') {
+        switchRoutine('current');
+      }
+      // Seek to 110.0 (01:50) so they hear last 2s of dialogue, the cue beat, and Ivalkoruvan start
+      audio.currentTime = 110.0;
+      audio.play().catch(() => {});
+    });
+
     // AUDIO TIME UPDATE
     audio.addEventListener('timeupdate', () => {
       const cur = audio.currentTime;
@@ -1326,6 +1789,7 @@
 
       playhead.style.left = `${Math.min(100, progressPercent)}%`;
       currentTimeText.textContent = formatTime(cur);
+      syncCueBeat();
 
       const secIdx = getSectionIndex(cur);
       const sec = activeRoutine.sections[secIdx];
@@ -1365,11 +1829,13 @@
     audio.addEventListener('play', () => {
       playIcon.style.display = 'none';
       pauseIcon.style.display = 'block';
+      syncCueBeat();
     });
 
     audio.addEventListener('pause', () => {
       playIcon.style.display = 'block';
       pauseIcon.style.display = 'none';
+      stopAllCues();
     });
 
     btnPlayPause.addEventListener('click', () => {
