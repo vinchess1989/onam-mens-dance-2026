@@ -36,13 +36,15 @@
       "file": "Velmuruka Harohara (2m20s-3m03s).mp3",
       "title": "Velmuruka Harohara",
       "badge": "Fast Beats",
-      "color": "#f43f5e"
+      "color": "#f43f5e",
+      "overlap_note": "Applause overlaps last 2s"
     },
     {
       "file": "Applause Crowd Cheering (0m00s-0m10s).mp3",
       "title": "Crowd Applause & Cheering",
-      "badge": "Grand Finale",
-      "color": "#f97316"
+      "badge": "Applause (2s Overlap)",
+      "color": "#f97316",
+      "overlap_seconds": 2.0
     }
   ]
 }

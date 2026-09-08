@@ -752,7 +752,7 @@
       <nav class="version-tabs-nav" aria-label="Audio Routine Version">
         <button class="tab-btn active-tab" id="tabCurrent">
           <span>Current Routine</span>
-          <span class="tab-badge">7 Tracks • 04:09</span>
+          <span class="tab-badge">7 Tracks • 04:07</span>
         </button>
         <button class="tab-btn backup-btn" id="tabBackup">
           <span>Previous Mix (Backup)</span>
@@ -782,7 +782,7 @@
         </div>
         <div class="time-readout">
           <span id="currentTimeText">00:00</span>
-          <span id="totalTimeText">04:09</span>
+          <span id="totalTimeText">04:07</span>
         </div>
       </div>
 
@@ -873,7 +873,7 @@
         id: "current",
         name: "Current Routine (Sep 8)",
         audioSrc: "onam_mens_final_26_0906.mp3",
-        totalDuration: 248.91,
+        totalDuration: 246.91,
         sections: [
           {
             "id": 1,
@@ -920,16 +920,22 @@
             "title": "Velmuruka Harohara",
             "start": 195.91,
             "end": 238.91,
+            "timelineStart": 195.91,
+            "timelineEnd": 236.91,
             "color": "#f43f5e",
-            "badge": "Fast Beats"
+            "badge": "Fast Beats",
+            "note": "2s Overlap w/ Part 7"
           },
           {
             "id": 7,
             "title": "Crowd Applause & Cheering",
-            "start": 238.91,
-            "end": 248.91,
+            "start": 236.91,
+            "end": 246.91,
+            "timelineStart": 236.91,
+            "timelineEnd": 246.91,
             "color": "#f97316",
-            "badge": "Grand Finale"
+            "badge": "Applause (2s Overlap)",
+            "note": "Starts @ 03:56.9"
           }
         ]
       },
@@ -1037,7 +1043,9 @@
       timelineBar.innerHTML = '';
       const totalDur = activeRoutine.totalDuration;
       activeRoutine.sections.forEach((sec) => {
-        const segWidth = ((sec.end - sec.start) / totalDur) * 100;
+        const tStart = (sec.timelineStart !== undefined) ? sec.timelineStart : sec.start;
+        const tEnd = (sec.timelineEnd !== undefined) ? sec.timelineEnd : sec.end;
+        const segWidth = ((tEnd - tStart) / totalDur) * 100;
         const div = document.createElement('div');
         div.className = 'timeline-segment-block';
         div.style.width = `${segWidth}%`;
@@ -1047,7 +1055,7 @@
           e.stopPropagation();
           const rect = div.getBoundingClientRect();
           const clickOffset = (e.clientX - rect.left) / rect.width;
-          const targetTime = sec.start + clickOffset * (sec.end - sec.start);
+          const targetTime = tStart + clickOffset * (tEnd - tStart);
           seekTo(targetTime);
         });
         timelineBar.appendChild(div);
@@ -1080,6 +1088,7 @@
           <div class="track-time-range">
             <span>Range:</span>
             <span class="range-badge">${formatTime(sec.start)} → ${formatTime(sec.end)}</span>
+            ${sec.note ? `<span class="range-badge" style="margin-left:auto; font-size:0.75rem; color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:0.15rem 0.5rem; border-radius:999px;">${sec.note}</span>` : ''}
           </div>
 
           <div class="card-progress-bg">
@@ -1147,7 +1156,9 @@
     function getSectionIndex(time) {
       const secs = activeRoutine.sections;
       for (let i = 0; i < secs.length; i++) {
-        if (time >= secs[i].start && time < secs[i].end) return i;
+        const tStart = (secs[i].timelineStart !== undefined) ? secs[i].timelineStart : secs[i].start;
+        const tEnd = (secs[i].timelineEnd !== undefined) ? secs[i].timelineEnd : secs[i].end;
+        if (time >= tStart && time < tEnd) return i;
       }
       return secs.length - 1;
     }
