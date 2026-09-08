@@ -56,7 +56,7 @@
       max-width: 1080px;
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 2rem;
     }
 
     /* HEADER */
@@ -109,7 +109,7 @@
     .subtitle {
       color: var(--text-muted);
       font-size: 1.05rem;
-      max-width: 600px;
+      max-width: 650px;
     }
 
     /* VERSION TABS */
@@ -117,22 +117,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
       background: rgba(15, 23, 42, 0.6);
       padding: 0.45rem;
       border-radius: 9999px;
       border: 1px solid var(--border-glass);
       width: fit-content;
       margin: 0 auto;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 0.65rem 1.35rem;
+      padding: 0.6rem 1.25rem;
       border-radius: 9999px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
@@ -155,6 +156,12 @@
       background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
       color: #ffffff;
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+
+    .tab-btn.legacy-btn.active-tab {
+      background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
     }
 
     .tab-badge {
@@ -201,72 +208,71 @@
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       color: var(--primary);
     }
 
     .now-playing-title {
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       font-weight: 700;
       color: #fff;
     }
 
     .status-indicators {
       display: flex;
-      gap: 0.5rem;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .indicator-tag {
       font-size: 0.75rem;
-      padding: 0.3rem 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-glass);
       color: var(--text-muted);
-      font-weight: 600;
+      transition: all 0.2s ease;
     }
 
     .indicator-tag.active {
-      background: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.4);
-      color: #34d399;
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--border-accent);
+      color: #fbbf24;
     }
 
     .indicator-tag.clickable {
       cursor: pointer;
       user-select: none;
-      transition: all 0.2s;
     }
 
-    .indicator-tag.clickable:hover, .indicator-tag.clickable:active {
-      transform: scale(1.05);
-      border-color: var(--primary);
+    .indicator-tag.clickable:hover {
+      background: rgba(245, 158, 11, 0.25);
       color: #fff;
     }
 
-    /* SEGMENTED PROGRESS TIMELINE */
+    /* TIMELINE */
     .timeline-container {
       position: relative;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
     .timeline-track-bar {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
       position: relative;
-      height: 14px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
       cursor: pointer;
-      overflow: hidden;
       display: flex;
+      overflow: hidden;
+      border: 1px solid var(--border-glass);
     }
 
     .timeline-segment-block {
       height: 100%;
       position: relative;
-      transition: opacity 0.2s;
-      border-right: 1px solid rgba(0, 0, 0, 0.3);
+      transition: opacity 0.2s ease;
     }
 
     .timeline-segment-block:hover {
@@ -276,12 +282,13 @@
     .timeline-playhead {
       position: absolute;
       top: -3px;
-      bottom: -3px;
-      width: 3px;
+      width: 4px;
+      height: 18px;
       background: #ffffff;
-      box-shadow: 0 0 10px #ffffff;
+      box-shadow: 0 0 10px #ffffff, 0 0 4px var(--primary);
       border-radius: 2px;
       pointer-events: none;
+      transform: translateX(-50%);
       z-index: 10;
       transition: left 0.1s linear;
     }
@@ -289,22 +296,19 @@
     .time-readout {
       display: flex;
       justify-content: space-between;
+      margin-top: 0.5rem;
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-muted);
       font-variant-numeric: tabular-nums;
-      margin-top: 0.4rem;
     }
 
     /* CONTROLS ROW */
     .controls-row {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      align-items: center;
+      gap: 1.5rem;
     }
 
     .playback-buttons {
@@ -314,13 +318,13 @@
     }
 
     .btn-icon {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-main);
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      display: inline-flex;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
@@ -328,8 +332,8 @@
     }
 
     .btn-icon:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(1.05);
     }
 
     .btn-icon:active {
@@ -337,107 +341,105 @@
     }
 
     .btn-play-large {
-      width: 58px;
-      height: 58px;
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-      color: #090c15;
-      border: none;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      display: inline-flex;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border: none;
+      color: #090c15;
+      display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 20px var(--primary-glow);
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 20px var(--primary-glow);
+      transition: all 0.25s ease;
     }
 
     .btn-play-large:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 28px rgba(245, 158, 11, 0.6);
+      box-shadow: 0 6px 25px rgba(245, 158, 11, 0.6);
     }
 
     .btn-play-large:active {
-      transform: scale(0.94);
+      transform: scale(0.96);
     }
 
     .practice-toggles {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .btn-toggle {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
       color: var(--text-muted);
       padding: 0.55rem 0.95rem;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       transition: all 0.2s ease;
     }
 
     .btn-toggle:hover {
       background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+      color: var(--text-main);
     }
 
     .btn-toggle.active {
-      background: rgba(245, 158, 11, 0.18);
-      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--border-accent);
       color: #fbbf24;
-      box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
     }
 
     .speed-selector {
       display: flex;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 0.2rem;
     }
 
     .speed-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.78rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
       font-weight: 700;
-      padding: 0.5rem 0.75rem;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
 
     .speed-btn:hover {
       color: #fff;
-      background: rgba(255, 255, 255, 0.06);
     }
 
     .speed-btn.active {
-      background: var(--primary);
-      color: #090c15;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
     }
 
     /* COUNTDOWN OVERLAY */
     .countdown-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(9, 12, 21, 0.9);
+      background: rgba(9, 12, 21, 0.88);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.25s ease;
       cursor: pointer;
     }
 
@@ -447,60 +449,54 @@
     }
 
     .countdown-number {
-      font-size: 8rem;
+      font-size: 7.5rem;
       font-weight: 900;
-      color: #f59e0b;
-      text-shadow: 0 0 40px rgba(245, 158, 11, 0.8);
-      animation: countPulse 1s ease infinite;
+      color: #fbbf24;
+      text-shadow: 0 0 50px rgba(245, 158, 11, 0.6);
+      animation: pulsePop 1s infinite cubic-bezier(0.1, 0.9, 0.2, 1);
     }
 
     .countdown-label {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #f8fafc;
       margin-top: 1rem;
-      letter-spacing: 0.05em;
     }
 
     .countdown-tap-hint {
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #cbd5e1;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 0.6rem 1.4rem;
+      margin-top: 2rem;
+      padding: 0.6rem 1.5rem;
       border-radius: 9999px;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      font-weight: 600;
+      animation: pulseGlow 1.8s infinite;
     }
 
-    .countdown-tap-hint:active {
-      transform: scale(0.96);
-      background: var(--primary);
-      color: #090c15;
+    @keyframes pulsePop {
+      0% { transform: scale(0.6); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    @keyframes countPulse {
-      0% { transform: scale(1.3); opacity: 0; }
-      40% { transform: scale(1); opacity: 1; }
-      80% { transform: scale(0.9); opacity: 0.8; }
-      100% { transform: scale(0.7); opacity: 0; }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; transform: scale(1.02); }
     }
 
-    /* SONG SECTIONS GRID */
+    /* TRACK CARDS GRID */
     .section-title {
       font-size: 1.25rem;
       font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: #fff;
-      margin-top: 0.5rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
     }
 
     .section-title-left {
@@ -509,85 +505,95 @@
       gap: 0.75rem;
     }
 
-    .section-title span {
+    .section-count {
       font-size: 0.85rem;
-      color: var(--text-sub);
-      font-weight: 500;
+      font-weight: 600;
+      color: var(--text-muted);
     }
 
     .tracks-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
     }
 
     .track-card {
       background: var(--bg-card);
       border: 1px solid var(--border-glass);
       border-radius: var(--radius-md);
-      padding: 1.35rem;
+      padding: 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.85rem;
+      transition: all 0.25s ease;
       position: relative;
       overflow: hidden;
-      transition: all 0.25s ease;
     }
 
     .track-card:hover {
-      transform: translateY(-3px);
       background: var(--bg-card-hover);
       border-color: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.6);
+      transform: translateY(-2px);
     }
 
     .track-card.active-card {
       border-color: var(--card-accent, var(--primary));
-      box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.3);
-      background: rgba(30, 39, 64, 0.9);
+      box-shadow: 0 0 20px -5px var(--card-accent, var(--primary-glow));
+    }
+
+    .track-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--card-accent, var(--primary));
+      opacity: 0.6;
     }
 
     .card-top {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
 
     .track-number {
       font-size: 0.75rem;
-      font-weight: 800;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
-      color: #fff;
-      background: var(--card-accent, var(--primary));
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .track-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #f8fafc;
-      flex-grow: 1;
-      line-height: 1.3;
+      color: #fff;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .track-duration-pill {
       font-size: 0.75rem;
       font-weight: 700;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.06);
       padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
       font-variant-numeric: tabular-nums;
     }
 
     .track-time-range {
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.8rem;
       color: var(--text-muted);
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .range-badge {
@@ -648,55 +654,33 @@
     }
 
     .btn-action.btn-start {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.3);
       color: #fbbf24;
     }
 
     .btn-action.btn-start:hover {
-      background: var(--primary);
-      color: #090c15;
-    }
-
-    .btn-action.btn-end {
-      background: rgba(139, 92, 246, 0.15);
-      border-color: rgba(139, 92, 246, 0.35);
-      color: #c084fc;
-    }
-
-    .btn-action.btn-end:hover {
-      background: var(--accent-purple);
-      color: #ffffff;
+      background: rgba(245, 158, 11, 0.22);
+      color: #fff;
     }
 
     .btn-action.btn-loop {
       grid-column: span 2;
-      background: rgba(16, 185, 129, 0.12);
-      border-color: rgba(16, 185, 129, 0.3);
-      color: #34d399;
-    }
-
-    .btn-action.btn-loop:hover {
-      background: var(--accent-green);
-      color: #090c15;
     }
 
     .btn-action.btn-loop.active-loop {
-      background: var(--accent-green);
-      color: #090c15;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #34d399;
     }
 
-    /* KEYBOARD SHORTCUTS */
+    /* SHORTCUTS FOOTER */
     .shortcuts-footer {
-      background: rgba(22, 28, 45, 0.4);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.5rem;
+      margin-top: 2rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
       justify-content: center;
+      gap: 1.5rem;
       font-size: 0.8rem;
       color: var(--text-sub);
     }
@@ -709,14 +693,15 @@
 
     kbd {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #e2e8f0;
+      border: 1px solid var(--border-glass);
       padding: 0.15rem 0.45rem;
       border-radius: 4px;
+      color: var(--text-muted);
+      font-family: monospace;
       font-size: 0.75rem;
-      font-weight: 700;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 640px) {
       h1 { font-size: 1.85rem; }
       .player-card { padding: 1.25rem; }
@@ -724,8 +709,8 @@
       .controls-row { flex-direction: column; align-items: stretch; }
       .playback-buttons { justify-content: center; }
       .practice-toggles { justify-content: center; }
-      .version-tabs-nav { width: 100%; border-radius: 12px; }
-      .tab-btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 0.55rem 0.75rem; }
+      .version-tabs-nav { width: 100%; border-radius: 16px; }
+      .tab-btn { flex: 1 1 auto; justify-content: center; font-size: 0.78rem; padding: 0.5rem 0.65rem; }
     }
   </style>
 </head>
@@ -748,14 +733,18 @@
       <h1>Onam Men's Dance Rehearsal</h1>
       <p class="subtitle">Interactive rehearsal player with instant song seeking, section repeat loops, tempo adjust, and lead-in countdown for practice.</p>
 
-      <!-- DUAL VERSION TABS -->
+      <!-- MULTI-VERSION TABS -->
       <nav class="version-tabs-nav" aria-label="Audio Routine Version">
         <button class="tab-btn active-tab" id="tabCurrent">
           <span>Current Routine</span>
-          <span class="tab-badge">7 Tracks • 04:07</span>
+          <span class="tab-badge">9 Songs • 04:10</span>
         </button>
         <button class="tab-btn backup-btn" id="tabBackup">
           <span>Previous Mix (Backup)</span>
+          <span class="tab-badge">7 Tracks • 04:07</span>
+        </button>
+        <button class="tab-btn legacy-btn" id="tabLegacy">
+          <span>Sep 7 Mix</span>
           <span class="tab-badge">6 Tracks • 04:40</span>
         </button>
       </nav>
@@ -765,7 +754,7 @@
     <main class="player-card">
       <div class="now-playing-row">
         <div class="now-playing-info">
-          <span class="now-playing-label" id="currentSectionBadge">Track 1 of 7</span>
+          <span class="now-playing-label" id="currentSectionBadge">Track 1 of 9</span>
           <div class="now-playing-title" id="currentSectionTitle">Kalyanaraman (Intro)</div>
         </div>
         <div class="status-indicators">
@@ -782,7 +771,7 @@
         </div>
         <div class="time-readout">
           <span id="currentTimeText">00:00</span>
-          <span id="totalTimeText">04:07</span>
+          <span id="totalTimeText">04:10</span>
         </div>
       </div>
 
@@ -840,9 +829,9 @@
       <div class="section-title">
         <div class="section-title-left">
           <span id="sectionListHeader">Routine Segments</span>
-          <span id="sectionCountLabel">(7 Songs)</span>
+          <span id="sectionCountLabel">(9 Songs)</span>
         </div>
-        <span id="activeRoutineSubtext">Current Master Mix (Sep 8)</span>
+        <span id="activeRoutineSubtext">Current Master Mix (Sep 8 - Split Tracks)</span>
       </div>
 
       <div class="tracks-grid" id="tracksGrid">
@@ -855,24 +844,114 @@
       <div class="shortcut-item"><kbd>Space</kbd> Play / Pause</div>
       <div class="shortcut-item"><kbd>←</kbd> / <kbd>→</kbd> Seek -5s / +5s</div>
       <div class="shortcut-item"><kbd>[</kbd> / <kbd>]</kbd> Prev / Next Song</div>
-      <div class="shortcut-item"><kbd>L</kbd> Toggle Section Loop</div>
-      <div class="shortcut-item"><kbd>C</kbd> Toggle 3s Countdown</div>
+      <div class="shortcut-item"><kbd>L</kbd> Loop Current Song</div>
+      <div class="shortcut-item"><kbd>C</kbd> Toggle Ready Countdown</div>
     </footer>
   </div>
 
-  <!-- AUDIO ELEMENT -->
   <audio id="mainAudio" preload="auto">
     <source id="audioSource" src="onam_mens_final_26_0906.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    // DATA CONFIGURATION FOR BOTH VERSIONS
+    // DATA CONFIGURATION FOR ALL VERSIONS
     const ROUTINES = {
       current: {
         id: "current",
-        name: "Current Routine (Sep 8)",
+        name: "Current Routine (Sep 8 - 9 Songs)",
         audioSrc: "onam_mens_final_26_0906.mp3",
+        totalDuration: 249.91,
+        sections: [
+          {
+            "id": 1,
+            "title": "Kalyanaraman (Intro)",
+            "start": 0.0,
+            "end": 9.5,
+            "color": "#f59e0b",
+            "badge": "Intro Hook"
+          },
+          {
+            "id": 2,
+            "title": "Chettikulangara",
+            "start": 9.5,
+            "end": 50.5,
+            "color": "#10b981",
+            "badge": "Song 1"
+          },
+          {
+            "id": 3,
+            "title": "Sablazki Dialogue (+3s Reverb)",
+            "start": 50.5,
+            "end": 72.91,
+            "color": "#06b6d4",
+            "badge": "Dialogue"
+          },
+          {
+            "id": 4,
+            "title": "Shanthamee Rathri",
+            "start": 72.91,
+            "end": 101.91,
+            "color": "#8b5cf6",
+            "badge": "Song 2"
+          },
+          {
+            "id": 5,
+            "title": "Pondicherry Dialogue",
+            "start": 101.91,
+            "end": 111.91,
+            "timelineStart": 101.91,
+            "timelineEnd": 114.91,
+            "color": "#a855f7",
+            "badge": "Dialogue 2",
+            "note": "3s Gap follows (Pause to 01:54.9)"
+          },
+          {
+            "id": 6,
+            "title": "Ivalkoruvan Song",
+            "start": 114.91,
+            "end": 144.91,
+            "timelineStart": 114.91,
+            "timelineEnd": 144.91,
+            "color": "#d946ef",
+            "badge": "Song 3"
+          },
+          {
+            "id": 7,
+            "title": "Njanondaliyanum",
+            "start": 144.91,
+            "end": 198.91,
+            "color": "#ec4899",
+            "badge": "Song 4"
+          },
+          {
+            "id": 8,
+            "title": "Velmuruka Harohara",
+            "start": 198.91,
+            "end": 241.91,
+            "timelineStart": 198.91,
+            "timelineEnd": 239.91,
+            "color": "#f43f5e",
+            "badge": "Fast Beats",
+            "note": "2s Fade-out & Overlap"
+          },
+          {
+            "id": 9,
+            "title": "Crowd Applause & Cheering",
+            "start": 239.91,
+            "end": 249.91,
+            "timelineStart": 239.91,
+            "timelineEnd": 249.91,
+            "color": "#f97316",
+            "badge": "Applause (2s Overlap)",
+            "note": "Starts @ 03:59.9"
+          }
+        ]
+      },
+      backup: {
+        id: "backup",
+        name: "Previous Mix (Backup - 7 Tracks)",
+        audioSrc: "onam_mens_final_v2_backup.mp3",
         totalDuration: 246.91,
         sections: [
           {
@@ -939,9 +1018,9 @@
           }
         ]
       },
-      backup: {
-        id: "backup",
-        name: "Previous Mix (Backup - Sep 7)",
+      legacy: {
+        id: "legacy",
+        name: "Legacy Mix (Sep 7 - 6 Tracks)",
         audioSrc: "onam_mens_final_v1_backup.mp3",
         totalDuration: 280.41,
         sections: [
@@ -1010,6 +1089,7 @@
     const audioSource = document.getElementById('audioSource');
     const tabCurrent = document.getElementById('tabCurrent');
     const tabBackup = document.getElementById('tabBackup');
+    const tabLegacy = document.getElementById('tabLegacy');
     const btnPlayPause = document.getElementById('btnPlayPause');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
@@ -1128,6 +1208,7 @@
       // Update tabs UI
       tabCurrent.classList.toggle('active-tab', routineKey === 'current');
       tabBackup.classList.toggle('active-tab', routineKey === 'backup');
+      tabLegacy.classList.toggle('active-tab', routineKey === 'legacy');
 
       // Pause audio and load new source
       audio.pause();
@@ -1152,6 +1233,7 @@
 
     tabCurrent.addEventListener('click', () => switchRoutine('current'));
     tabBackup.addEventListener('click', () => switchRoutine('backup'));
+    tabLegacy.addEventListener('click', () => switchRoutine('legacy'));
 
     function getSectionIndex(time) {
       const secs = activeRoutine.sections;

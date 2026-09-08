@@ -21,10 +21,23 @@
       "color": "#06b6d4"
     },
     {
-      "file": "Songs 2 + Dialogue 2 + Song 3.mp3",
-      "title": "Songs 2 + Dialogue 2 + Song 3",
-      "badge": "Dance Medley",
+      "file": "shanthamee rathri.mp3",
+      "title": "Shanthamee Rathri",
+      "badge": "Song 2",
       "color": "#8b5cf6"
+    },
+    {
+      "file": "pondicherry dialogue.mp3",
+      "title": "Pondicherry Dialogue",
+      "badge": "Dialogue 2",
+      "color": "#a855f7",
+      "gap_after": 3.0
+    },
+    {
+      "file": "ivalkoruvan song.mp3",
+      "title": "Ivalkoruvan Song",
+      "badge": "Song 3",
+      "color": "#d946ef"
     },
     {
       "file": "Njanondaliyanum (0m12s-1m06s).mp3",
