@@ -5,7 +5,8 @@
 
 - **GitHub Repository:** `https://github.com/vinchess1989/onam-mens-dance-2026`
 - **Hosted Rehearsal Studio (GitHub Pages):** `https://vinchess1989.github.io/onam-mens-dance-2026/`
-- **Master Audio:** [`onam_mens_final_26_0906.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mens_final_26_0906.mp3) (4m 10s / 249.66s)
+- **Master Audio (Baked Cues):** [`onam_mens_final_26_0909.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mens_final_26_0909.mp3) (4m 10s / 249.66s)
+- **Previous Clean Mix:** [`onam_mens_final_26_0906.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mens_final_26_0906.mp3) (4m 10s / 249.66s)
 
 ---
 
@@ -24,7 +25,7 @@
   - [`generate_3tab_player.py`](file:///c:/Users/vinee/Video%20Editing/generate_3tab_player.py) — Python script to regenerate both HTML files synchronously.
 - **Styling & UI:** Vanilla HTML5, CSS3 Glassmorphism (dark theme, responsive mobile grid), Web Audio / HTML5 Audio API.
 - **Key Features:**
-  - 3-tab multi-version switcher: **Current Routine** (9 Songs, 04:10), **Previous Mix Backup** (7 Tracks, 04:07), and **Sep 7 Legacy Mix** (6 Tracks, 04:40).
+  - 4-tab multi-version switcher: **Final Mix 260909** (Baked Cues, 04:10), **Sep 8 Master** (Clean Audio, 04:10), **Previous Mix Backup** (7 Tracks, 04:07), and **Sep 7 Legacy Mix** (6 Tracks, 04:40).
   - Tap-to-skip 3-second ready countdown (default OFF per dancer feedback).
   - A-B section repeat loops & variable playback speeds (0.75x, 0.85x, 1.0x, 1.15x).
   - Keyboard shortcuts: Space (Play/Pause), Left/Right (Seek ±5s), `[` / `]` (Prev/Next Song), `L` (Loop Song), `C` (Countdown).
