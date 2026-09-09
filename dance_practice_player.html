@@ -491,7 +491,7 @@
 
     @keyframes pulseGlow {
       0%, 100% { opacity: 0.7; }
-      50% { opacity: 1; transform: scale(1.02); }
+      50% { opacity: 1; scale(1.02); }
     }
 
     /* TRACK CARDS GRID */
@@ -787,29 +787,6 @@
       line-height: 1.4;
     }
 
-    .btn-jump-transition {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fbbf24;
-      padding: 0.55rem 1rem;
-      border-radius: 9999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .btn-jump-transition:hover {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(236, 72, 153, 0.35) 100%);
-      color: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
-    }
-
     .cue-options-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -897,30 +874,6 @@
       gap: 0.65rem;
       min-width: 0;
       flex: 1;
-    }
-
-    .cue-radio {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .cue-card.active .cue-radio {
-      border-color: #c084fc;
-    }
-
-    .cue-card.active .cue-radio::after {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #c084fc;
     }
 
     .cue-card-info {
@@ -1016,7 +969,7 @@
       <nav class="version-tabs-nav" aria-label="Audio Routine Version">
         <button class="tab-btn active-tab final-btn" id="tabFinal260909">
           <span>Final Mix 260909</span>
-          <span class="tab-badge">Baked Cues • 04:10</span>
+          <span class="tab-badge">Baked Cues • 04:13</span>
         </button>
         <button class="tab-btn" id="tabCurrent">
           <span>Sep 8 Master</span>
@@ -1054,7 +1007,7 @@
         </div>
         <div class="time-readout">
           <span id="currentTimeText">00:00</span>
-          <span id="totalTimeText">04:10</span>
+          <span id="totalTimeText">04:13</span>
         </div>
       </div>
 
@@ -1106,7 +1059,7 @@
         </div>
       </div>
 
-      <!-- PAUSE TIMING CUE BEAT PANEL (TEST & PREVIEW 3 OPTIONS) -->
+      <!-- PAUSE TIMING CUE BEAT PANEL (TEST & PREVIEW) -->
       <div class="cue-beat-panel" id="cueBeatPanel">
         <div class="cue-panel-header">
           <div class="cue-title-group">
@@ -1115,12 +1068,12 @@
                 <span class="cue-pulse"></span>
                 Choreography Timing Cues
               </span>
-              <span class="cue-title-text">Dialogue Cues (Assigned by Routine Drop)</span>
+              <span class="cue-title-text">Stage Cues & Transitions</span>
               <button class="btn-cue-master-toggle active" id="btnMasterCueToggle">
                 <span>⏱ Cue Beats: ON</span>
               </button>
             </div>
-            <p class="cue-desc">Custom choreography timing cues active across routine drops: <strong>Energy Riser</strong> before Chettikulangara (00:06.5 ➔ 00:09.5), <strong>Metronome Stick Clicks</strong> before Sablazki (00:47.5 ➔ 00:50.5), <strong>Heartbeat Thump</strong> before Shanthamee (01:09.9 ➔ 01:12.9), and <strong>Stick Clicks</strong> before Ivalkoruvan (01:52.2 ➔ 01:55.2).</p>
+            <p class="cue-desc">Choreography timing cues: <strong>Energy Riser</strong> before Chettikulangara (00:06.5 → 00:09.5), <strong>3s Metronome Stage Pause</strong> before Sablazki (00:50.5 → 00:53.5), <strong>Heartbeat Thump</strong> before Shanthamee (01:12.9 → 01:15.9), and <strong>Stick Clicks (3s Pause)</strong> before Ivalkoruvan (01:55.2 → 01:58.2).</p>
           </div>
         </div>
 
@@ -1137,7 +1090,7 @@
                     <span class="preview-icon">▶</span>
                     <span class="preview-label">Preview</span>
                   </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpKalyanaraman" title="Jump to 00:05 to hear transition">
+                  <button class="btn-cue-jump-mini" id="btnJumpKalyanaraman" title="Jump to hear transition">
                     <span>⚡ Jump (00:05)</span>
                   </button>
                 </div>
@@ -1145,59 +1098,60 @@
             </div>
           </div>
 
-          <!-- Card 2: Before Shanthamee (Heartbeat Thump) -->
-                    <!-- Card 2: Before Sablazki Dialogue (Metronome Stick Clicks) -->
+          <!-- Card 2: 3s Metronome Pause before Sablazki -->
           <div class="cue-card active" id="cueCardSablazkiGap" data-cue="sablazki_sticks">
             <div class="cue-card-left">
               <span style="font-size: 1.5rem;">🥢</span>
               <div class="cue-card-info">
-                <div class="cue-card-name">Metronome Stick Clicks ➔ Sablazki</div>
-                <div class="cue-card-sub">Chettikulangara tail (00:47.5 → 00:50.5)</div>
+                <div class="cue-card-name">3s Pause + Metronome ➔ Sablazki</div>
+                <div class="cue-card-sub">Chettikulangara pause (00:50.5 → 00:53.5)</div>
                 <div class="cue-card-actions-row">
                   <button class="btn-cue-preview" data-preview="sticks" title="Preview Metronome Stick Clicks Solo">
                     <span class="preview-icon">▶</span>
                     <span class="preview-label">Preview</span>
                   </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpSablazkiGap" title="Jump to 00:45 to hear transition">
-                    <span>⚡ Jump (00:45)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="cue-card active" id="cueCardShanthamee" data-cue="thump">
-            <div class="cue-card-left">
-              <span style="font-size: 1.5rem;">💓</span>
-              <div class="cue-card-info">
-                <div class="cue-card-name">Heartbeat Thump ➔ Shanthamee</div>
-                <div class="cue-card-sub">Sablazki tail (01:09.9 → 01:12.9)</div>
-                <div class="cue-card-actions-row">
-                  <button class="btn-cue-preview" data-preview="thump" title="Preview Heartbeat Thump Solo">
-                    <span class="preview-icon">▶</span>
-                    <span class="preview-label">Preview</span>
-                  </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpSablazki" title="Jump to 01:08 to hear transition">
-                    <span>⚡ Jump (01:08)</span>
+                  <button class="btn-cue-jump-mini" id="btnJumpSablazkiGap" title="Jump to hear transition">
+                    <span>⚡ Jump (00:48)</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Card 3: Before Ivalkoruvan (Stick Clicks) -->
+          <!-- Card 3: Before Shanthamee (Heartbeat Thump) -->
+          <div class="cue-card active" id="cueCardShanthamee" data-cue="thump">
+            <div class="cue-card-left">
+              <span style="font-size: 1.5rem;">💓</span>
+              <div class="cue-card-info">
+                <div class="cue-card-name">Heartbeat Thump ➔ Shanthamee</div>
+                <div class="cue-card-sub">Sablazki tail (01:12.9 → 01:15.9)</div>
+                <div class="cue-card-actions-row">
+                  <button class="btn-cue-preview" data-preview="thump" title="Preview Heartbeat Thump Solo">
+                    <span class="preview-icon">▶</span>
+                    <span class="preview-label">Preview</span>
+                  </button>
+                  <button class="btn-cue-jump-mini" id="btnJumpSablazki" title="Jump to hear transition">
+                    <span>⚡ Jump (01:11)</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Before Ivalkoruvan (Stick Clicks) -->
           <div class="cue-card active" id="cueCardIvalkoruvan" data-cue="sticks">
             <div class="cue-card-left">
               <span style="font-size: 1.5rem;">🥢</span>
               <div class="cue-card-info">
-                <div class="cue-card-name">Stick Clicks ➔ Ivalkoruvan</div>
-                <div class="cue-card-sub">Pondicherry 3s pause (01:52.2 → 01:55.2)</div>
+                <div class="cue-card-name">Stick Clicks (3s Pause) ➔ Ivalkoruvan</div>
+                <div class="cue-card-sub">Pondicherry 3s pause (01:55.2 → 01:58.2)</div>
                 <div class="cue-card-actions-row">
                   <button class="btn-cue-preview" data-preview="sticks" title="Preview Stick Clicks Solo">
                     <span class="preview-icon">▶</span>
                     <span class="preview-label">Preview</span>
                   </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpPondicherry" title="Jump to 01:50 to hear transition">
-                    <span>⚡ Jump (01:50)</span>
+                  <button class="btn-cue-jump-mini" id="btnJumpPondicherry" title="Jump to hear transition">
+                    <span>⚡ Jump (01:53)</span>
                   </button>
                 </div>
               </div>
@@ -1206,12 +1160,11 @@
         </div>
 
         <div class="cue-status-bar" id="cueStatusBar">
-          <span style="font-size: 1.1rem;">💡</span>
-          <span id="cueStatusText"><strong>Custom Cue Beats Active:</strong> 🚀 Energy Riser (Chettikulangara) • 🥢 Metronome Sticks (Sablazki) • 💓 Heartbeat Thump (Shanthamee) • 🥢 Stick Clicks (Ivalkoruvan).</span>
+          <span style="font-size: 1.1rem;">✨</span>
+          <span id="cueStatusText"><strong>Final Mix 260909 Active:</strong> All 4 choreography cues and the 3s metronome stage pause are <strong>baked directly into this master MP3</strong>.</span>
         </div>
       </div>
     </main>
-
 
     <!-- TRACK SECTIONS LIST -->
     <section>
@@ -1220,7 +1173,7 @@
           <span id="sectionListHeader">Routine Segments</span>
           <span id="sectionCountLabel">(9 Songs)</span>
         </div>
-        <span id="activeRoutineSubtext">Current Master Mix (Sep 8 - Split Tracks)</span>
+        <span id="activeRoutineSubtext">Final Mix 260909 (Master Mix with Baked Cues)</span>
       </div>
 
       <div class="tracks-grid" id="tracksGrid">
@@ -1250,7 +1203,7 @@
         id: "final260909",
         name: "Final Mix 260909 (Master Mix with Baked Cues)",
         audioSrc: "onam_mens_final_26_0909.mp3",
-        totalDuration: 249.66,
+        totalDuration: 252.66,
         isBaked: true,
         sections: [
           {
@@ -1267,63 +1220,65 @@
             "title": "Chettikulangara",
             "start": 9.5,
             "end": 50.5,
+            "timelineStart": 9.5,
+            "timelineEnd": 53.5,
             "color": "#10b981",
             "badge": "Song 1",
-            "note": "🥢 Metronome Sticks Baked @ 00:47.5"
+            "note": "⏸️ 3s Pause + Metronome (00:50.5 → 00:53.5)"
           },
           {
             "id": 3,
             "title": "Sablazki Dialogue (+3s Reverb)",
-            "start": 50.5,
-            "end": 72.91,
+            "start": 53.5,
+            "end": 75.91,
             "color": "#06b6d4",
             "badge": "Dialogue",
-            "note": "💓 Heartbeat Thump Baked @ 01:09.9"
+            "note": "💓 Heartbeat Thump Baked @ 01:12.9"
           },
           {
             "id": 4,
             "title": "Shanthamee Rathri",
-            "start": 72.91,
-            "end": 101.91,
+            "start": 75.91,
+            "end": 104.91,
             "color": "#8b5cf6",
             "badge": "Song 2"
           },
           {
             "id": 5,
             "title": "Pondicherry Dialogue",
-            "start": 101.91,
-            "end": 112.16,
-            "timelineStart": 101.91,
-            "timelineEnd": 115.16,
+            "start": 104.91,
+            "end": 115.16,
+            "timelineStart": 104.91,
+            "timelineEnd": 118.16,
             "color": "#a855f7",
             "badge": "Dialogue 2",
-            "note": "🥢 3s Pause Sticks Baked @ 01:52.2"
+            "note": "🥢 3s Pause Sticks Baked @ 01:55.2"
           },
           {
             "id": 6,
             "title": "Ivalkoruvan Song",
-            "start": 115.16,
-            "end": 144.66,
-            "timelineStart": 115.16,
-            "timelineEnd": 144.66,
+            "start": 118.16,
+            "end": 147.66,
+            "timelineStart": 118.16,
+            "timelineEnd": 147.66,
             "color": "#d946ef",
             "badge": "Song 3"
           },
           {
             "id": 7,
             "title": "Njanondaliyanum",
-            "start": 144.66,
-            "end": 198.66,
+            "start": 147.66,
+            "end": 201.66,
             "color": "#ec4899",
             "badge": "Song 4"
           },
           {
             "id": 8,
             "title": "Velmuruka Harohara",
-            "start": 198.66,
-            "end": 241.66,
-            "timelineStart": 198.66,
-            "timelineEnd": 239.66,
+            "start": 201.66,
+            "end": 244.66,
+            "timelineStart": 201.66,
+            "timelineEnd": 242.66,
             "color": "#f43f5e",
             "badge": "Fast Beats",
             "note": "2s Fade-out & Overlap"
@@ -1331,13 +1286,13 @@
           {
             "id": 9,
             "title": "Crowd Applause & Cheering",
-            "start": 239.66,
-            "end": 249.66,
-            "timelineStart": 239.66,
-            "timelineEnd": 249.66,
+            "start": 242.66,
+            "end": 252.66,
+            "timelineStart": 242.66,
+            "timelineEnd": 252.66,
             "color": "#f97316",
             "badge": "Applause (2s Overlap)",
-            "note": "Starts @ 03:59.7"
+            "note": "Starts @ 04:02.7"
           }
         ]
       },
@@ -1561,12 +1516,12 @@
     };
 
     // CUE BEAT SYSTEM STATE & AUDIO OBJECTS
-    let isCueBeatsEnabled = true; // Enabled by default with assigned cues
+    let isCueBeatsEnabled = true;
     const CUE_WINDOWS = [
       { id: 1, target: "Chettikulangara", cue: "riser", cueName: "Energy Riser", icon: "🚀", start: 6.50, end: 9.50, testJump: 4.50 },
-      { id: 2, target: "Sablazki", cue: "sticks", cueName: "Metronome Sticks", icon: "🥢", start: 47.50, end: 50.50, testJump: 45.00 },
-      { id: 3, target: "Shanthamee", cue: "thump", cueName: "Heartbeat Thump", icon: "💓", start: 69.91, end: 72.91, testJump: 67.50 },
-      { id: 5, target: "Ivalkoruvan", cue: "sticks", cueName: "Stick Clicks", icon: "🥢", start: 112.16, end: 115.16, testJump: 110.00 }
+      { id: 2, target: "Sablazki", cue: "sticks", cueName: "Metronome Sticks", icon: "🥢", start: 50.50, end: 53.50, testJump: 48.00 },
+      { id: 3, target: "Shanthamee", cue: "thump", cueName: "Heartbeat Thump", icon: "💓", start: 72.91, end: 75.91, testJump: 70.00 },
+      { id: 5, target: "Ivalkoruvan", cue: "sticks", cueName: "Stick Clicks", icon: "🥢", start: 115.16, end: 118.16, testJump: 112.00 }
     ];
     let previewingAudio = null;
     let activePreviewKey = null;
@@ -1622,6 +1577,7 @@
     const btnJumpKalyanaraman = document.getElementById('btnJumpKalyanaraman');
     const btnJumpSablazki = document.getElementById('btnJumpSablazki');
     const btnJumpPondicherry = document.getElementById('btnJumpPondicherry');
+    const btnJumpSablazkiGap = document.getElementById('btnJumpSablazkiGap');
 
     function formatTime(sec) {
       if (isNaN(sec) || sec < 0) sec = 0;
@@ -1681,21 +1637,10 @@
             <span>Range:</span>
             <span class="range-badge">${formatTime(sec.start)} → ${formatTime(sec.end)}</span>
             ${(() => {
-          let noteText = sec.note || '';
-          if (isCueBeatsEnabled) {
-            if (sec.id === 1) {
-              noteText = `Cue: 🚀 Energy Riser (00:06.5 → 00:09.5)`;
-            } else if (sec.id === 2) {
-              noteText = `Cue: 🥢 Metronome Sticks (00:47.5 → 00:50.5)`;
-            } else if (sec.id === 3) {
-              noteText = `Cue: 💓 Heartbeat Thump (01:09.9 → 01:12.9)`;
-            } else if (sec.id === 5) {
-              noteText = `3s Gap: 🥢 Stick Clicks (01:52.2 → 01:55.2)`;
-            }
-          }
-          if (!noteText) return '';
-          return `<span class="range-badge" style="margin-left:auto; font-size:0.75rem; color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:0.15rem 0.5rem; border-radius:999px;">${noteText}</span>`;
-        })()}
+              let noteText = sec.note || '';
+              if (!noteText) return '';
+              return `<span class="range-badge" style="margin-left:auto; font-size:0.75rem; color:#fbbf24; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); padding:0.15rem 0.5rem; border-radius:999px;">${noteText}</span>`;
+            })()}
           </div>
 
           <div class="card-progress-bg">
@@ -1743,9 +1688,9 @@
       }
       if (cueStatusText) {
         if (routineKey === 'final260909') {
-          cueStatusText.innerHTML = '✨ <strong>Final Mix 260909 Active:</strong> All 4 choreography cues (Energy Riser, Metronome Sticks, Heartbeat Thump, and 3s Pause Sticks) are <strong>baked directly into this master MP3</strong>.';
+          cueStatusText.innerHTML = '✨ <strong>Final Mix 260909 Active:</strong> All 4 choreography cues and the 3s metronome stage pause are <strong>baked directly into this master MP3</strong>.';
         } else if (routineKey === 'current') {
-          cueStatusText.innerHTML = '<strong>Interactive Cues Active:</strong> 🚀 Energy Riser (Chettikulangara) • 🥢 Metronome Sticks (Sablazki) • 💓 Heartbeat Thump (Shanthamee) • 🥢 Stick Clicks (Ivalkoruvan).';
+          cueStatusText.innerHTML = '<strong>Sep 8 Clean Mix Active:</strong> Unaltered continuous mix with auxiliary cue options.';
         }
       }
       stopAllCues();
@@ -1915,11 +1860,6 @@
       document.querySelectorAll('.cue-card').forEach(card => {
         card.classList.toggle('active', isCueBeatsEnabled);
       });
-      if (cueStatusText) {
-        cueStatusText.innerHTML = isCueBeatsEnabled
-          ? '<strong>Custom Cue Beats Active:</strong> 🚀 Energy Riser before Chettikulangara • 💓 Heartbeat Thump before Shanthamee • 🥢 Stick Clicks before Ivalkoruvan.'
-          : 'Cue beats are currently <strong>OFF</strong>. Tap <strong>⏱ Cue Beats: OFF</strong> to enable.';
-      }
       renderTrackCards();
     }
 
@@ -1953,13 +1893,11 @@
         const cueKey = btn.dataset.preview;
 
         if (activePreviewKey === cueKey) {
-          // Toggle off
           stopPreview();
           return;
         }
 
         stopPreview();
-        // Pause routine audio if playing to hear preview cleanly
         if (!audio.paused) {
           audio.pause();
         }
@@ -1981,28 +1919,20 @@
     // QUICK JUMPS TO TEST TRANSITIONS
     function jumpToTransition(targetTime) {
       stopPreview();
-      if (currentRoutineKey !== 'current') {
-        switchRoutine('current');
-      }
-      audio.currentTime = targetTime;
-      audio.play().catch(() => {});
+      seekTo(targetTime);
     }
 
     if (btnJumpKalyanaraman) {
-      btnJumpKalyanaraman.addEventListener('click', () => jumpToTransition(4.5));
+      btnJumpKalyanaraman.addEventListener('click', () => jumpToTransition(5.0));
+    }
+    if (btnJumpSablazkiGap) {
+      btnJumpSablazkiGap.addEventListener('click', () => jumpToTransition(48.0));
     }
     if (btnJumpSablazki) {
-      btnJumpSablazki.addEventListener('click', () => jumpToTransition(67.5));
+      btnJumpSablazki.addEventListener('click', () => jumpToTransition(71.0));
     }
     if (btnJumpPondicherry) {
-      btnJumpPondicherry.addEventListener('click', () => jumpToTransition(110.0));
-    }
-
-    const btnJumpSablazkiGap = document.getElementById('btnJumpSablazkiGap');
-    if (btnJumpSablazkiGap) {
-      btnJumpSablazkiGap.addEventListener('click', () => {
-        jumpToTransition(45.0);
-      });
+      btnJumpPondicherry.addEventListener('click', () => jumpToTransition(113.0));
     }
 
     // AUDIO TIME UPDATE
