@@ -1749,13 +1749,22 @@
     }
 
     // CUE BEAT SYNCHRONIZATION LOGIC
-    function stopAllCues() {
-      Object.values(cueAudios).forEach(a => {
+    let sablazkiResumeTimeout = null;
+
+    function stopAllCues(forceAll = false) {
+      Object.entries(cueAudios).forEach(([key, a]) => {
+        if (!forceAll && isSablazkiGapActive && key === 'sticks') {
+          return; // Don't kill sticks during active Sablazki metronome gap
+        }
         a.pause();
         a.currentTime = 0;
       });
-      if (isSablazkiGapActive) {
+      if (forceAll && isSablazkiGapActive) {
         isSablazkiGapActive = false;
+        if (sablazkiResumeTimeout) {
+          clearTimeout(sablazkiResumeTimeout);
+          sablazkiResumeTimeout = null;
+        }
       }
     }
 
@@ -1763,26 +1772,44 @@
       if (isSablazkiGapActive || !isCueBeatsEnabled || currentRoutineKey !== 'current') return;
       isSablazkiGapActive = true;
       hasTriggeredSablazkiGap = true;
+
+      // Pause main audio at exact end of Chettikulangara
       audio.pause();
       audio.currentTime = SABLAZKI_GAP_TIME;
 
       const sticks = cueAudios.sticks;
       sticks.currentTime = 0;
       sticks.playbackRate = audio.playbackRate;
-      
+
       if (cueStatusText) {
         cueStatusText.innerHTML = '⏱️ <strong>Sablazki 3s Pause:</strong> 🥢 Metronome (1... 2... 3... ➔ Drop!)';
       }
 
-      sticks.play().catch(() => {});
+      // Play metronome stick clicks
+      sticks.play().catch(e => {
+        console.warn("Cue audio play blocked or error:", e);
+      });
 
-      sticks.onended = () => {
+      const resumePlayback = () => {
+        if (sablazkiResumeTimeout) {
+          clearTimeout(sablazkiResumeTimeout);
+          sablazkiResumeTimeout = null;
+        }
+        if (!isSablazkiGapActive) return;
         isSablazkiGapActive = false;
-        audio.play().catch(() => {});
+        audio.currentTime = SABLAZKI_GAP_TIME;
+        audio.play().catch(e => console.warn("Auto-resume error:", e));
         if (cueStatusText) {
           cueStatusText.innerHTML = '<strong>Custom Cue Beats Active:</strong> 🚀 Energy Riser (Chettikulangara) • ⏱️ 3s Metronome Gap (Sablazki) • 💓 Heartbeat Thump (Shanthamee) • 🥢 Stick Clicks (Ivalkoruvan).';
         }
       };
+
+      sticks.onended = resumePlayback;
+
+      // Guaranteed fallback resume timer (3000ms / playbackRate) in case onended doesn't fire
+      if (sablazkiResumeTimeout) clearTimeout(sablazkiResumeTimeout);
+      const gapDurationMs = (3000 / (audio.playbackRate || 1.0)) + 100;
+      sablazkiResumeTimeout = setTimeout(resumePlayback, gapDurationMs);
     }
 
     function syncCueBeat() {
@@ -1988,7 +2015,9 @@
       playIcon.style.display = 'block';
       pauseIcon.style.display = 'none';
       if (cueSyncRaf) cancelAnimationFrame(cueSyncRaf);
-      stopAllCues();
+      if (!isSablazkiGapActive) {
+        stopAllCues(true);
+      }
     });
 
     audio.addEventListener('ended', () => {
@@ -2009,6 +2038,11 @@
     });
 
     btnPlayPause.addEventListener('click', () => {
+      if (isSablazkiGapActive) {
+        stopAllCues(true);
+        audio.pause();
+        return;
+      }
       if (audio.paused) {
         audio.play().catch(() => {});
       } else {
