@@ -1795,7 +1795,6 @@
           clearTimeout(sablazkiResumeTimeout);
           sablazkiResumeTimeout = null;
         }
-        if (!isSablazkiGapActive) return;
         isSablazkiGapActive = false;
         audio.currentTime = SABLAZKI_GAP_TIME;
         audio.play().catch(e => console.warn("Auto-resume error:", e));
@@ -1813,6 +1812,7 @@
     }
 
     function syncCueBeat() {
+      if (isSablazkiGapActive) return; // Do not touch cues or pause anything while gap is actively counting
       if (currentRoutineKey !== 'current' || !isCueBeatsEnabled) {
         stopAllCues();
         return;
