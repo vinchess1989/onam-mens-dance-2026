@@ -57,10 +57,10 @@ Designed to guide dancers with clear countdown cues before music drops without p
 2. **Option 2: Heartbeat Thump** ([`cue_option2_thump.mp3`](file:///c:/Users/vinee/Video%20Editing/cue_option2_thump.mp3)) — 3 deep sub-bass kicks (`45–110 Hz`).
 3. **Option 3: Energy Riser** ([`cue_option3_riser.mp3`](file:///c:/Users/vinee/Video%20Editing/cue_option3_riser.mp3)) — Rising pitch/noise swoosh swell landing on count 1.
 
-### 3 Dialogue Overlap Trigger Windows:
-- **Kalyanaraman (Part 1):** Overlaps `00:06.50` to `00:09.50` (leads directly into Chettikulangara). Quick test jump: `00:05.0`.
-- **Sablazki (Part 3):** Overlaps `01:09.91` to `01:12.91` (leads into Shanthamee Rathri). Quick test jump: `01:08.0`.
-- **Pondicherry (Part 5):** Plays across the 3s silence `01:52.16` to `01:55.16` (leads into Ivalkoruvan). Quick test jump: `01:50.0`.
+### Active Dialogue Cue Assignments:
+- **Before Chettikulangara (Part 1 - Kalyanaraman tail):** **Option 3: Energy Riser** (`cue_option3_riser.mp3`) overlapping `00:06.50 ➔ 00:09.50`. Quick jump: `00:05.0`.
+- **Before Shanthamee (Part 3 - Sablazki tail):** **Option 2: Heartbeat Thump** (`cue_option2_thump.mp3`) overlapping `01:09.91 ➔ 01:12.91`. Quick jump: `01:08.0`.
+- **Before Ivalkoruvan (Part 5 - Pondicherry 3s pause):** **Option 1: Stick Clicks** (`cue_option1_sticks.mp3`) playing `01:52.16 ➔ 01:55.16`. Quick jump: `01:50.0`.
 
 ### Player Synchronization Engine:
 - Uses a 60fps `requestAnimationFrame` sync loop paired with `timeupdate` to synchronize the secondary cue audio object against `mainAudio.currentTime` with sub-16ms jitter.
