@@ -26,6 +26,9 @@
 - **Styling & UI:** Vanilla HTML5, CSS3 Glassmorphism (dark theme, responsive mobile grid), Web Audio / HTML5 Audio API.
 - **Key Features:**
   - 4-tab multi-version switcher: **Final Mix 260909** (Baked Cues & 3s Chettikulangara Metronome Pause, 04:13), **Sep 8 Master** (Clean Audio, 04:10), **Previous Mix Backup** (7 Tracks, 04:07), and **Sep 7 Legacy Mix** (6 Tracks, 04:40).
+  - **0.01s Precision Seeking & Jog Shuttle:** Frame-accurate timecode display (`MM:SS.ss`), direct numeric jump input (`[ 50.50 ]`), 0.01s step scrubber slider, and micro-nudge buttons (`±0.01s`, `±0.10s`, `±1.00s`).
+  - **Individual Component Studio (11 Tracks):** Isolated solo decks for all individual dialogue and music component tracks with local 0.01s scrubbers, independent playback, single-click MP3 downloads, and `⚡ Sync to Mix` synchronization into the master timeline.
+  - One-click master MP3 download button (`⬇ Download Final Mix [7.0 MB]`).
   - Tap-to-skip 3-second ready countdown (default OFF per dancer feedback).
   - A-B section repeat loops & variable playback speeds (0.75x, 0.85x, 1.0x, 1.15x).
   - Keyboard shortcuts: Space (Play/Pause), Left/Right (Seek ±5s), `[` / `]` (Prev/Next Song), `L` (Loop Song), `C` (Countdown).

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Onam Dance Rehearsal Studio - Audio Player & Practice Hub</title>
-  <meta name="description" content="Custom interactive dance rehearsal player for Onam Men's Final Dance mix with section seeking, A-B looping, tempo speed control, lead-in countdowns, and multi-version backup tabs.">
+  <meta name="description" content="Custom interactive dance rehearsal player with 0.01s precision seeking, individual component studio, section repeat loops, tempo speed control, lead-in countdowns, and multi-version backup tabs.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #090c15;
@@ -53,7 +53,7 @@
 
     .container {
       width: 100%;
-      max-width: 1080px;
+      max-width: 1100px;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -109,7 +109,8 @@
     .subtitle {
       color: var(--text-muted);
       font-size: 1.05rem;
-      max-width: 650px;
+      max-width: 680px;
+      line-height: 1.5;
     }
 
     /* VERSION TABS */
@@ -178,6 +179,59 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* DOWNLOAD BUTTONS */
+    .download-bar {
+      display: flex;
+      justify-content: center;
+      margin-top: -0.25rem;
+    }
+
+    .btn-download-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-download-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      color: #090c15;
+    }
+
+    .btn-download-primary:active {
+      transform: scale(0.97);
+    }
+
+    .download-size-pill {
+      background: rgba(0, 0, 0, 0.25);
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .btn-download-toggle {
+      text-decoration: none;
+    }
+
+    .btn-download-toggle:hover {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
     /* MAIN PLAYER CONTROLLER */
     .player-card {
       background: var(--bg-card);
@@ -185,10 +239,10 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-glass);
       border-radius: var(--radius-lg);
-      padding: 2rem;
+      padding: 1.75rem 2rem;
       box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
       position: sticky;
-      top: 1.5rem;
+      top: 1rem;
       z-index: 100;
       transition: border-color 0.3s ease;
     }
@@ -201,7 +255,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .now-playing-info {
@@ -227,7 +281,8 @@
     .status-indicators {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
+      flex-wrap: wrap;
     }
 
     .indicator-tag {
@@ -260,12 +315,12 @@
     /* TIMELINE */
     .timeline-container {
       position: relative;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.75rem;
     }
 
     .timeline-track-bar {
       width: 100%;
-      height: 12px;
+      height: 14px;
       background: rgba(255, 255, 255, 0.06);
       border-radius: 9999px;
       position: relative;
@@ -289,24 +344,179 @@
       position: absolute;
       top: -3px;
       width: 4px;
-      height: 18px;
+      height: 20px;
       background: #ffffff;
       box-shadow: 0 0 10px #ffffff, 0 0 4px var(--primary);
       border-radius: 2px;
       pointer-events: none;
       transform: translateX(-50%);
       z-index: 10;
-      transition: left 0.1s linear;
+      transition: left 0.08s linear;
     }
 
     .time-readout {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-top: 0.5rem;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.95rem;
+      font-weight: 700;
       color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
       font-variant-numeric: tabular-nums;
+    }
+
+    .time-readout .current-time-bold {
+      color: #fbbf24;
+      font-size: 1.15rem;
+    }
+
+    /* 0.01s PRECISION JOG & SCRUBBER PANEL */
+    .precision-shuttle-box {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin: 0.85rem 0 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .precision-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .precision-label-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #fbbf24;
+    }
+
+    .precision-input-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .time-input-field {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      width: 100px;
+      text-align: center;
+    }
+
+    .time-input-field:focus {
+      outline: none;
+      border-color: #fbbf24;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-seek-jump {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-seek-jump:hover {
+      background: rgba(245, 158, 11, 0.35);
+      color: #fff;
+    }
+
+    .precision-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .precision-range-slider {
+      flex: 1;
+      height: 6px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .precision-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fbbf24;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+      cursor: grab;
+      transition: transform 0.1s ease;
+    }
+
+    .precision-range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    .precision-nudge-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-nudge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      padding: 0.3rem 0.55rem;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .btn-nudge:hover {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      transform: translateY(-1px);
+    }
+
+    .btn-nudge:active {
+      transform: scale(0.96);
+    }
+
+    .btn-nudge.fine {
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .btn-nudge.fine:hover {
+      background: rgba(56, 189, 248, 0.25);
+      color: #fff;
     }
 
     /* CONTROLS ROW */
@@ -315,6 +525,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .playback-buttons {
@@ -373,7 +584,8 @@
     .practice-toggles {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
+      flex-wrap: wrap;
     }
 
     .btn-toggle {
@@ -494,6 +706,39 @@
       50% { opacity: 1; scale(1.02); }
     }
 
+    /* VIEW SWITCHER: TIMELINE vs INDIVIDUAL COMPONENTS */
+    .view-mode-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border-glass);
+      padding: 0.4rem;
+      border-radius: var(--radius-md);
+      width: fit-content;
+    }
+
+    .btn-view-mode {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-view-mode.active {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid var(--border-accent);
+    }
+
     /* TRACK CARDS GRID */
     .section-title {
       font-size: 1.25rem;
@@ -503,6 +748,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .section-title-left {
@@ -607,6 +854,7 @@
       background: rgba(0, 0, 0, 0.25);
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     /* CARD PROGRESS BAR */
@@ -680,6 +928,218 @@
       color: #34d399;
     }
 
+    /* INDIVIDUAL COMPONENT STUDIO CARDS */
+    .component-cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .comp-deck-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .comp-deck-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .comp-deck-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--comp-color, var(--primary));
+    }
+
+    .comp-deck-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .comp-title-block {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .comp-part-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+
+    .comp-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .comp-meta-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .comp-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-muted);
+      border: 1px solid var(--border-glass);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .comp-deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-glass);
+    }
+
+    .btn-comp-play {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--comp-color, var(--primary));
+      border: none;
+      color: #090c15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 800;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-comp-play:hover {
+      transform: scale(1.08);
+    }
+
+    .comp-scrubber-group {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .comp-scrubber-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    .comp-time-current {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .comp-range-slider {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .comp-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--comp-color, #38bdf8);
+      cursor: grab;
+      transition: transform 0.1s ease;
+    }
+
+    .comp-range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    .comp-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-comp-action {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
+      color: #f8fafc;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-comp-action:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    .btn-comp-sync {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+
+    .btn-comp-sync:hover {
+      background: rgba(245, 158, 11, 0.3);
+      color: #fff;
+    }
+
+    .btn-comp-download {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .btn-comp-download:hover {
+      background: rgba(16, 185, 129, 0.25);
+      color: #fff;
+    }
+
     /* SHORTCUTS FOOTER */
     .shortcuts-footer {
       margin-top: 2rem;
@@ -717,285 +1177,8 @@
       .practice-toggles { justify-content: center; }
       .version-tabs-nav { width: 100%; border-radius: 16px; }
       .tab-btn { flex: 1 1 auto; justify-content: center; font-size: 0.78rem; padding: 0.5rem 0.65rem; }
-    }
-  
-    /* PAUSE CUE BEAT PANEL */
-    .cue-beat-panel {
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      border-radius: var(--radius-md);
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.06);
-      margin-top: 0.5rem;
-    }
-
-    .cue-panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .cue-title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .cue-badge-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .cue-pill {
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(168, 85, 247, 0.2);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      color: #c084fc;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .cue-pulse {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #c084fc;
-      box-shadow: 0 0 8px #c084fc;
-    }
-
-    .cue-title-text {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .cue-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    .cue-options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 0.85rem;
-    }
-
-    .btn-cue-master-toggle {
-      background: rgba(168, 85, 247, 0.2);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      color: #c084fc;
-      padding: 0.4rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s ease;
-    }
-
-    .btn-cue-master-toggle.active {
-      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-      color: #ffffff;
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-    }
-
-    .cue-card-actions-row {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      margin-top: 0.25rem;
-    }
-
-    .btn-cue-jump-mini {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      color: #fbbf24;
-      padding: 0.35rem 0.65rem;
-      border-radius: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .btn-cue-jump-mini:hover {
-      background: rgba(245, 158, 11, 0.3);
-      color: #fff;
-    }
-
-    .cue-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: var(--radius-sm);
-      padding: 0.85rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .cue-card:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-1px);
-    }
-
-    .cue-card.active {
-      background: rgba(168, 85, 247, 0.15);
-      border-color: rgba(168, 85, 247, 0.5);
-      box-shadow: 0 0 16px -4px rgba(168, 85, 247, 0.35);
-    }
-
-    .cue-card-left {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      min-width: 0;
-      flex: 1;
-    }
-
-    .cue-card-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      min-width: 0;
-    }
-
-    .cue-card-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .cue-card-sub {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .btn-cue-preview {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #f8fafc;
-      padding: 0.35rem 0.65rem;
-      border-radius: 6px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      flex-shrink: 0;
-      transition: all 0.15s ease;
-    }
-
-    .btn-cue-preview:hover {
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
-    }
-
-    .btn-cue-preview.playing {
-      background: #c084fc;
-      border-color: #c084fc;
-      color: #090c15;
-      font-weight: 800;
-    }
-
-    .cue-status-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.2);
-      padding: 0.5rem 0.85rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .cue-status-bar strong {
-      color: #fbbf24;
-    }
-
-
-    /* DOWNLOAD BUTTONS */
-    .download-bar {
-      display: flex;
-      justify-content: center;
-      margin-top: -0.5rem;
-    }
-
-    .btn-download-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #ffffff;
-      padding: 0.65rem 1.4rem;
-      border-radius: 9999px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.25s ease;
-      cursor: pointer;
-    }
-
-    .btn-download-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
-      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-      color: #090c15;
-    }
-
-    .btn-download-primary:active {
-      transform: scale(0.97);
-    }
-
-    .download-size-pill {
-      background: rgba(0, 0, 0, 0.25);
-      font-size: 0.75rem;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-
-    .btn-download-toggle {
-      text-decoration: none;
-    }
-
-    .btn-download-toggle:hover {
-      background: rgba(16, 185, 129, 0.18);
-      border-color: rgba(16, 185, 129, 0.4);
-      color: #34d399;
+      .precision-row-top { flex-direction: column; align-items: stretch; }
+      .comp-deck-controls { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
@@ -1016,7 +1199,7 @@
         Onam Dance Practice Studio
       </div>
       <h1>Onam Men's Dance Rehearsal</h1>
-      <p class="subtitle">Interactive rehearsal player with instant song seeking, section repeat loops, tempo adjust, and lead-in countdown for practice.</p>
+      <p class="subtitle">Interactive practice studio with 0.01s precision seeking, individual component track isolation, section repeat loops, tempo adjust, and lead-in countdowns.</p>
 
       <!-- MULTI-VERSION TABS -->
       <nav class="version-tabs-nav" aria-label="Audio Routine Version">
@@ -1054,7 +1237,7 @@
     <main class="player-card">
       <div class="now-playing-row">
         <div class="now-playing-info">
-          <span class="now-playing-label" id="currentSectionBadge">Track 1 of 9</span>
+          <span class="now-playing-label" id="currentSectionBadge">Part 1 of 9 • Intro Hook</span>
           <div class="now-playing-title" id="currentSectionTitle">Kalyanaraman (Intro)</div>
         </div>
         <div class="status-indicators">
@@ -1070,8 +1253,40 @@
           <div class="timeline-playhead" id="playhead" style="left: 0%;"></div>
         </div>
         <div class="time-readout">
-          <span id="currentTimeText">00:00</span>
-          <span id="totalTimeText">04:13</span>
+          <div><span class="current-time-bold" id="currentTimeText">00:00.00</span> <span style="font-size:0.75rem; color:#94a3b8; font-weight:500;">(0.01s Precision)</span></div>
+          <div><span id="totalTimeText">04:12.66</span></div>
+        </div>
+      </div>
+
+      <!-- 0.01s PRECISION JOG & DIRECT SEEK PANEL -->
+      <div class="precision-shuttle-box">
+        <div class="precision-row-top">
+          <div class="precision-label-pill">
+            <span>🎯 0.01s Precision Seek & Jog</span>
+          </div>
+
+          <!-- Direct Timecode Input (e.g. 50.50 or 00:50.50) -->
+          <div class="precision-input-group">
+            <input type="text" id="directTimeInput" class="time-input-field" placeholder="00:00.00" title="Type seconds (e.g. 50.50) or MM:SS.ss">
+            <button class="btn-seek-jump" id="btnDirectJump" title="Jump to exact timepoint">Jump</button>
+          </div>
+        </div>
+
+        <!-- High-Resolution Scrubber Slider (0.01s step) -->
+        <div class="precision-slider-row">
+          <span style="font-size:0.72rem; color:#94a3b8; font-family:'JetBrains Mono',monospace;">0s</span>
+          <input type="range" id="precisionScrubber" class="precision-range-slider" min="0" max="252.66" step="0.01" value="0">
+          <span id="sliderMaxText" style="font-size:0.72rem; color:#94a3b8; font-family:'JetBrains Mono',monospace;">252.66s</span>
+        </div>
+
+        <!-- Frame-accurate micro-nudge buttons -->
+        <div class="precision-nudge-group">
+          <button class="btn-nudge" id="nudgeMinus1s" title="Nudge back 1.00s">-1.00s</button>
+          <button class="btn-nudge" id="nudgeMinus100ms" title="Nudge back 0.10s">-0.10s</button>
+          <button class="btn-nudge fine" id="nudgeMinus10ms" title="Nudge back 0.01s (10ms)">-0.01s</button>
+          <button class="btn-nudge fine" id="nudgePlus10ms" title="Nudge forward 0.01s (10ms)">+0.01s</button>
+          <button class="btn-nudge" id="nudgePlus100ms" title="Nudge forward 0.10s">+0.10s</button>
+          <button class="btn-nudge" id="nudgePlus1s" title="Nudge forward 1.00s">+1.00s</button>
         </div>
       </div>
 
@@ -1107,7 +1322,7 @@
             <span>Loop Song</span>
           </button>
 
-          <!-- Countdown Toggle with clear Mobile ON/OFF label -->
+          <!-- Countdown Toggle -->
           <button class="btn-toggle" id="btnCountdownToggle" title="Toggle 3-second ready countdown">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61 1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
             <span id="countdownBtnText">⏱ Countdown: OFF</span>
@@ -1128,116 +1343,28 @@
           </div>
         </div>
       </div>
-
-      <!-- PAUSE TIMING CUE BEAT PANEL (TEST & PREVIEW) -->
-      <div class="cue-beat-panel" id="cueBeatPanel">
-        <div class="cue-panel-header">
-          <div class="cue-title-group">
-            <div class="cue-badge-row">
-              <span class="cue-pill">
-                <span class="cue-pulse"></span>
-                Choreography Timing Cues
-              </span>
-              <span class="cue-title-text">Stage Cues & Transitions</span>
-              <button class="btn-cue-master-toggle active" id="btnMasterCueToggle">
-                <span>⏱ Cue Beats: ON</span>
-              </button>
-            </div>
-            <p class="cue-desc">Choreography timing cues: <strong>Energy Riser</strong> before Chettikulangara (00:06.5 → 00:09.5), <strong>3s Metronome Stage Pause</strong> before Sablazki (00:50.5 → 00:53.5), <strong>Heartbeat Thump</strong> before Shanthamee (01:12.9 → 01:15.9), and <strong>Stick Clicks (3s Pause)</strong> before Ivalkoruvan (01:55.2 → 01:58.2).</p>
-          </div>
-        </div>
-
-        <div class="cue-options-grid">
-          <!-- Card 1: Before Chettikulangara (Energy Riser) -->
-          <div class="cue-card active" id="cueCardChetti" data-cue="riser">
-            <div class="cue-card-left">
-              <span style="font-size: 1.5rem;">🚀</span>
-              <div class="cue-card-info">
-                <div class="cue-card-name">Energy Riser ➔ Chettikulangara</div>
-                <div class="cue-card-sub">Kalyanaraman tail (00:06.5 → 00:09.5)</div>
-                <div class="cue-card-actions-row">
-                  <button class="btn-cue-preview" data-preview="riser" title="Preview Energy Riser Solo">
-                    <span class="preview-icon">▶</span>
-                    <span class="preview-label">Preview</span>
-                  </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpKalyanaraman" title="Jump to hear transition">
-                    <span>⚡ Jump (00:05)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2: 3s Metronome Pause before Sablazki -->
-          <div class="cue-card active" id="cueCardSablazkiGap" data-cue="sablazki_sticks">
-            <div class="cue-card-left">
-              <span style="font-size: 1.5rem;">🥢</span>
-              <div class="cue-card-info">
-                <div class="cue-card-name">3s Pause + Metronome ➔ Sablazki</div>
-                <div class="cue-card-sub">Chettikulangara pause (00:50.5 → 00:53.5)</div>
-                <div class="cue-card-actions-row">
-                  <button class="btn-cue-preview" data-preview="sticks" title="Preview Metronome Stick Clicks Solo">
-                    <span class="preview-icon">▶</span>
-                    <span class="preview-label">Preview</span>
-                  </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpSablazkiGap" title="Jump to hear transition">
-                    <span>⚡ Jump (00:48)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3: Before Shanthamee (Heartbeat Thump) -->
-          <div class="cue-card active" id="cueCardShanthamee" data-cue="thump">
-            <div class="cue-card-left">
-              <span style="font-size: 1.5rem;">💓</span>
-              <div class="cue-card-info">
-                <div class="cue-card-name">Heartbeat Thump ➔ Shanthamee</div>
-                <div class="cue-card-sub">Sablazki tail (01:12.9 → 01:15.9)</div>
-                <div class="cue-card-actions-row">
-                  <button class="btn-cue-preview" data-preview="thump" title="Preview Heartbeat Thump Solo">
-                    <span class="preview-icon">▶</span>
-                    <span class="preview-label">Preview</span>
-                  </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpSablazki" title="Jump to hear transition">
-                    <span>⚡ Jump (01:11)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4: Before Ivalkoruvan (Stick Clicks) -->
-          <div class="cue-card active" id="cueCardIvalkoruvan" data-cue="sticks">
-            <div class="cue-card-left">
-              <span style="font-size: 1.5rem;">🥢</span>
-              <div class="cue-card-info">
-                <div class="cue-card-name">Stick Clicks (3s Pause) ➔ Ivalkoruvan</div>
-                <div class="cue-card-sub">Pondicherry 3s pause (01:55.2 → 01:58.2)</div>
-                <div class="cue-card-actions-row">
-                  <button class="btn-cue-preview" data-preview="sticks" title="Preview Stick Clicks Solo">
-                    <span class="preview-icon">▶</span>
-                    <span class="preview-label">Preview</span>
-                  </button>
-                  <button class="btn-cue-jump-mini" id="btnJumpPondicherry" title="Jump to hear transition">
-                    <span>⚡ Jump (01:53)</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cue-status-bar" id="cueStatusBar">
-          <span style="font-size: 1.1rem;">✨</span>
-          <span id="cueStatusText"><strong>Final Mix 260909 Active:</strong> All 4 choreography cues and the 3s metronome stage pause are <strong>baked directly into this master MP3</strong>.</span>
-        </div>
-      </div>
     </main>
 
-    <!-- TRACK SECTIONS LIST -->
-    <section>
+    <!-- VIEW MODE SWITCHER (ROUTINE TIMELINE vs INDIVIDUAL COMPONENT STUDIO) -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+      <div class="view-mode-nav">
+        <button class="btn-view-mode active" id="btnViewTimeline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+          <span>Routine Timeline View</span>
+        </button>
+        <button class="btn-view-mode" id="btnViewComponents">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <span>Individual Component Studio (11 Tracks)</span>
+        </button>
+      </div>
+
+      <div style="font-size:0.82rem; color:#94a3b8; font-weight:600;">
+        🔬 0.01s Precision Audio Scrubbing Active
+      </div>
+    </div>
+
+    <!-- VIEW 1: ROUTINE SECTIONS LIST (CARDS) -->
+    <section id="sectionTimelineView">
       <div class="section-title">
         <div class="section-title-left">
           <span id="sectionListHeader">Routine Segments</span>
@@ -1248,6 +1375,21 @@
 
       <div class="tracks-grid" id="tracksGrid">
         <!-- Dynamically rendered -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: INDIVIDUAL COMPONENT STUDIO (SOLO PLAYERS WITH 0.01s SEEKING) -->
+    <section id="sectionComponentStudioView" style="display: none;">
+      <div class="section-title">
+        <div class="section-title-left">
+          <span>Individual Component Studio & Solo Decks</span>
+          <span class="section-count">(11 Raw Components)</span>
+        </div>
+        <span style="font-size:0.85rem; color:#38bdf8;">Solo Playback • 0.01s Local Scrubbing • Sync to Master Routine</span>
+      </div>
+
+      <div class="component-cards-grid" id="componentStudioGrid">
+        <!-- Dynamically rendered components -->
       </div>
     </section>
 
@@ -1283,7 +1425,7 @@
             "end": 9.5,
             "color": "#f59e0b",
             "badge": "Intro Hook",
-            "note": "🚀 Energy Riser Baked @ 00:06.5"
+            "note": "🚀 Energy Riser Baked @ 00:06.50"
           },
           {
             "id": 2,
@@ -1294,7 +1436,7 @@
             "timelineEnd": 53.5,
             "color": "#10b981",
             "badge": "Song 1",
-            "note": "⏸️ 3s Pause + Metronome (00:50.5 → 00:53.5)"
+            "note": "⏸️ 3s Pause + Metronome (00:50.50 → 00:53.50)"
           },
           {
             "id": 3,
@@ -1303,7 +1445,7 @@
             "end": 75.91,
             "color": "#06b6d4",
             "badge": "Dialogue",
-            "note": "💓 Heartbeat Thump Baked @ 01:12.9"
+            "note": "💓 Heartbeat Thump Baked @ 01:12.91"
           },
           {
             "id": 4,
@@ -1322,7 +1464,7 @@
             "timelineEnd": 118.16,
             "color": "#a855f7",
             "badge": "Dialogue 2",
-            "note": "🥢 3s Pause Sticks Baked @ 01:55.2"
+            "note": "🥢 3s Pause Sticks Baked @ 01:55.16"
           },
           {
             "id": 6,
@@ -1362,7 +1504,7 @@
             "timelineEnd": 252.66,
             "color": "#f97316",
             "badge": "Applause (2s Overlap)",
-            "note": "Starts @ 04:02.7"
+            "note": "Starts @ 04:02.66"
           }
         ]
       },
@@ -1413,7 +1555,7 @@
             "timelineEnd": 115.16,
             "color": "#a855f7",
             "badge": "Dialogue 2",
-            "note": "3s Gap follows (Pause to 01:55.2)"
+            "note": "3s Gap follows (Pause to 01:55.16)"
           },
           {
             "id": 6,
@@ -1453,7 +1595,7 @@
             "timelineEnd": 249.66,
             "color": "#f97316",
             "badge": "Applause (2s Overlap)",
-            "note": "Starts @ 03:59.7"
+            "note": "Starts @ 03:59.66"
           }
         ]
       },
@@ -1523,7 +1665,7 @@
             "timelineEnd": 246.91,
             "color": "#f97316",
             "badge": "Applause (2s Overlap)",
-            "note": "Starts @ 03:56.9"
+            "note": "Starts @ 03:56.90"
           }
         ]
       },
@@ -1585,27 +1727,141 @@
       }
     };
 
-    // CUE BEAT SYSTEM STATE & AUDIO OBJECTS
-    let isCueBeatsEnabled = true;
-    const CUE_WINDOWS = [
-      { id: 1, target: "Chettikulangara", cue: "riser", cueName: "Energy Riser", icon: "🚀", start: 6.50, end: 9.50, testJump: 4.50 },
-      { id: 2, target: "Sablazki", cue: "sticks", cueName: "Metronome Sticks", icon: "🥢", start: 50.50, end: 53.50, testJump: 48.00 },
-      { id: 3, target: "Shanthamee", cue: "thump", cueName: "Heartbeat Thump", icon: "💓", start: 72.91, end: 75.91, testJump: 70.00 },
-      { id: 5, target: "Ivalkoruvan", cue: "sticks", cueName: "Stick Clicks", icon: "🥢", start: 115.16, end: 118.16, testJump: 112.00 }
+    // RAW INDIVIDUAL COMPONENT TRACKS SPECIFICATION
+    const COMPONENT_TRACKS = [
+      {
+        id: "comp-1",
+        part: "Part 1",
+        title: "Kalyanaraman (Intro)",
+        file: "Kalyanaraman (5m19s-5m29s).mp3",
+        duration: 9.50,
+        mergedStart: 0.00,
+        mergedEnd: 9.50,
+        color: "#f59e0b",
+        badge: "Intro Hook",
+        note: "Dialogue intro punchline with Energy Riser"
+      },
+      {
+        id: "comp-2",
+        part: "Part 2",
+        title: "Chettikulangara",
+        file: "chettikulangara_only.mp3",
+        duration: 41.00,
+        mergedStart: 9.50,
+        mergedEnd: 50.50,
+        color: "#10b981",
+        badge: "Song 1",
+        note: "First group dance song (41.0s)"
+      },
+      {
+        id: "comp-pause-1",
+        part: "Stage Pause 1",
+        title: "3s Metronome Stage Pause",
+        file: "cue_option1_sticks.mp3",
+        duration: 3.00,
+        mergedStart: 50.50,
+        mergedEnd: 53.50,
+        color: "#eab308",
+        badge: "3s Metronome Gap",
+        note: "3 metronome clicks in stage silence to reset formation"
+      },
+      {
+        id: "comp-3",
+        part: "Part 3",
+        title: "Sablazki Dialogue (+3s Reverb)",
+        file: "Sablazki Dance Squad - Short.mp3",
+        duration: 22.41,
+        mergedStart: 53.50,
+        mergedEnd: 75.91,
+        color: "#06b6d4",
+        badge: "Dialogue",
+        note: "Comedy squad dialogue with 3s reverb tail and heartbeat thump"
+      },
+      {
+        id: "comp-4",
+        part: "Part 4",
+        title: "Shanthamee Rathri",
+        file: "shanthamee rathri.mp3",
+        duration: 29.00,
+        mergedStart: 75.91,
+        mergedEnd: 104.91,
+        color: "#8b5cf6",
+        badge: "Song 2",
+        note: "Melodic transition dance"
+      },
+      {
+        id: "comp-5",
+        part: "Part 5",
+        title: "Pondicherry Dialogue",
+        file: "pondicherry dialogue.mp3",
+        duration: 10.25,
+        mergedStart: 104.91,
+        mergedEnd: 115.16,
+        color: "#a855f7",
+        badge: "Dialogue 2",
+        note: "Punchline ending dialogue before pause"
+      },
+      {
+        id: "comp-pause-2",
+        part: "Stage Pause 2",
+        title: "3s Stick Clicks Pause",
+        file: "cue_option1_sticks.mp3",
+        duration: 3.00,
+        mergedStart: 115.16,
+        mergedEnd: 118.16,
+        color: "#eab308",
+        badge: "3s Stick Gap",
+        note: "Countdown stick clicks into beat drop"
+      },
+      {
+        id: "comp-6",
+        part: "Part 6",
+        title: "Ivalkoruvan Song",
+        file: "ivalkoruvan song.mp3",
+        duration: 29.50,
+        mergedStart: 118.16,
+        mergedEnd: 147.66,
+        color: "#d946ef",
+        badge: "Song 3",
+        note: "High-energy beat drop song"
+      },
+      {
+        id: "comp-7",
+        part: "Part 7",
+        title: "Njanondaliyanum",
+        file: "Njanondaliyanum (0m12s-1m06s).mp3",
+        duration: 54.00,
+        mergedStart: 147.66,
+        mergedEnd: 201.66,
+        color: "#ec4899",
+        badge: "Song 4",
+        note: "Group formation dance sequence"
+      },
+      {
+        id: "comp-8",
+        part: "Part 8",
+        title: "Velmuruka Harohara",
+        file: "Velmuruka Harohara (2m20s-3m03s).mp3",
+        duration: 43.00,
+        mergedStart: 201.66,
+        mergedEnd: 244.66,
+        color: "#f43f5e",
+        badge: "Fast Beats",
+        note: "Peak energy dance with 2s fade out into applause"
+      },
+      {
+        id: "comp-9",
+        part: "Part 9",
+        title: "Crowd Applause & Cheering",
+        file: "Applause Crowd Cheering (0m00s-0m10s).mp3",
+        duration: 10.00,
+        mergedStart: 242.66,
+        mergedEnd: 252.66,
+        color: "#f97316",
+        badge: "Applause",
+        note: "2s crossfade applause finale"
+      }
     ];
-    let previewingAudio = null;
-    let activePreviewKey = null;
-    let cueSyncRaf = null;
-
-    const cueAudios = {
-      sticks: new Audio('cue_option1_sticks.mp3'),
-      thump: new Audio('cue_option2_thump.mp3'),
-      riser: new Audio('cue_option3_riser.mp3')
-    };
-
-    Object.values(cueAudios).forEach(a => {
-      a.preload = 'auto';
-    });
 
     // ACTIVE STATE
     let currentRoutineKey = "final260909";
@@ -1614,6 +1870,11 @@
     let isCountdownEnabled = false;
     let activeSectionIndex = 0;
     let countdownTimer = null;
+    let isUserScrubbing = false;
+
+    // Component audio players registry
+    const compAudioElements = {};
+    let activeSoloCompId = null;
 
     // DOM ELEMENTS
     const audio = document.getElementById('mainAudio');
@@ -1642,18 +1903,50 @@
     const tracksGrid = document.getElementById('tracksGrid');
     const activeRoutineSubtext = document.getElementById('activeRoutineSubtext');
     const sectionCountLabel = document.getElementById('sectionCountLabel');
-    const cueBeatPanel = document.getElementById('cueBeatPanel');
-    const cueStatusText = document.getElementById('cueStatusText');
-    const btnJumpKalyanaraman = document.getElementById('btnJumpKalyanaraman');
-    const btnJumpSablazki = document.getElementById('btnJumpSablazki');
-    const btnJumpPondicherry = document.getElementById('btnJumpPondicherry');
-    const btnJumpSablazkiGap = document.getElementById('btnJumpSablazkiGap');
 
-    function formatTime(sec) {
+    // Precision elements
+    const precisionScrubber = document.getElementById('precisionScrubber');
+    const directTimeInput = document.getElementById('directTimeInput');
+    const btnDirectJump = document.getElementById('btnDirectJump');
+    const sliderMaxText = document.getElementById('sliderMaxText');
+
+    // Download buttons
+    const btnHeaderDownload = document.getElementById('btnHeaderDownload');
+    const headerDownloadText = document.getElementById('headerDownloadText');
+    const headerDownloadSize = document.getElementById('headerDownloadSize');
+    const btnPlayerDownload = document.getElementById('btnPlayerDownload');
+
+    // View toggles
+    const btnViewTimeline = document.getElementById('btnViewTimeline');
+    const btnViewComponents = document.getElementById('btnViewComponents');
+    const sectionTimelineView = document.getElementById('sectionTimelineView');
+    const sectionComponentStudioView = document.getElementById('sectionComponentStudioView');
+    const componentStudioGrid = document.getElementById('componentStudioGrid');
+
+    // High-Precision 0.01s Time Formatter
+    function formatTimePrecise(sec) {
       if (isNaN(sec) || sec < 0) sec = 0;
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
-      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      const cs = Math.floor(Math.round((sec % 1) * 100));
+      const paddedCs = String(cs >= 100 ? 99 : cs).padStart(2, '0');
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${paddedCs}`;
+    }
+
+    // Parse user time input (supports "50.5", "50.50", "00:50.50", "1:23.45")
+    function parseTimeString(str) {
+      if (!str) return null;
+      str = str.trim();
+      if (str.includes(':')) {
+        const parts = str.split(':');
+        if (parts.length === 2) {
+          const m = parseFloat(parts[0]);
+          const s = parseFloat(parts[1]);
+          if (!isNaN(m) && !isNaN(s)) return m * 60 + s;
+        }
+      }
+      const val = parseFloat(str);
+      return isNaN(val) ? null : val;
     }
 
     // INITIALIZE TIMELINE SEGMENTS
@@ -1668,21 +1961,24 @@
         div.className = 'timeline-segment-block';
         div.style.width = `${segWidth}%`;
         div.style.backgroundColor = sec.color;
-        div.title = `${sec.title} (${formatTime(sec.start)} - ${formatTime(sec.end)})`;
+        div.title = `${sec.title} (${formatTimePrecise(sec.start)} - ${formatTimePrecise(sec.end)})`;
         div.addEventListener('click', (e) => {
           e.stopPropagation();
           const rect = div.getBoundingClientRect();
           const clickOffset = (e.clientX - rect.left) / rect.width;
           const targetTime = tStart + clickOffset * (tEnd - tStart);
-          seekTo(targetTime);
+          seekToPrecise(targetTime);
         });
         timelineBar.appendChild(div);
       });
       timelineBar.appendChild(playhead);
-      totalTimeText.textContent = formatTime(totalDur);
+      totalTimeText.textContent = formatTimePrecise(totalDur);
+
+      precisionScrubber.max = totalDur.toFixed(2);
+      sliderMaxText.textContent = `${totalDur.toFixed(2)}s`;
     }
 
-    // INITIALIZE TRACK CARDS
+    // INITIALIZE TRACK CARDS (ROUTINE TIMELINE)
     function renderTrackCards() {
       tracksGrid.innerHTML = '';
       sectionCountLabel.textContent = `(${activeRoutine.sections.length} Songs)`;
@@ -1700,12 +1996,12 @@
           <div class="card-top">
             <span class="track-number">Part ${idx + 1}</span>
             <div class="track-title">${sec.title}</div>
-            <span class="track-duration-pill">${dur.toFixed(1)}s</span>
+            <span class="track-duration-pill">${dur.toFixed(2)}s</span>
           </div>
           
           <div class="track-time-range">
             <span>Range:</span>
-            <span class="range-badge">${formatTime(sec.start)} → ${formatTime(sec.end)}</span>
+            <span class="range-badge">${formatTimePrecise(sec.start)} → ${formatTimePrecise(sec.end)}</span>
             ${(() => {
               let noteText = sec.note || '';
               if (!noteText) return '';
@@ -1721,13 +2017,13 @@
             <!-- Jump to Start -->
             <button class="btn-action btn-start" onclick="playWithCountdown(${sec.start}, ${idx})">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              Start (${formatTime(sec.start)})
+              Start (${formatTimePrecise(sec.start)})
             </button>
             
-            <!-- Seek near End -->
-            <button class="btn-action btn-end" onclick="seekTo(${Math.max(sec.start, sec.end - 5)})">
+            <!-- Seek near End (5s before end) -->
+            <button class="btn-action btn-end" onclick="seekToPrecise(${Math.max(sec.start, sec.end - 5)})">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
-              End (${formatTime(sec.end)})
+              End (${formatTimePrecise(sec.end)})
             </button>
 
             <!-- Loop only this segment -->
@@ -1741,6 +2037,155 @@
       });
     }
 
+    // INITIALIZE INDIVIDUAL COMPONENT STUDIO (SOLO DECKS WITH 0.01s SCRUBBING)
+    function renderComponentStudio() {
+      componentStudioGrid.innerHTML = '';
+
+      COMPONENT_TRACKS.forEach((comp) => {
+        // Create audio element if not exists
+        if (!compAudioElements[comp.id]) {
+          const a = new Audio(comp.file);
+          a.preload = 'metadata';
+          compAudioElements[comp.id] = a;
+        }
+
+        const compCard = document.createElement('div');
+        compCard.className = 'comp-deck-card';
+        compCard.id = `compCard-${comp.id}`;
+        compCard.style.setProperty('--comp-color', comp.color);
+
+        compCard.innerHTML = `
+          <div class="comp-deck-header">
+            <div class="comp-title-block">
+              <span class="comp-part-tag">${comp.part}</span>
+              <span class="comp-name">${comp.title}</span>
+            </div>
+
+            <div class="comp-meta-badges">
+              <span class="comp-pill" style="color:${comp.color}; border-color:${comp.color}40;">${comp.badge}</span>
+              <span class="comp-pill">Length: <strong>${comp.duration.toFixed(2)}s</strong></span>
+              <span class="comp-pill">Mix Pos: <strong>${formatTimePrecise(comp.mergedStart)} → ${formatTimePrecise(comp.mergedEnd)}</strong></span>
+            </div>
+          </div>
+
+          <p style="font-size:0.8rem; color:#94a3b8; line-height:1.4;">${comp.note}</p>
+
+          <div class="comp-deck-controls">
+            <!-- Solo Play Button -->
+            <button class="btn-comp-play" id="btnPlayComp-${comp.id}" title="Play/Pause Solo Component">
+              ▶
+            </button>
+
+            <!-- 0.01s Local Scrubber -->
+            <div class="comp-scrubber-group">
+              <div class="comp-scrubber-top">
+                <span>Solo Time: <strong class="comp-time-current" id="compTimeReadout-${comp.id}">00:00.00</strong></span>
+                <span>/ ${formatTimePrecise(comp.duration)} (${comp.duration.toFixed(2)}s)</span>
+              </div>
+              <input type="range" class="comp-range-slider" id="compScrubber-${comp.id}" min="0" max="${comp.duration.toFixed(2)}" step="0.01" value="0">
+            </div>
+
+            <!-- Micro-Nudges & Actions -->
+            <div class="comp-actions-group">
+              <button class="btn-nudge fine" onclick="nudgeComponent('${comp.id}', -0.10)">-0.1s</button>
+              <button class="btn-nudge fine" onclick="nudgeComponent('${comp.id}', -0.01)">-0.01s</button>
+              <button class="btn-nudge fine" onclick="nudgeComponent('${comp.id}', 0.01)">+0.01s</button>
+              <button class="btn-nudge fine" onclick="nudgeComponent('${comp.id}', 0.10)">+0.1s</button>
+
+              <button class="btn-comp-action btn-comp-sync" onclick="syncComponentToMaster('${comp.id}')" title="Sync & seek full mix to this exact position">
+                <span>⚡ Sync to Mix</span>
+              </button>
+
+              <a href="${comp.file}" download="${comp.file}" class="btn-comp-action btn-comp-download" title="Download clean component MP3">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                <span>MP3</span>
+              </a>
+            </div>
+          </div>
+        `;
+
+        componentStudioGrid.appendChild(compCard);
+
+        // Attach listeners for this component deck
+        const cAudio = compAudioElements[comp.id];
+        const cBtnPlay = compCard.querySelector(`#btnPlayComp-${comp.id}`);
+        const cScrubber = compCard.querySelector(`#compScrubber-${comp.id}`);
+        const cTimeText = compCard.querySelector(`#compTimeReadout-${comp.id}`);
+
+        cBtnPlay.addEventListener('click', () => {
+          if (cAudio.paused) {
+            // Pause master audio if playing
+            if (!audio.paused) audio.pause();
+            // Pause any other solo component
+            stopAllSoloComponents(comp.id);
+            cAudio.play().catch(() => {});
+            cBtnPlay.textContent = '⏸';
+            activeSoloCompId = comp.id;
+          } else {
+            cAudio.pause();
+            cBtnPlay.textContent = '▶';
+            activeSoloCompId = null;
+          }
+        });
+
+        cAudio.addEventListener('timeupdate', () => {
+          const cur = cAudio.currentTime;
+          cTimeText.textContent = formatTimePrecise(cur);
+          cScrubber.value = cur.toFixed(2);
+        });
+
+        cAudio.addEventListener('ended', () => {
+          cBtnPlay.textContent = '▶';
+          activeSoloCompId = null;
+          cAudio.currentTime = 0;
+        });
+
+        cScrubber.addEventListener('input', () => {
+          const target = parseFloat(cScrubber.value);
+          cAudio.currentTime = target;
+          cTimeText.textContent = formatTimePrecise(target);
+        });
+      });
+    }
+
+    function stopAllSoloComponents(exceptId = null) {
+      Object.keys(compAudioElements).forEach(id => {
+        if (id !== exceptId) {
+          const a = compAudioElements[id];
+          a.pause();
+          const btn = document.getElementById(`btnPlayComp-${id}`);
+          if (btn) btn.textContent = '▶';
+        }
+      });
+    }
+
+    function nudgeComponent(compId, delta) {
+      const a = compAudioElements[compId];
+      if (!a) return;
+      const comp = COMPONENT_TRACKS.find(c => c.id === compId);
+      const maxDur = comp ? comp.duration : (a.duration || 60);
+      const target = Math.max(0, Math.min(maxDur, a.currentTime + delta));
+      a.currentTime = parseFloat(target.toFixed(2));
+      const scrubber = document.getElementById(`compScrubber-${compId}`);
+      const timeText = document.getElementById(`compTimeReadout-${compId}`);
+      if (scrubber) scrubber.value = target.toFixed(2);
+      if (timeText) timeText.textContent = formatTimePrecise(target);
+    }
+
+    function syncComponentToMaster(compId) {
+      const comp = COMPONENT_TRACKS.find(c => c.id === compId);
+      const a = compAudioElements[compId];
+      if (!comp || !a) return;
+      stopAllSoloComponents();
+      const localOffset = a.currentTime;
+      const masterTarget = comp.mergedStart + localOffset;
+
+      // Switch to Timeline view so user sees the master playhead
+      btnViewTimeline.click();
+      seekToPrecise(masterTarget);
+      audio.play().catch(() => {});
+    }
+
     // SWITCH VERSION FUNCTION
     function switchRoutine(routineKey) {
       if (currentRoutineKey === routineKey) return;
@@ -1752,19 +2197,8 @@
       tabCurrent.classList.toggle('active-tab', routineKey === 'current');
       tabBackup.classList.toggle('active-tab', routineKey === 'backup');
       tabLegacy.classList.toggle('active-tab', routineKey === 'legacy');
-      
-      if (cueBeatPanel) {
-        cueBeatPanel.style.display = (routineKey === 'final260909' || routineKey === 'current') ? 'flex' : 'none';
-      }
-      if (cueStatusText) {
-        if (routineKey === 'final260909') {
-          cueStatusText.innerHTML = '✨ <strong>Final Mix 260909 Active:</strong> All 4 choreography cues and the 3s metronome stage pause are <strong>baked directly into this master MP3</strong>.';
-        } else if (routineKey === 'current') {
-          cueStatusText.innerHTML = '<strong>Sep 8 Clean Mix Active:</strong> Unaltered continuous mix with auxiliary cue options.';
-        }
-      }
-      stopAllCues();
-      stopPreview();
+
+      stopAllSoloComponents();
 
       // Pause audio and load new source
       audio.pause();
@@ -1776,7 +2210,9 @@
       setLoopState(false);
       activeSectionIndex = 0;
       playhead.style.left = '0%';
-      currentTimeText.textContent = '00:00';
+      currentTimeText.textContent = '00:00.00';
+      directTimeInput.value = '00:00.00';
+      precisionScrubber.value = 0;
 
       renderTimeline();
       renderTrackCards();
@@ -1786,6 +2222,34 @@
       const firstSec = activeRoutine.sections[0];
       currentSectionBadge.textContent = `Part 1 of ${activeRoutine.sections.length} • ${firstSec.badge}`;
       currentSectionTitle.textContent = firstSec.title;
+    }
+
+    function updateDownloadButtons(routineKey) {
+      const routine = ROUTINES[routineKey];
+      if (!routine) return;
+      if (btnHeaderDownload) {
+        btnHeaderDownload.href = routine.audioSrc;
+        btnHeaderDownload.download = routine.audioSrc;
+      }
+      if (btnPlayerDownload) {
+        btnPlayerDownload.href = routine.audioSrc;
+        btnPlayerDownload.download = routine.audioSrc;
+      }
+      if (headerDownloadText) {
+        if (routineKey === 'final260909') {
+          headerDownloadText.textContent = 'Download Final Mix (04:13 MP3)';
+          if (headerDownloadSize) headerDownloadSize.textContent = '7.0 MB';
+        } else if (routineKey === 'current') {
+          headerDownloadText.textContent = 'Download Sep 8 Master (04:10 MP3)';
+          if (headerDownloadSize) headerDownloadSize.textContent = '7.4 MB';
+        } else if (routineKey === 'backup') {
+          headerDownloadText.textContent = 'Download Previous Mix (04:07 MP3)';
+          if (headerDownloadSize) headerDownloadSize.textContent = '7.4 MB';
+        } else {
+          headerDownloadText.textContent = 'Download Sep 7 Mix (04:40 MP3)';
+          if (headerDownloadSize) headerDownloadSize.textContent = '7.6 MB';
+        }
+      }
     }
 
     if (tabFinal260909) tabFinal260909.addEventListener('click', () => switchRoutine('final260909'));
@@ -1803,10 +2267,20 @@
       return secs.length - 1;
     }
 
-    function seekTo(targetTime) {
-      audio.currentTime = Math.max(0, Math.min(activeRoutine.totalDuration, targetTime));
+    // 0.01s Precision Seek Function
+    function seekToPrecise(targetTime) {
+      stopAllSoloComponents();
+      const clamped = Math.max(0, Math.min(activeRoutine.totalDuration, parseFloat(targetTime.toFixed(2))));
+      audio.currentTime = clamped;
+      currentTimeText.textContent = formatTimePrecise(clamped);
+      precisionScrubber.value = clamped.toFixed(2);
+      directTimeInput.value = formatTimePrecise(clamped);
+
+      const progressPercent = (clamped / activeRoutine.totalDuration) * 100;
+      playhead.style.left = `${Math.min(100, progressPercent)}%`;
+
       if (audio.paused) {
-        audio.play().catch(() => {});
+        // Keep paused if user was paused, but update UI
       }
     }
 
@@ -1816,13 +2290,13 @@
       }
 
       if (!isCountdownEnabled) {
-        audio.currentTime = targetTime;
+        seekToPrecise(targetTime);
         audio.play().catch(() => {});
         return;
       }
 
       audio.pause();
-      audio.currentTime = targetTime;
+      seekToPrecise(targetTime);
 
       if (countdownTimer) clearInterval(countdownTimer);
       let count = 3;
@@ -1876,145 +2350,60 @@
       });
     }
 
-    // CUE BEAT SYNCHRONIZATION LOGIC
-    function stopAllCues() {
-      Object.values(cueAudios).forEach(a => {
-        a.pause();
-        a.currentTime = 0;
-      });
-    }
-
-    function syncCueBeat() {
-      if (currentRoutineKey !== 'current' || !isCueBeatsEnabled || activeRoutine.isBaked) {
-        stopAllCues();
-        return;
+    // DIRECT TIME JUMP HANDLER
+    btnDirectJump.addEventListener('click', () => {
+      const parsed = parseTimeString(directTimeInput.value);
+      if (parsed !== null) {
+        seekToPrecise(parsed);
       }
-
-      const cur = audio.currentTime;
-      const isPlaying = !audio.paused && !audio.ended;
-      const activeWindow = CUE_WINDOWS.find(w => cur >= w.start && cur < w.end);
-
-      if (isPlaying && activeWindow) {
-        const cue = cueAudios[activeWindow.cue];
-        if (cue) {
-          const targetCueTime = cur - activeWindow.start;
-          cue.playbackRate = audio.playbackRate;
-          if (cue.paused || Math.abs(cue.currentTime - targetCueTime) > 0.08) {
-            cue.currentTime = Math.max(0, Math.min(3.0, targetCueTime));
-            cue.play().catch(() => {});
-          }
-        }
-      } else {
-        stopAllCues();
-      }
-    }
-
-    function runCueSyncLoop() {
-      if (cueSyncRaf) cancelAnimationFrame(cueSyncRaf);
-      function step() {
-        if (!audio.paused && !audio.ended) {
-          syncCueBeat();
-          cueSyncRaf = requestAnimationFrame(step);
-        }
-      }
-      cueSyncRaf = requestAnimationFrame(step);
-    }
-
-    // MASTER CUE BEATS TOGGLE
-    const btnMasterCueToggle = document.getElementById('btnMasterCueToggle');
-
-    function updateCueBeatsUI() {
-      if (btnMasterCueToggle) {
-        btnMasterCueToggle.classList.toggle('active', isCueBeatsEnabled);
-        btnMasterCueToggle.innerHTML = isCueBeatsEnabled ? '<span>⏱ Cue Beats: ON</span>' : '<span>⏱ Cue Beats: OFF</span>';
-      }
-      document.querySelectorAll('.cue-card').forEach(card => {
-        card.classList.toggle('active', isCueBeatsEnabled);
-      });
-      renderTrackCards();
-    }
-
-    if (btnMasterCueToggle) {
-      btnMasterCueToggle.addEventListener('click', () => {
-        isCueBeatsEnabled = !isCueBeatsEnabled;
-        if (!isCueBeatsEnabled) {
-          stopAllCues();
-        }
-        updateCueBeatsUI();
-      });
-    }
-
-    // CUE PREVIEW BUTTONS
-    function stopPreview() {
-      if (previewingAudio) {
-        previewingAudio.pause();
-        previewingAudio.currentTime = 0;
-        previewingAudio = null;
-      }
-      document.querySelectorAll('.btn-cue-preview').forEach(btn => {
-        btn.classList.remove('playing');
-        btn.innerHTML = '<span class="preview-icon">▶</span><span class="preview-label">Preview</span>';
-      });
-      activePreviewKey = null;
-    }
-
-    document.querySelectorAll('.btn-cue-preview').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const cueKey = btn.dataset.preview;
-
-        if (activePreviewKey === cueKey) {
-          stopPreview();
-          return;
-        }
-
-        stopPreview();
-        if (!audio.paused) {
-          audio.pause();
-        }
-
-        const previewSound = new Audio(`cue_option${cueKey === 'sticks' ? '1_sticks' : (cueKey === 'thump' ? '2_thump' : '3_riser')}.mp3`);
-        previewingAudio = previewSound;
-        activePreviewKey = cueKey;
-
-        btn.classList.add('playing');
-        btn.innerHTML = '<span class="preview-icon">⏹</span><span class="preview-label">Stop</span>';
-
-        previewSound.play().catch(() => {});
-        previewSound.onended = () => {
-          stopPreview();
-        };
-      });
     });
 
-    // QUICK JUMPS TO TEST TRANSITIONS
-    function jumpToTransition(targetTime) {
-      stopPreview();
-      seekTo(targetTime);
+    directTimeInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        btnDirectJump.click();
+      }
+    });
+
+    // PRECISION SCRUBBER SLIDER (0.01s)
+    precisionScrubber.addEventListener('input', () => {
+      isUserScrubbing = true;
+      const target = parseFloat(precisionScrubber.value);
+      audio.currentTime = target;
+      currentTimeText.textContent = formatTimePrecise(target);
+      directTimeInput.value = formatTimePrecise(target);
+      const progressPercent = (target / activeRoutine.totalDuration) * 100;
+      playhead.style.left = `${Math.min(100, progressPercent)}%`;
+    });
+
+    precisionScrubber.addEventListener('change', () => {
+      isUserScrubbing = false;
+    });
+
+    // MICRO-NUDGE BUTTON HANDLERS (±0.01s, ±0.10s, ±1.00s)
+    function microNudge(delta) {
+      seekToPrecise(audio.currentTime + delta);
     }
 
-    if (btnJumpKalyanaraman) {
-      btnJumpKalyanaraman.addEventListener('click', () => jumpToTransition(5.0));
-    }
-    if (btnJumpSablazkiGap) {
-      btnJumpSablazkiGap.addEventListener('click', () => jumpToTransition(48.0));
-    }
-    if (btnJumpSablazki) {
-      btnJumpSablazki.addEventListener('click', () => jumpToTransition(71.0));
-    }
-    if (btnJumpPondicherry) {
-      btnJumpPondicherry.addEventListener('click', () => jumpToTransition(113.0));
-    }
+    document.getElementById('nudgeMinus1s').addEventListener('click', () => microNudge(-1.00));
+    document.getElementById('nudgeMinus100ms').addEventListener('click', () => microNudge(-0.10));
+    document.getElementById('nudgeMinus10ms').addEventListener('click', () => microNudge(-0.01));
+    document.getElementById('nudgePlus10ms').addEventListener('click', () => microNudge(0.01));
+    document.getElementById('nudgePlus100ms').addEventListener('click', () => microNudge(0.10));
+    document.getElementById('nudgePlus1s').addEventListener('click', () => microNudge(1.00));
 
-    // AUDIO TIME UPDATE
+    // AUDIO TIME UPDATE (Synced to 0.01s)
     audio.addEventListener('timeupdate', () => {
       const cur = audio.currentTime;
       const totalDur = activeRoutine.totalDuration;
       const progressPercent = (cur / totalDur) * 100;
 
       playhead.style.left = `${Math.min(100, progressPercent)}%`;
-      currentTimeText.textContent = formatTime(cur);
-      syncCueBeat();
+      currentTimeText.textContent = formatTimePrecise(cur);
+
+      if (!isUserScrubbing && document.activeElement !== directTimeInput) {
+        precisionScrubber.value = cur.toFixed(2);
+        directTimeInput.value = formatTimePrecise(cur);
+      }
 
       const secIdx = getSectionIndex(cur);
       const sec = activeRoutine.sections[secIdx];
@@ -2022,7 +2411,7 @@
       if (isLoopingCurrentSection) {
         const loopSec = activeRoutine.sections[activeSectionIndex];
         if (cur >= loopSec.end || cur < loopSec.start) {
-          audio.currentTime = loopSec.start;
+          seekToPrecise(loopSec.start);
           return;
         }
       } else {
@@ -2054,24 +2443,12 @@
     audio.addEventListener('play', () => {
       playIcon.style.display = 'none';
       pauseIcon.style.display = 'block';
-      runCueSyncLoop();
-      syncCueBeat();
+      stopAllSoloComponents();
     });
 
     audio.addEventListener('pause', () => {
       playIcon.style.display = 'block';
       pauseIcon.style.display = 'none';
-      if (cueSyncRaf) cancelAnimationFrame(cueSyncRaf);
-      stopAllCues();
-    });
-
-    audio.addEventListener('ended', () => {
-      if (cueSyncRaf) cancelAnimationFrame(cueSyncRaf);
-      stopAllCues();
-    });
-
-    audio.addEventListener('seeking', () => {
-      syncCueBeat();
     });
 
     btnPlayPause.addEventListener('click', () => {
@@ -2083,11 +2460,11 @@
     });
 
     document.getElementById('btnRewind5').addEventListener('click', () => {
-      audio.currentTime = Math.max(0, audio.currentTime - 5);
+      seekToPrecise(audio.currentTime - 5);
     });
 
     document.getElementById('btnForward5').addEventListener('click', () => {
-      audio.currentTime = Math.min(activeRoutine.totalDuration, audio.currentTime + 5);
+      seekToPrecise(audio.currentTime + 5);
     });
 
     document.getElementById('btnPrevSection').addEventListener('click', () => {
@@ -2104,7 +2481,7 @@
       setLoopState(!isLoopingCurrentSection);
     });
 
-    // COUNTDOWN TOGGLE FUNCTION & BUTTONS
+    // COUNTDOWN TOGGLE
     function updateCountdownUI() {
       btnCountdownToggle.classList.toggle('active', isCountdownEnabled);
       countdownBtnText.textContent = isCountdownEnabled ? '⏱ Countdown: ON' : '⏱ Countdown: OFF';
@@ -2133,6 +2510,21 @@
       });
     });
 
+    // VIEW MODE SWITCHING (Timeline vs Component Studio)
+    btnViewTimeline.addEventListener('click', () => {
+      btnViewTimeline.classList.add('active');
+      btnViewComponents.classList.remove('active');
+      sectionTimelineView.style.display = 'block';
+      sectionComponentStudioView.style.display = 'none';
+    });
+
+    btnViewComponents.addEventListener('click', () => {
+      btnViewComponents.classList.add('active');
+      btnViewTimeline.classList.remove('active');
+      sectionTimelineView.style.display = 'none';
+      sectionComponentStudioView.style.display = 'block';
+    });
+
     // KEYBOARD SHORTCUTS
     window.addEventListener('keydown', (e) => {
       if (['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) return;
@@ -2142,10 +2534,10 @@
         btnPlayPause.click();
       } else if (e.code === 'ArrowLeft') {
         e.preventDefault();
-        audio.currentTime = Math.max(0, audio.currentTime - 5);
+        seekToPrecise(audio.currentTime - 5);
       } else if (e.code === 'ArrowRight') {
         e.preventDefault();
-        audio.currentTime = Math.min(activeRoutine.totalDuration, audio.currentTime + 5);
+        seekToPrecise(audio.currentTime + 5);
       } else if (e.key === '[') {
         e.preventDefault();
         document.getElementById('btnPrevSection').click();
@@ -2161,44 +2553,13 @@
       }
     });
 
-    const btnHeaderDownload = document.getElementById('btnHeaderDownload');
-    const headerDownloadText = document.getElementById('headerDownloadText');
-    const headerDownloadSize = document.getElementById('headerDownloadSize');
-    const btnPlayerDownload = document.getElementById('btnPlayerDownload');
-
-    function updateDownloadButtons(routineKey) {
-      const routine = ROUTINES[routineKey];
-      if (!routine) return;
-      if (btnHeaderDownload) {
-        btnHeaderDownload.href = routine.audioSrc;
-        btnHeaderDownload.download = routine.audioSrc;
-      }
-      if (btnPlayerDownload) {
-        btnPlayerDownload.href = routine.audioSrc;
-        btnPlayerDownload.download = routine.audioSrc;
-      }
-      if (headerDownloadText) {
-        if (routineKey === 'final260909') {
-          headerDownloadText.textContent = 'Download Final Mix (04:13 MP3)';
-          if (headerDownloadSize) headerDownloadSize.textContent = '7.0 MB';
-        } else if (routineKey === 'current') {
-          headerDownloadText.textContent = 'Download Sep 8 Master (04:10 MP3)';
-          if (headerDownloadSize) headerDownloadSize.textContent = '7.4 MB';
-        } else if (routineKey === 'backup') {
-          headerDownloadText.textContent = 'Download Previous Mix (04:07 MP3)';
-          if (headerDownloadSize) headerDownloadSize.textContent = '7.4 MB';
-        } else {
-          headerDownloadText.textContent = 'Download Sep 7 Mix (04:40 MP3)';
-          if (headerDownloadSize) headerDownloadSize.textContent = '7.6 MB';
-        }
-      }
-    }
-
     // INITIAL LOAD
     window.addEventListener('DOMContentLoaded', () => {
       renderTimeline();
       renderTrackCards();
+      renderComponentStudio();
       updateCountdownUI();
+      updateDownloadButtons(currentRoutineKey);
     });
   </script>
 </body>
