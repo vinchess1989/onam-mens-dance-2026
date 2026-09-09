@@ -1110,7 +1110,7 @@
                 <span>⏱ Cue Beats: ON</span>
               </button>
             </div>
-            <p class="cue-desc">Each dialogue ending now plays its own assigned timing cue leading into the drop: <strong>Energy Riser</strong> before Chettikulangara, <strong>Heartbeat Thump</strong> before Shanthamee, and <strong>Stick Clicks</strong> before Ivalkoruvan.</p>
+            <p class="cue-desc">Custom choreography timing cues active across routine drops: <strong>Energy Riser</strong> before Chettikulangara, <strong>3s Gap with Metronome</strong> before Sablazki, <strong>Heartbeat Thump</strong> before Shanthamee, and <strong>Stick Clicks</strong> before Ivalkoruvan.</p>
           </div>
         </div>
 
@@ -1136,6 +1136,25 @@
           </div>
 
           <!-- Card 2: Before Shanthamee (Heartbeat Thump) -->
+                    <!-- Card 2: Before Sablazki Dialogue (3s Gap with Metronome) -->
+          <div class="cue-card active" id="cueCardSablazkiGap" data-cue="sablazki_gap">
+            <div class="cue-card-left">
+              <span style="font-size: 1.5rem;">⏱️</span>
+              <div class="cue-card-info">
+                <div class="cue-card-name">3s Gap + Metronome ➔ Sablazki</div>
+                <div class="cue-card-sub">3s pause before Sablazki (00:50.5)</div>
+                <div class="cue-card-actions-row">
+                  <button class="btn-cue-preview" data-preview="sticks" title="Preview Metronome Stick Clicks Solo">
+                    <span class="preview-icon">▶</span>
+                    <span class="preview-label">Preview</span>
+                  </button>
+                  <button class="btn-cue-jump-mini" id="btnJumpSablazkiGap" title="Jump to 00:48 to test 3s gap & Sablazki drop">
+                    <span>⚡ Test Gap (00:48)</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="cue-card active" id="cueCardShanthamee" data-cue="thump">
             <div class="cue-card-left">
               <span style="font-size: 1.5rem;">💓</span>
@@ -1178,7 +1197,7 @@
 
         <div class="cue-status-bar" id="cueStatusBar">
           <span style="font-size: 1.1rem;">💡</span>
-          <span id="cueStatusText"><strong>Custom Cue Beats Active:</strong> 🚀 Energy Riser before Chettikulangara • 💓 Heartbeat Thump before Shanthamee • 🥢 Stick Clicks before Ivalkoruvan.</span>
+          <span id="cueStatusText"><strong>Custom Cue Beats Active:</strong> 🚀 Energy Riser (Chettikulangara) • ⏱️ 3s Metronome Gap (Sablazki) • 💓 Heartbeat Thump (Shanthamee) • 🥢 Stick Clicks (Ivalkoruvan).</span>
         </div>
       </div>
     </main>
@@ -1446,6 +1465,11 @@
     let previewingAudio = null;
     let activePreviewKey = null;
     let cueSyncRaf = null;
+    
+    // SABLAZKI 3S GAP WITH METRONOME STATE
+    const SABLAZKI_GAP_TIME = 50.5; // End of Chettikulangara / Start of Sablazki
+    let isSablazkiGapActive = false;
+    let hasTriggeredSablazkiGap = false;
 
     const cueAudios = {
       sticks: new Audio('cue_option1_sticks.mp3'),
@@ -1559,8 +1583,10 @@
           if (isCueBeatsEnabled) {
             if (sec.id === 1) {
               noteText = `Cue: 🚀 Energy Riser (00:06.5 → 00:09.5)`;
+            } else if (sec.id === 2) {
+              noteText = `3s Metronome Gap follows (at 00:50.5)`;
             } else if (sec.id === 3) {
-              noteText = `Cue: 💓 Heartbeat Thump (01:09.9 → 01:12.9)`;
+              noteText = `3s Metronome Entry • Cue: 💓 Heartbeat Thump (01:09.9 → 01:12.9)`;
             } else if (sec.id === 5) {
               noteText = `3s Gap: 🥢 Stick Clicks (01:52.2 → 01:55.2)`;
             }
@@ -1728,6 +1754,35 @@
         a.pause();
         a.currentTime = 0;
       });
+      if (isSablazkiGapActive) {
+        isSablazkiGapActive = false;
+      }
+    }
+
+    function triggerSablazkiGap() {
+      if (isSablazkiGapActive || !isCueBeatsEnabled || currentRoutineKey !== 'current') return;
+      isSablazkiGapActive = true;
+      hasTriggeredSablazkiGap = true;
+      audio.pause();
+      audio.currentTime = SABLAZKI_GAP_TIME;
+
+      const sticks = cueAudios.sticks;
+      sticks.currentTime = 0;
+      sticks.playbackRate = audio.playbackRate;
+      
+      if (cueStatusText) {
+        cueStatusText.innerHTML = '⏱️ <strong>Sablazki 3s Pause:</strong> 🥢 Metronome (1... 2... 3... ➔ Drop!)';
+      }
+
+      sticks.play().catch(() => {});
+
+      sticks.onended = () => {
+        isSablazkiGapActive = false;
+        audio.play().catch(() => {});
+        if (cueStatusText) {
+          cueStatusText.innerHTML = '<strong>Custom Cue Beats Active:</strong> 🚀 Energy Riser (Chettikulangara) • ⏱️ 3s Metronome Gap (Sablazki) • 💓 Heartbeat Thump (Shanthamee) • 🥢 Stick Clicks (Ivalkoruvan).';
+        }
+      };
     }
 
     function syncCueBeat() {
@@ -1738,6 +1793,12 @@
 
       const cur = audio.currentTime;
       const isPlaying = !audio.paused && !audio.ended;
+      // Check for Sablazki 3s Gap trigger at 50.5s
+      if (isPlaying && !hasTriggeredSablazkiGap && !isSablazkiGapActive && cur >= (SABLAZKI_GAP_TIME - 0.08) && cur <= (SABLAZKI_GAP_TIME + 0.15)) {
+        triggerSablazkiGap();
+        return;
+      }
+
       const activeWindow = CUE_WINDOWS.find(w => cur >= w.start && cur < w.end);
 
       if (isPlaying && activeWindow) {
@@ -1860,6 +1921,14 @@
       btnJumpPondicherry.addEventListener('click', () => jumpToTransition(110.0));
     }
 
+    const btnJumpSablazkiGap = document.getElementById('btnJumpSablazkiGap');
+    if (btnJumpSablazkiGap) {
+      btnJumpSablazkiGap.addEventListener('click', () => {
+        hasTriggeredSablazkiGap = false;
+        jumpToTransition(48.0);
+      });
+    }
+
     // AUDIO TIME UPDATE
     audio.addEventListener('timeupdate', () => {
       const cur = audio.currentTime;
@@ -1868,6 +1937,9 @@
 
       playhead.style.left = `${Math.min(100, progressPercent)}%`;
       currentTimeText.textContent = formatTime(cur);
+      if (cur < (SABLAZKI_GAP_TIME - 0.5)) {
+        hasTriggeredSablazkiGap = false;
+      }
       syncCueBeat();
 
       const secIdx = getSectionIndex(cur);
@@ -1925,6 +1997,14 @@
     });
 
     audio.addEventListener('seeking', () => {
+      if (audio.currentTime < (SABLAZKI_GAP_TIME - 0.5)) {
+        hasTriggeredSablazkiGap = false;
+      }
+      if (isSablazkiGapActive) {
+        cueAudios.sticks.pause();
+        cueAudios.sticks.currentTime = 0;
+        isSablazkiGapActive = false;
+      }
       syncCueBeat();
     });
 
