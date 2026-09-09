@@ -59,7 +59,7 @@ Designed to guide dancers with clear countdown cues before music drops without p
 
 ### Active Dialogue Cue Assignments:
 - **Before Chettikulangara (Part 1 - Kalyanaraman tail):** **Option 3: Energy Riser** (`cue_option3_riser.mp3`) overlapping `00:06.50 ➔ 00:09.50`. Quick jump: `00:05.0`.
-- **Before Sablazki Dialogue (Part 2 - Chettikulangara end):** **3s Pause Gap with Metronome Stick Clicks** (`cue_option1_sticks.mp3`) at `00:50.50`. Simulates a 3-second stage pause with 3 metronome ticks (1, 2, 3 ➔ Drop) before Sablazki begins. Quick jump: `00:48.0`.
+- **Before Sablazki Dialogue (Part 2 - Chettikulangara tail):** **Option 1: Stick Clicks (Metronome)** (`cue_option1_sticks.mp3`) overlapping `00:47.50 ➔ 00:50.50`. Overlays 3 metronome ticks (1, 2, 3 ➔ Drop) across the end of Chettikulangara with continuous, uninterrupted playback into Sablazki. Quick jump: `00:45.0`.
 - **Before Shanthamee (Part 3 - Sablazki tail):** **Option 2: Heartbeat Thump** (`cue_option2_thump.mp3`) overlapping `01:09.91 ➔ 01:12.91`. Quick jump: `01:08.0`.
 - **Before Ivalkoruvan (Part 5 - Pondicherry 3s pause):** **Option 1: Stick Clicks** (`cue_option1_sticks.mp3`) playing `01:52.16 ➔ 01:55.16`. Quick jump: `01:50.0`.
 
