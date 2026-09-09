@@ -53,7 +53,7 @@
 
     .container {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1440px;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -1180,6 +1180,45 @@
       .precision-row-top { flex-direction: column; align-items: stretch; }
       .comp-deck-controls { flex-direction: column; align-items: stretch; }
     }
+
+    /* 2-COLUMN STUDIO LAYOUT */
+    .studio-two-column-layout {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 2rem;
+      align-items: start;
+      width: 100%;
+    }
+
+    .studio-col-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+    }
+
+    .studio-col-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      min-width: 0;
+    }
+
+    .studio-col-right .section-title {
+      margin-bottom: 0.75rem;
+    }
+
+    @media (max-width: 1080px) {
+      .studio-two-column-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .studio-col-left {
+        position: static;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1233,7 +1272,11 @@
       </div>
     </header>
 
-    <!-- MAIN STICKY PLAYER -->
+    <!-- 2-COLUMN STUDIO LAYOUT (PLAYER DECK LEFT • ROUTINE SEGMENTS RIGHT) -->
+    <div class="studio-two-column-layout">
+      <!-- LEFT COLUMN: MASTER PLAYER & CONTROLS -->
+      <div class="studio-col-left">
+<!-- MAIN STICKY PLAYER -->
     <main class="player-card">
       <div class="now-playing-row">
         <div class="now-playing-info">
@@ -1345,9 +1388,9 @@
       </div>
     </main>
 
-    <!-- VIEW MODE SWITCHER (ROUTINE TIMELINE vs INDIVIDUAL COMPONENT STUDIO) -->
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-      <div class="view-mode-nav">
+<!-- VIEW MODE SWITCHER (ROUTINE TIMELINE vs INDIVIDUAL COMPONENT STUDIO) -->
+    <div style="display:flex; flex-direction:column; gap:0.75rem; background:rgba(15,23,42,0.6); padding:1rem; border-radius:var(--radius-md); border:1px solid var(--border-glass);">
+      <div class="view-mode-nav" style="width:100%; justify-content:center;">
         <button class="btn-view-mode active" id="btnViewTimeline">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
           <span>Routine Timeline View</span>
@@ -1362,8 +1405,11 @@
         🔬 0.01s Precision Audio Scrubbing Active
       </div>
     </div>
+      </div>
 
-    <!-- VIEW 1: ROUTINE SECTIONS LIST (CARDS) -->
+      <!-- RIGHT COLUMN: ROUTINE SEGMENTS & COMPONENT STUDIO -->
+      <div class="studio-col-right">
+<!-- VIEW 1: ROUTINE SECTIONS LIST (CARDS) -->
     <section id="sectionTimelineView">
       <div class="section-title">
         <div class="section-title-left">
@@ -1392,6 +1438,8 @@
         <!-- Dynamically rendered components -->
       </div>
     </section>
+      </div>
+    </div>
 
     <!-- KEYBOARD SHORTCUTS REFERENCE -->
     <footer class="shortcuts-footer">

@@ -25,6 +25,7 @@
   - [`generate_3tab_player.py`](file:///c:/Users/vinee/Video%20Editing/generate_3tab_player.py) — Python script to regenerate both HTML files synchronously.
 - **Styling & UI:** Vanilla HTML5, CSS3 Glassmorphism (dark theme, responsive mobile grid), Web Audio / HTML5 Audio API.
 - **Key Features:**
+  - **2-Column Studio Layout:** Persistent sticky master controller on the left column (timeline, 0.01s precision jog shuttle, playback, loop, countdown, speed) paired with routine segments and component studio in the right column.
   - 4-tab multi-version switcher: **Final Mix 260909** (Baked Cues & 3s Chettikulangara Metronome Pause, 04:13), **Sep 8 Master** (Clean Audio, 04:10), **Previous Mix Backup** (7 Tracks, 04:07), and **Sep 7 Legacy Mix** (6 Tracks, 04:40).
   - **0.01s Precision Seeking & Jog Shuttle:** Frame-accurate timecode display (`MM:SS.ss`), direct numeric jump input (`[ 50.50 ]`), 0.01s step scrubber slider, and micro-nudge buttons (`±0.01s`, `±0.10s`, `±1.00s`).
   - **Individual Component Studio (11 Tracks):** Isolated solo decks for all individual dialogue and music component tracks with local 0.01s scrubbers, independent playback, single-click MP3 downloads, and `⚡ Sync to Mix` synchronization into the master timeline.
