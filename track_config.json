@@ -32,7 +32,8 @@
       "title": "Pondicherry Dialogue",
       "badge": "Dialogue 2",
       "color": "#a855f7",
-      "gap_after": 3.0
+      "gap_after": 3.0,
+      "duration_note": "9.69s (first 0.56s removed)"
     },
     {
       "file": "ivalkoruvan song.mp3",
