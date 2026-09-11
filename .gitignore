@@ -1,5 +1,6 @@
 # Large video files and temporary recordings
 *.mp4
+!Fusion Malayalam dance.mp4
 *.part
 *.m4a
 *.webm
