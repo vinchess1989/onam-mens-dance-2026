@@ -2280,12 +2280,24 @@
       box-shadow: 0 3px 12px rgba(6, 182, 212, 0.4);
     }
 
+    .btn-cue-jump.cue-velmuruka {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      box-shadow: 0 3px 12px rgba(244, 63, 94, 0.4);
+    }
+
     .custom-seek-marker-tick.marker-njanondaliyan {
       background: #22d3ee;
       box-shadow: 0 0 10px #06b6d4;
     }
 
     .marker-njanondaliyan .marker-label { background: #0891b2; }
+
+    .custom-seek-marker-tick.marker-velmuruka {
+      background: #fb7185;
+      box-shadow: 0 0 10px #f43f5e;
+    }
+
+    .marker-velmuruka .marker-label { background: #e11d48; }
 
     .custom-seek-marker-tick {
       position: absolute;
@@ -2423,7 +2435,7 @@
         <button class="tab-btn video-tab-btn active-tab" id="tabVideo" title="Reference Video with 3 Named Seek Points (shanthamee, ivalkkoruvan, chettikulangara)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
           <span>Video</span>
-          <span class="tab-badge" style="background:rgba(236,72,153,0.25); color:#f472b6;">Fusion Dance • 4 Cues</span>
+          <span class="tab-badge" style="background:rgba(236,72,153,0.25); color:#f472b6;">Fusion Dance • 5 Cues</span>
         </button>
         <button class="tab-btn final-btn" id="tabFinal260909">
           <span>Final Mix 260909</span>
@@ -2631,7 +2643,7 @@
         </button>
         <button class="btn-view-mode" id="btnViewVideo" style="border-color:rgba(236,72,153,0.35);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-          <span style="color:#f472b6;">Reference Video (4 Song Cues)</span>
+          <span style="color:#f472b6;">Reference Video (5 Song Cues)</span>
         </button>
       </div>
 
@@ -2688,7 +2700,7 @@
         </div>
         <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
           <span style="background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.35); color:#f472b6; font-size:0.75rem; font-weight:700; padding:0.25rem 0.65rem; border-radius:999px;">
-            🎯 4 Named Seek Points: 0:28 shanthamee • 1:01 ivalkkoruvan • 2:06 chettikulangara • 2:50 njanondaliyan
+            🎯 5 Named Seek Points: 0:28 shanthamee • 1:01 ivalkkoruvan • 2:06 chettikulangara • 2:50 njanondaliyan • 3:25 vel muruka
           </span>
           <button id="btnTheaterMode" class="btn-action" style="padding:0.3rem 0.75rem; font-size:0.78rem;" title="Toggle Full Theater Width">
             ⛶ Theater View
@@ -2758,6 +2770,21 @@
               <span>Jump to 2:50 (njanondaliyan)</span>
             </button>
           </div>
+
+          <!-- CUE 5: vel muruka @ 3:25 -->
+          <div class="cue-card" id="cueCardVelMuruka" style="--cue-accent:#f43f5e; --cue-border-color:#f43f5e; --cue-glow:rgba(244,63,94,0.5);" onclick="seekVideoPrecise(205.0, true)">
+            <div class="cue-card-header">
+              <div class="cue-name-row">
+                <span class="pulse-dot" style="background:#f43f5e; box-shadow:0 0 8px #f43f5e;"></span>
+                <span class="cue-title-text">vel muruka</span>
+              </div>
+              <span class="cue-badge" style="background:rgba(244,63,94,0.18); border:1px solid rgba(244,63,94,0.4); color:#fb7185;">03:25.00</span>
+            </div>
+            <button class="btn-cue-jump cue-velmuruka" onclick="event.stopPropagation(); seekVideoPrecise(205.0, true);" title="Jump to 3:25 vel muruka">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+              <span>Jump to 3:25 (vel muruka)</span>
+            </button>
+          </div>
         </div>
 
         <!-- VIDEO PLAYER EMBED -->
@@ -2779,16 +2806,16 @@
               <span class="precision-badge-pink">0.01s Precision</span>
             </div>
 
-            <!-- QUICK JUMP PRESETS FOR 4 CUES -->
+            <!-- QUICK JUMP PRESETS FOR 5 CUES -->
             <div class="video-seek-presets">
               <span style="font-size:0.75rem; color:#94a3b8; font-weight:700;">SONG CUES:</span>
               <button class="btn-preset-seek" id="presetSeekShanthamee" onclick="seekVideoPrecise(28.0, true)">★ 0:28 shanthamee</button>
               <button class="btn-preset-seek active-preset" id="presetSeekIvalkkoruvan" onclick="seekVideoPrecise(61.0, true)">★ 1:01 ivalkkoruvan</button>
               <button class="btn-preset-seek" id="presetSeekChettikulangara" onclick="seekVideoPrecise(126.0, true)">★ 2:06 chettikulangara</button>
               <button class="btn-preset-seek" id="presetSeekNjanondaliyan" onclick="seekVideoPrecise(170.0, true)">★ 2:50 njanondaliyan</button>
+              <button class="btn-preset-seek" id="presetSeekVelMuruka" onclick="seekVideoPrecise(205.0, true)">★ 3:25 vel muruka</button>
               <span style="font-size:0.75rem; color:#64748b;">•</span>
               <button class="btn-preset-seek" onclick="seekVideoPrecise(0.0)">0:00 (Start)</button>
-              <button class="btn-preset-seek" onclick="seekVideoPrecise(240.0)">4:00</button>
             </div>
           </div>
 
@@ -2814,6 +2841,11 @@
             <!-- Marker 4: njanondaliyan @ 2:50 (54.02%) -->
             <div class="custom-seek-marker-tick marker-njanondaliyan" id="markerNjanondaliyan" style="left: 54.02%;" onclick="seekVideoPrecise(170.0, true)" title="2:50 - njanondaliyan">
               <span class="marker-label">2:50 njanondaliyan</span>
+            </div>
+
+            <!-- Marker 5: vel muruka @ 3:25 (65.14%) -->
+            <div class="custom-seek-marker-tick marker-velmuruka" id="markerVelMuruka" style="left: 65.14%;" onclick="seekVideoPrecise(205.0, true)" title="3:25 - vel muruka">
+              <span class="marker-label">3:25 vel muruka</span>
             </div>
           </div>
 
@@ -2876,8 +2908,11 @@
               <button class="btn-toggle" id="btnLoopChettikulangara" onclick="toggleCueLoop('chettikulangara', 126.0, 170.0)" title="Loop Chettikulangara section (2:06 - 2:50)">
                 🔁 Loop chettikulangara (2:06 - 2:50)
               </button>
-              <button class="btn-toggle" id="btnLoopNjanondaliyan" onclick="toggleCueLoop('njanondaliyan', 170.0, 230.0)" title="Loop Njanondaliyan section (2:50 - 3:50)">
-                🔁 Loop njanondaliyan (2:50 - 3:50)
+              <button class="btn-toggle" id="btnLoopNjanondaliyan" onclick="toggleCueLoop('njanondaliyan', 170.0, 205.0)" title="Loop Njanondaliyan section (2:50 - 3:25)">
+                🔁 Loop njanondaliyan (2:50 - 3:25)
+              </button>
+              <button class="btn-toggle" id="btnLoopVelMuruka" onclick="toggleCueLoop('velmuruka', 205.0, 265.0)" title="Loop Vel Muruka section (3:25 - 4:25)">
+                🔁 Loop vel muruka (3:25 - 4:25)
               </button>
               <button class="btn-toggle" id="btnVideoLoopAll" title="Loop entire video">
                 🔂 Loop All
@@ -3403,12 +3438,13 @@
     const btnVideoLoopCue = document.getElementById('btnVideoLoopCue');
     const btnVideoLoopAll = document.getElementById('btnVideoLoopAll');
 
-    // 4 Named Custom Seek Points: 0:28 (shanthamee), 1:01 (ivalkkoruvan), 2:06 (chettikulangara), 2:50 (njanondaliyan)
+    // 5 Named Custom Seek Points: 0:28 (shanthamee), 1:01 (ivalkkoruvan), 2:06 (chettikulangara), 2:50 (njanondaliyan), 3:25 (vel muruka)
     const VIDEO_SEEK_POINTS = {
       shanthamee: { time: 28.0, name: "shanthamee", label: "0:28" },
       ivalkkoruvan: { time: 61.0, name: "ivalkkoruvan", label: "1:01" },
       chettikulangara: { time: 126.0, name: "chettikulangara", label: "2:06" },
-      njanondaliyan: { time: 170.0, name: "njanondaliyan", label: "2:50" }
+      njanondaliyan: { time: 170.0, name: "njanondaliyan", label: "2:50" },
+      velmuruka: { time: 205.0, name: "vel muruka", label: "3:25" }
     };
     let customSeekTargetTime = 61.0;
     let activeCueLoop = null; // null or { name, start, end }
@@ -4433,21 +4469,25 @@
       const cIvalkkoruvan = document.getElementById('cueCardIvalkkoruvan');
       const cChettikulangara = document.getElementById('cueCardChettikulangara');
       const cNjanondaliyan = document.getElementById('cueCardNjanondaliyan');
+      const cVelMuruka = document.getElementById('cueCardVelMuruka');
 
       const pShanthamee = document.getElementById('presetSeekShanthamee');
       const pIvalkkoruvan = document.getElementById('presetSeekIvalkkoruvan');
       const pChettikulangara = document.getElementById('presetSeekChettikulangara');
       const pNjanondaliyan = document.getElementById('presetSeekNjanondaliyan');
+      const pVelMuruka = document.getElementById('presetSeekVelMuruka');
 
       if (cShanthamee) cShanthamee.classList.toggle('active-cue-card', Math.abs(time - 28.0) < 1.0);
       if (cIvalkkoruvan) cIvalkkoruvan.classList.toggle('active-cue-card', Math.abs(time - 61.0) < 1.0);
       if (cChettikulangara) cChettikulangara.classList.toggle('active-cue-card', Math.abs(time - 126.0) < 1.0);
       if (cNjanondaliyan) cNjanondaliyan.classList.toggle('active-cue-card', Math.abs(time - 170.0) < 1.0);
+      if (cVelMuruka) cVelMuruka.classList.toggle('active-cue-card', Math.abs(time - 205.0) < 1.0);
 
       if (pShanthamee) pShanthamee.classList.toggle('active-preset', Math.abs(time - 28.0) < 1.0);
       if (pIvalkkoruvan) pIvalkkoruvan.classList.toggle('active-preset', Math.abs(time - 61.0) < 1.0);
       if (pChettikulangara) pChettikulangara.classList.toggle('active-preset', Math.abs(time - 126.0) < 1.0);
       if (pNjanondaliyan) pNjanondaliyan.classList.toggle('active-preset', Math.abs(time - 170.0) < 1.0);
+      if (pVelMuruka) pVelMuruka.classList.toggle('active-preset', Math.abs(time - 205.0) < 1.0);
     }
 
     function toggleCueLoop(name, start, end) {
@@ -4470,11 +4510,13 @@
       const bI = document.getElementById('btnLoopIvalkkoruvan');
       const bC = document.getElementById('btnLoopChettikulangara');
       const bN = document.getElementById('btnLoopNjanondaliyan');
+      const bV = document.getElementById('btnLoopVelMuruka');
 
       if (bS) bS.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'shanthamee');
       if (bI) bI.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'ivalkkoruvan');
       if (bC) bC.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'chettikulangara');
       if (bN) bN.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'njanondaliyan');
+      if (bV) bV.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'velmuruka');
     }
 
     function nudgeVideo(deltaSeconds) {
@@ -4541,16 +4583,18 @@
         if (videoTotalTimeText) videoTotalTimeText.textContent = formatTimePrecise(dur);
         if (videoPrecisionScrubber) videoPrecisionScrubber.max = dur.toFixed(2);
         
-        // Update all 4 seek markers
+        // Update all 5 seek markers
         const mShanthamee = document.getElementById('markerShanthamee');
         const mIvalkkoruvan = document.getElementById('markerIvalkkoruvan');
         const mChettikulangara = document.getElementById('markerChettikulangara');
         const mNjanondaliyan = document.getElementById('markerNjanondaliyan');
+        const mVelMuruka = document.getElementById('markerVelMuruka');
 
         if (mShanthamee) mShanthamee.style.left = `${(28.0 / dur) * 100}%`;
         if (mIvalkkoruvan) mIvalkkoruvan.style.left = `${(61.0 / dur) * 100}%`;
         if (mChettikulangara) mChettikulangara.style.left = `${(126.0 / dur) * 100}%`;
         if (mNjanondaliyan) mNjanondaliyan.style.left = `${(170.0 / dur) * 100}%`;
+        if (mVelMuruka) mVelMuruka.style.left = `${(205.0 / dur) * 100}%`;
       });
 
       refVideo.addEventListener('timeupdate', () => {
