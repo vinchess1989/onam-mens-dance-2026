@@ -2735,8 +2735,9 @@
 
         <!-- VIDEO PLAYER EMBED -->
         <div class="video-container-wrapper" id="videoContainerWrapper">
-          <video id="refVideo" class="ref-video-player" playsinline preload="metadata" controls>
+          <video id="refVideo" class="ref-video-player" playsinline preload="metadata" controls crossorigin="anonymous">
             <source src="Fusion Malayalam dance.mp4" type="video/mp4">
+            <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/Fusion%20Malayalam%20dance.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -4482,6 +4483,16 @@
     });
 
     if (refVideo) {
+      // Automatic fallback if relative file is CDN-cached or unavailable
+      refVideo.addEventListener('error', () => {
+        const rawFallback = 'https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/Fusion%20Malayalam%20dance.mp4';
+        if (refVideo.currentSrc !== rawFallback && refVideo.src !== rawFallback) {
+          console.warn('Relative video load failed, switching to live repository fallback:', rawFallback);
+          refVideo.src = rawFallback;
+          refVideo.load();
+        }
+      });
+
       refVideo.addEventListener('loadedmetadata', () => {
         const dur = refVideo.duration || 314.72;
         if (videoTotalTimeText) videoTotalTimeText.textContent = formatTimePrecise(dur);
