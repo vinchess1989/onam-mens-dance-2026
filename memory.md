@@ -51,11 +51,11 @@
 |---|---|---|---|---|---|---|
 | 1 | Kalyanaraman (Intro) | Intro Hook | `00:00.0` | `00:09.5` | 9.5s | Dialogue intro; 🚀 Energy Riser baked into last 3s (`00:06.5 → 00:09.5`) |
 | 2 | Chettikulangara | Song 1 | `00:09.5` | `00:50.5` | 41.0s | First full group dance; ends cleanly without overlap |
-| — | *Choreography Pause 1* | *3s Metronome Gap* | `00:50.5` | `00:53.5` | 3.0s | Dedicated stage silence with 3 metronome clicks (`cue_option1_sticks.mp3`) |
-| 3 | Sablazki Dialogue (+3s Reverb) | Dialogue | `00:53.5` | `01:14.61` | 21.11s | 8.50-9.80 removed (-1.30s); smooth 3s reverb decay tail; 💓 Heartbeat Thump baked into last 3s (`01:11.61 → 01:14.61`) |
+| — | *Choreography Pause 1* | *3s Metronome Gap* | `00:50.5` | `00:53.5` | 3.0s | Dedicated stage silence with 3 metronome clicks at 0.25x volume (`cue_option1_sticks.mp3`) |
+| 3 | Sablazki Dialogue (+3s Reverb) | Dialogue | `00:53.5` | `01:14.61` | 21.11s | 8.50-9.80 removed (-1.30s); smooth 3s reverb decay tail (clean dialogue, 3s drum beat cue removed) |
 | 4 | Shanthamee Rathri | Song 2 | `01:14.61` | `01:45.61` | 31.0s | Melodic transition piece |
 | 5 | Pondicherry Dialogue | Dialogue 2 | `01:45.61` | `01:55.30` | 9.69s | Dialogue punchline ending |
-| — | *Choreography Pause 2* | *3s Sticks Gap* | `01:55.30` | `01:58.30` | 3.0s | Dedicated stage silence with 3 stick clicks into beat drop |
+| — | *Choreography Pause 2* | *3s Sticks Gap* | `01:55.30` | `01:58.30` | 3.0s | Dedicated stage silence with 3 stick clicks at 0.25x volume into beat drop |
 | 6 | Ivalkoruvan Song | Song 3 | `01:58.30` | `02:27.30` | 29.0s | High-energy beat drop; 2s Fade In & 2s Fade Out (`ivalkoruvan_new.mp3`) |
 | 7 | Njanondaliyanum | Song 4 | `02:27.30` | `03:21.30` | 54.0s | Group formation dance segment |
 | 8 | Velmuruka Harohara | Fast Beats | `03:21.30` | `04:04.30` | 43.0s | 2s fade-out beginning at `04:02.30` as applause starts |
@@ -68,15 +68,15 @@
 Designed to guide dancers with clear countdown cues before music drops without permanently altering the stage audio until approved.
 
 ### Sound Options (each 3.0s in length):
-1. **Option 1: Stick Clicks** ([`cue_option1_sticks.mp3`](file:///c:/Users/vinee/Video%20Editing/cue_option1_sticks.mp3)) — 3 crisp clave/woodblock clicks (`0.75s`, `1.50s`, `2.25s` ➔ Drop at `3.00s`).
+1. **Option 1: Stick Clicks** ([`cue_option1_sticks.mp3`](file:///c:/Users/vinee/Video%20Editing/cue_option1_sticks.mp3)) — 3 crisp clave/woodblock clicks (`0.75s`, `1.50s`, `2.25s` ➔ Drop at `3.00s`), volume reduced to **0.25x** for subtle background stage counting.
 2. **Option 2: Heartbeat Thump** ([`cue_option2_thump.mp3`](file:///c:/Users/vinee/Video%20Editing/cue_option2_thump.mp3)) — 3 deep sub-bass kicks (`45–110 Hz`).
 3. **Option 3: Energy Riser** ([`cue_option3_riser.mp3`](file:///c:/Users/vinee/Video%20Editing/cue_option3_riser.mp3)) — Rising pitch/noise swoosh swell landing on count 1.
 
 ### Active Dialogue Cue Assignments (Baked into Final Mix 260909):
 - **Before Chettikulangara (Part 1 - Kalyanaraman tail):** **Option 3: Energy Riser** (`cue_option3_riser.mp3`) overlapping `00:06.50 ➔ 00:09.50`. Quick jump: `00:05.0`.
-- **Between Chettikulangara & Sablazki (3s Stage Pause):** **Option 1: Metronome Stick Clicks** (`cue_option1_sticks.mp3`) playing in dedicated 3-second stage pause `00:50.50 ➔ 00:53.50` (no music overlap). Gives dancers 3 seconds to reset formation before Sablazki dialogue drops at 00:53.50. Quick jump: `00:48.0`.
-- **Before Shanthamee (Part 3 - Sablazki tail):** **Option 2: Heartbeat Thump** (`cue_option2_thump.mp3`) overlapping `01:11.61 ➔ 01:14.61`. Quick jump: `01:10.0`.
-- **Before Ivalkoruvan (Part 5 - Pondicherry 3s pause):** **Option 1: Stick Clicks** (`cue_option1_sticks.mp3`) playing in dedicated 3-second stage pause `01:55.30 ➔ 01:58.30`. Quick jump: `01:53.0`.
+- **Between Chettikulangara & Sablazki (3s Stage Pause):** **Option 1: Metronome Stick Clicks at 0.25x volume** (`cue_option1_sticks.mp3`) playing in dedicated 3-second stage pause `00:50.50 ➔ 00:53.50` (no music overlap). Gives dancers 3 seconds to reset formation before Sablazki dialogue drops at 00:53.50. Quick jump: `00:48.0`.
+- **Before Shanthamee (Part 3 - Sablazki tail):** **Removed per request** (clean dialogue audio with natural vocal reverb decay tail into Shanthamee).
+- **Before Ivalkoruvan (Part 5 - Pondicherry 3s pause):** **Option 1: Stick Clicks at 0.25x volume** (`cue_option1_sticks.mp3`) playing in dedicated 3-second stage pause `01:55.30 ➔ 01:58.30`. Quick jump: `01:53.0`.
 
 ### Player Synchronization Engine:
 - Uses a 60fps `requestAnimationFrame` sync loop paired with `timeupdate` to synchronize the secondary cue audio object against `mainAudio.currentTime` with sub-16ms jitter.

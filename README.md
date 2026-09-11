@@ -10,11 +10,11 @@ Interactive practice hub and audio player with instant section seeking, A-B repe
 ## 🎵 Final Mix 260909 (Master Mix with Baked Cues • 04:12.30)
 1. **Kalyanaraman (Intro Hook)** (`00:00.0 - 00:09.5`) - 9.5s *(Energy Riser baked @ 00:06.5)*
 2. **Chettikulangara** (`00:09.5 - 00:50.5`) - 41.0s *(Ends cleanly without overlap)*
-   *⏸ 3-second stage pause with metronome clicks (`00:50.5 - 00:53.5`)*
-3. **Sablazki Dialogue (+3s Reverb Tail)** (`00:53.5 - 01:14.61`) - 21.11s *(8.50 - 9.80 removed; Heartbeat Thump baked @ 01:11.61)*
+   *⏸ 3-second stage pause with metronome clicks at 0.25x volume (`00:50.5 - 00:53.5`)*
+3. **Sablazki Dialogue (+3s Reverb Tail)** (`00:53.5 - 01:14.61`) - 21.11s *(8.50 - 9.80 removed; clean audio into Shanthamee)*
 4. **Shanthamee Rathri** (`01:14.61 - 01:45.61`) - 31.0s
 5. **Pondicherry Dialogue** (`01:45.61 - 01:55.30`) - 9.69s
-   *⏸ 3-second stage pause with stick clicks (`01:55.30 - 01:58.30`)*
+   *⏸ 3-second stage pause with stick clicks at 0.25x volume (`01:55.30 - 01:58.30`)*
 6. **Ivalkoruvan Song** (`01:58.30 - 02:27.30`) - 29.0s *(2s Fade In & 2s Fade Out)*
 7. **Njanondaliyanum** (`02:27.30 - 03:21.30`) - 54.0s
 8. **Velmuruka Harohara** (`03:21.30 - 04:04.30`) - 43.0s *(2s fade-out as applause begins at 04:02.3)*
