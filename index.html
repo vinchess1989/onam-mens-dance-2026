@@ -1926,6 +1926,465 @@
       transform: translateY(-1px);
     }
 
+
+    /* REFERENCE VIDEO TAB & STUDIO */
+    .tab-btn.video-tab-btn {
+      color: #f472b6;
+    }
+
+    .tab-btn.video-tab-btn:hover {
+      color: #fbcfe8;
+    }
+
+    .tab-btn.video-tab-btn.active-tab {
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.45);
+    }
+
+    .video-studio-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .custom-seek-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%);
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .custom-seek-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex: 1 1 320px;
+    }
+
+    .custom-seek-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #f472b6;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot-pink {
+      width: 10px;
+      height: 10px;
+      background: #ec4899;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ec4899;
+      animation: pulse 1.8s infinite;
+      flex-shrink: 0;
+    }
+
+    .custom-seek-desc {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .custom-seek-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-jump-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(236, 72, 153, 0.45);
+      transition: all 0.2s ease;
+    }
+
+    .btn-jump-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(236, 72, 153, 0.6);
+      background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+    }
+
+    .btn-jump-custom:active {
+      transform: scale(0.97);
+    }
+
+    .video-container-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ref-video-player {
+      width: 100%;
+      max-height: 520px;
+      display: block;
+      background: #000;
+      outline: none;
+    }
+
+    .video-controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+
+    .video-time-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .video-time-readout {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .video-time-bold {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #f472b6;
+    }
+
+    .precision-badge-pink {
+      font-size: 0.7rem;
+      color: #f472b6;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .video-seek-presets {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-preset-seek {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-preset-seek:hover {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: rgba(236, 72, 153, 0.4);
+      color: #f472b6;
+    }
+
+    .btn-preset-seek.active-preset {
+      background: rgba(236, 72, 153, 0.25);
+      border-color: #ec4899;
+      color: #f472b6;
+      font-weight: 800;
+    }
+
+    .video-scrubber-bar-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0.35rem 0;
+    }
+
+    .video-range-slider {
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .video-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #ec4899;
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.8);
+      cursor: grab;
+      transition: transform 0.1s ease;
+    }
+
+    .video-range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    .video-cues-deck {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.85rem;
+      width: 100%;
+    }
+
+    .cue-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cue-card:hover {
+      background: rgba(30, 41, 69, 0.85);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .cue-card.active-cue-card {
+      border-color: var(--cue-border-color, #ec4899);
+      box-shadow: 0 0 20px -3px var(--cue-glow, rgba(236, 72, 153, 0.45));
+    }
+
+    .cue-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--cue-accent, #ec4899);
+    }
+
+    .cue-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .cue-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cue-title-text {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: capitalize;
+      letter-spacing: -0.01em;
+    }
+
+    .cue-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    .btn-cue-jump {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      color: #ffffff;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-cue-jump:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .btn-cue-jump:active {
+      transform: scale(0.97);
+    }
+
+    .btn-cue-jump.cue-shanthamee {
+      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      box-shadow: 0 3px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .btn-cue-jump.cue-ivalkkoruvan {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      box-shadow: 0 3px 12px rgba(236, 72, 153, 0.4);
+    }
+
+    .btn-cue-jump.cue-chettikulangara {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 3px 12px rgba(16, 185, 129, 0.4);
+    }
+
+    .custom-seek-marker-tick {
+      position: absolute;
+      top: -7px;
+      width: 3px;
+      height: 22px;
+      pointer-events: auto;
+      cursor: pointer;
+      transform: translateX(-50%);
+      z-index: 6;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .custom-seek-marker-tick:hover {
+      transform: translateX(-50%) scale(1.3);
+      filter: brightness(1.3);
+    }
+
+    .custom-seek-marker-tick.marker-shanthamee {
+      background: #a78bfa;
+      box-shadow: 0 0 10px #8b5cf6;
+    }
+
+    .custom-seek-marker-tick.marker-ivalkkoruvan {
+      background: #f472b6;
+      box-shadow: 0 0 10px #ec4899;
+    }
+
+    .custom-seek-marker-tick.marker-chettikulangara {
+      background: #34d399;
+      box-shadow: 0 0 10px #10b981;
+    }
+
+    .custom-seek-marker-tick .marker-label {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+    }
+
+    .marker-shanthamee .marker-label { background: #7c3aed; }
+    .marker-ivalkkoruvan .marker-label { background: #db2777; }
+    .marker-chettikulangara .marker-label { background: #059669; }
+
+    .video-shuttle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .video-nudge-group {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .video-secondary-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 0.65rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .video-speed-group, .video-loop-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    /* THEATER EXPANSION */
+    body.video-theater-mode .studio-two-column-layout {
+      grid-template-columns: 1fr !important;
+    }
+
+    body.video-theater-mode .studio-col-left {
+      display: none !important;
+    }
+
+    body.video-theater-mode .ref-video-player {
+      max-height: 78vh !important;
+    }
+
+
+    #videoSpeedSlider::-webkit-slider-thumb {
+      background: #ec4899;
+      box-shadow: 0 0 10px rgba(236, 72, 153, 0.7);
+    }
+
+    #videoSpeedPresetsRow .speed-preset-btn.active {
+      background: rgba(236, 72, 153, 0.25) !important;
+      border-color: #ec4899 !important;
+      color: #f472b6 !important;
+      font-weight: 800;
+    }
+
   </style>
 </head>
 <body>
@@ -1947,9 +2406,14 @@
       <h1>Onam Men's Dance Rehearsal</h1>
       <p class="subtitle">Interactive practice studio with 0.01s precision seeking, individual component track isolation, section repeat loops, tempo adjust, and lead-in countdowns.</p>
 
-      <!-- MULTI-VERSION TABS -->
-      <nav class="version-tabs-nav" aria-label="Audio Routine Version">
-        <button class="tab-btn active-tab final-btn" id="tabFinal260909">
+      <!-- MULTI-VERSION & VIDEO TABS -->
+      <nav class="version-tabs-nav" aria-label="Audio Routine & Video Tabs">
+        <button class="tab-btn video-tab-btn active-tab" id="tabVideo" title="Reference Video with 3 Named Seek Points (shanthamee, ivalkkoruvan, chettikulangara)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span>Video</span>
+          <span class="tab-badge" style="background:rgba(236,72,153,0.25); color:#f472b6;">Fusion Dance • 3 Cues</span>
+        </button>
+        <button class="tab-btn final-btn" id="tabFinal260909">
           <span>Final Mix 260909</span>
           <span class="tab-badge">Baked Cues • 04:13</span>
         </button>
@@ -1969,18 +2433,18 @@
 
       <!-- PROMINENT DOWNLOAD BUTTON -->
       <div class="download-bar">
-        <a id="btnHeaderDownload" href="onam_mens_final_26_0909.mp3" download="onam_mens_final_26_0909.mp3" class="btn-download-primary" title="Download Master MP3">
+        <a id="btnHeaderDownload" href="Fusion Malayalam dance.mp4" download="Fusion Malayalam dance.mp4" class="btn-download-primary" title="Download Master MP3">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
           </svg>
-          <span id="headerDownloadText">Download Final Mix (04:13 MP3)</span>
-          <span class="download-size-pill" id="headerDownloadSize">7.0 MB</span>
+          <span id="headerDownloadText">Download Video (Fusion Malayalam dance.mp4)</span>
+          <span class="download-size-pill" id="headerDownloadSize">28.5 MB</span>
         </a>
       </div>
     </header>
 
     <!-- 2-COLUMN STUDIO LAYOUT (PLAYER DECK LEFT • ROUTINE SEGMENTS RIGHT) -->
-    <div class="studio-two-column-layout">
+    <div class="studio-two-column-layout" id="audioStudioLayout" style="display: none;">
       <!-- LEFT COLUMN: MASTER PLAYER & CONTROLS -->
       <div class="studio-col-left">
 <!-- MAIN STICKY PLAYER -->
@@ -2109,7 +2573,7 @@
           </button>
 
           <!-- Download Button in Player -->
-          <a id="btnPlayerDownload" href="onam_mens_final_26_0909.mp3" download="onam_mens_final_26_0909.mp3" class="btn-toggle btn-download-toggle" title="Download Current Routine Audio (MP3)">
+          <a id="btnPlayerDownload" href="Fusion Malayalam dance.mp4" download="Fusion Malayalam dance.mp4" class="btn-toggle btn-download-toggle" title="Download Current Routine Audio (MP3)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
             <span>Download</span>
           </a>
@@ -2153,6 +2617,10 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
           <span>Individual Component Studio (11 Tracks)</span>
         </button>
+        <button class="btn-view-mode" id="btnViewVideo" style="border-color:rgba(236,72,153,0.35);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+          <span style="color:#f472b6;">Reference Video (3 Song Cues)</span>
+        </button>
       </div>
 
       <div style="font-size:0.82rem; color:#94a3b8; font-weight:600;">
@@ -2192,7 +2660,196 @@
         <!-- Dynamically rendered components -->
       </div>
     </section>
+
+
       </div>
+    </div>
+
+    <!-- DEDICATED FULL-WIDTH VIDEO TAB WORKSPACE -->
+    <div id="videoStudioLayout" class="video-tab-layout" style="display: flex; flex-direction: column; gap: 1.25rem; width: 100%;">
+    <!-- VIEW 3: REFERENCE VIDEO REHEARSAL STUDIO (HOSTING Fusion Malayalam dance.mp4) -->
+    <section id="sectionVideoPlayerView" style="display: block; width: 100%;">
+      <div class="section-title">
+        <div class="section-title-left">
+          <span>🎬 Reference Choreography Video</span>
+          <span class="section-count">(Fusion Malayalam dance.mp4 • 05:14)</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span style="background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.35); color:#f472b6; font-size:0.75rem; font-weight:700; padding:0.25rem 0.65rem; border-radius:999px;">
+            🎯 3 Named Seek Points: 0:28 shanthamee • 1:01 ivalkkoruvan • 2:06 chettikulangara
+          </span>
+          <button id="btnTheaterMode" class="btn-action" style="padding:0.3rem 0.75rem; font-size:0.78rem;" title="Toggle Full Theater Width">
+            ⛶ Theater View
+          </button>
+        </div>
+      </div>
+
+      <div class="video-studio-card">
+        <!-- 3 NAMED CUSTOM SEEK POINTS DECK -->
+        <div class="video-cues-deck">
+          <!-- CUE 1: shanthamee @ 0:28 -->
+          <div class="cue-card" id="cueCardShanthamee" style="--cue-accent:#8b5cf6; --cue-border-color:#8b5cf6; --cue-glow:rgba(139,92,246,0.5);" onclick="seekVideoPrecise(28.0, true)">
+            <div class="cue-card-header">
+              <div class="cue-name-row">
+                <span class="pulse-dot" style="background:#8b5cf6; box-shadow:0 0 8px #8b5cf6;"></span>
+                <span class="cue-title-text">shanthamee</span>
+              </div>
+              <span class="cue-badge" style="background:rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.4); color:#a78bfa;">00:28.00</span>
+            </div>
+            <button class="btn-cue-jump cue-shanthamee" onclick="event.stopPropagation(); seekVideoPrecise(28.0, true);" title="Jump to 0:28 shanthamee">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+              <span>Jump to 0:28 (shanthamee)</span>
+            </button>
+          </div>
+
+          <!-- CUE 2: ivalkkoruvan @ 1:01 -->
+          <div class="cue-card active-cue-card" id="cueCardIvalkkoruvan" style="--cue-accent:#ec4899; --cue-border-color:#ec4899; --cue-glow:rgba(236,72,153,0.5);" onclick="seekVideoPrecise(61.0, true)">
+            <div class="cue-card-header">
+              <div class="cue-name-row">
+                <span class="pulse-dot-pink"></span>
+                <span class="cue-title-text">ivalkkoruvan</span>
+              </div>
+              <span class="cue-badge" style="background:rgba(236,72,153,0.18); border:1px solid rgba(236,72,153,0.4); color:#f472b6;">01:01.00</span>
+            </div>
+            <button class="btn-cue-jump cue-ivalkkoruvan" id="btnJumpToOneZeroOne" onclick="event.stopPropagation(); seekVideoPrecise(61.0, true);" title="Jump to 1:01 ivalkkoruvan">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+              <span>Jump to 1:01 (ivalkkoruvan)</span>
+            </button>
+          </div>
+
+          <!-- CUE 3: chettikulangara @ 2:06 -->
+          <div class="cue-card" id="cueCardChettikulangara" style="--cue-accent:#10b981; --cue-border-color:#10b981; --cue-glow:rgba(16,185,129,0.5);" onclick="seekVideoPrecise(126.0, true)">
+            <div class="cue-card-header">
+              <div class="cue-name-row">
+                <span class="pulse-dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span>
+                <span class="cue-title-text">chettikulangara</span>
+              </div>
+              <span class="cue-badge" style="background:rgba(16,185,129,0.18); border:1px solid rgba(16,185,129,0.4); color:#34d399;">02:06.00</span>
+            </div>
+            <button class="btn-cue-jump cue-chettikulangara" onclick="event.stopPropagation(); seekVideoPrecise(126.0, true);" title="Jump to 2:06 chettikulangara">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+              <span>Jump to 2:06 (chettikulangara)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- VIDEO PLAYER EMBED -->
+        <div class="video-container-wrapper" id="videoContainerWrapper">
+          <video id="refVideo" class="ref-video-player" playsinline preload="metadata" controls>
+            <source src="Fusion Malayalam dance.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- VIDEO SCRUBBER & PRECISION CONTROLS -->
+        <div class="video-controls-panel">
+          <div class="video-time-row">
+            <div class="video-time-readout">
+              <span id="videoCurrentTimeText" class="video-time-bold">00:00.00</span>
+              <span style="color:#64748b;">/</span>
+              <span id="videoTotalTimeText">05:14.72</span>
+              <span class="precision-badge-pink">0.01s Precision</span>
+            </div>
+
+            <!-- QUICK JUMP PRESETS FOR 3 CUES -->
+            <div class="video-seek-presets">
+              <span style="font-size:0.75rem; color:#94a3b8; font-weight:700;">SONG CUES:</span>
+              <button class="btn-preset-seek" id="presetSeekShanthamee" onclick="seekVideoPrecise(28.0, true)">★ 0:28 shanthamee</button>
+              <button class="btn-preset-seek active-preset" id="presetSeekIvalkkoruvan" onclick="seekVideoPrecise(61.0, true)">★ 1:01 ivalkkoruvan</button>
+              <button class="btn-preset-seek" id="presetSeekChettikulangara" onclick="seekVideoPrecise(126.0, true)">★ 2:06 chettikulangara</button>
+              <span style="font-size:0.75rem; color:#64748b;">•</span>
+              <button class="btn-preset-seek" onclick="seekVideoPrecise(0.0)">0:00 (Start)</button>
+              <button class="btn-preset-seek" onclick="seekVideoPrecise(180.0)">3:00</button>
+            </div>
+          </div>
+
+          <!-- 0.01s Scrub Slider with 3 Named Markers -->
+          <div class="video-scrubber-bar-container">
+            <input type="range" id="videoPrecisionScrubber" class="video-range-slider" min="0" max="314.72" step="0.01" value="0">
+            
+            <!-- Marker 1: shanthamee @ 0:28 (8.90%) -->
+            <div class="custom-seek-marker-tick marker-shanthamee" id="markerShanthamee" style="left: 8.90%;" onclick="seekVideoPrecise(28.0, true)" title="0:28 - shanthamee">
+              <span class="marker-label">0:28 shanthamee</span>
+            </div>
+
+            <!-- Marker 2: ivalkkoruvan @ 1:01 (19.38%) -->
+            <div class="custom-seek-marker-tick marker-ivalkkoruvan" id="markerIvalkkoruvan" style="left: 19.38%;" onclick="seekVideoPrecise(61.0, true)" title="1:01 - ivalkkoruvan">
+              <span class="marker-label">1:01 ivalkkoruvan</span>
+            </div>
+
+            <!-- Marker 3: chettikulangara @ 2:06 (40.04%) -->
+            <div class="custom-seek-marker-tick marker-chettikulangara" id="markerChettikulangara" style="left: 40.04%;" onclick="seekVideoPrecise(126.0, true)" title="2:06 - chettikulangara">
+              <span class="marker-label">2:06 chettikulangara</span>
+            </div>
+          </div>
+
+          <!-- Nudge Controls & Direct Numeric Input -->
+          <div class="video-shuttle-row">
+            <div class="video-nudge-group">
+              <span style="font-size:0.72rem; font-weight:700; color:#94a3b8; text-transform:uppercase;">NUDGE:</span>
+              <button class="btn-nudge" onclick="nudgeVideo(-5.0)">-5s</button>
+              <button class="btn-nudge" onclick="nudgeVideo(-1.0)">-1s</button>
+              <button class="btn-nudge fine" onclick="nudgeVideo(-0.1)">-0.1s</button>
+              <button class="btn-nudge fine" onclick="nudgeVideo(-0.01)">-0.01s</button>
+              <button class="btn-nudge fine" onclick="nudgeVideo(0.01)">+0.01s</button>
+              <button class="btn-nudge fine" onclick="nudgeVideo(0.1)">+0.1s</button>
+              <button class="btn-nudge" onclick="nudgeVideo(1.0)">+1s</button>
+              <button class="btn-nudge" onclick="nudgeVideo(5.0)">+5s</button>
+            </div>
+
+            <div class="precision-input-group">
+              <span style="font-size:0.72rem; font-weight:700; color:#94a3b8;">JUMP TO:</span>
+              <input type="text" id="videoDirectTimeInput" class="time-input-field" value="01:01.00" placeholder="01:01.00">
+              <button class="btn-seek-jump" id="btnVideoDirectJump">Go</button>
+            </div>
+          </div>
+
+          <!-- Secondary Speed Slider & Repeat Loops -->
+          <div class="video-secondary-controls">
+            <!-- Full Playback Speed Slider (0.1x to 3.0x) -->
+            <div class="speed-slider-container" id="videoSpeedSliderContainer" style="flex: 1 1 320px; max-width: 480px; background: rgba(10, 15, 30, 0.85); border-color: rgba(236,72,153,0.28);">
+              <div class="speed-slider-header">
+                <span class="speed-label" style="color: #f472b6;">⚡ Video Playback Speed</span>
+                <div style="display:flex; align-items:center; gap:0.4rem;">
+                  <span class="speed-value-badge" id="videoSpeedValueText" style="color:#f472b6; border-color:rgba(236,72,153,0.35); background:rgba(236,72,153,0.15);" title="Click to reset to 1.00x">1.00x</span>
+                  <button class="btn-speed-reset" id="btnVideoSpeedReset" title="Reset to 1.00x (Normal Speed)">Reset 1x</button>
+                </div>
+              </div>
+              <div class="speed-slider-row">
+                <span class="speed-limit-label">0.1x</span>
+                <input type="range" id="videoSpeedSlider" class="speed-range-slider" min="0.1" max="3.0" step="0.05" value="1.0" title="Drag to adjust video playback speed smoothly in real time (0.1x to 3.0x)">
+                <span class="speed-limit-label">3.0x</span>
+              </div>
+              <div class="speed-presets-row" id="videoSpeedPresetsRow">
+                <button class="speed-preset-btn" data-speed="0.25">0.25x</button>
+                <button class="speed-preset-btn" data-speed="0.5">0.5x</button>
+                <button class="speed-preset-btn" data-speed="0.75">0.75x</button>
+                <button class="speed-preset-btn active" data-speed="1.0">1.0x</button>
+                <button class="speed-preset-btn" data-speed="1.25">1.25x</button>
+                <button class="speed-preset-btn" data-speed="1.5">1.5x</button>
+                <button class="speed-preset-btn" data-speed="2.0">2.0x</button>
+              </div>
+            </div>
+
+            <!-- Practice Section Loops -->
+            <div class="video-loop-group" style="flex: 1 1 280px; justify-content: flex-end;">
+              <button class="btn-toggle" id="btnLoopShanthamee" onclick="toggleCueLoop('shanthamee', 28.0, 61.0)" title="Loop Shanthamee section (0:28 - 1:01)">
+                🔁 Loop shanthamee (0:28 - 1:01)
+              </button>
+              <button class="btn-toggle" id="btnLoopIvalkkoruvan" onclick="toggleCueLoop('ivalkkoruvan', 61.0, 126.0)" title="Loop Ivalkkoruvan section (1:01 - 2:06)">
+                🔁 Loop ivalkkoruvan (1:01 - 2:06)
+              </button>
+              <button class="btn-toggle" id="btnLoopChettikulangara" onclick="toggleCueLoop('chettikulangara', 126.0, 186.0)" title="Loop Chettikulangara section (2:06 - 3:06)">
+                🔁 Loop chettikulangara (2:06 - 3:06)
+              </button>
+              <button class="btn-toggle" id="btnVideoLoopAll" title="Loop entire video">
+                🔂 Loop All
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     </div>
 
     <!-- KEYBOARD SHORTCUTS REFERENCE -->
@@ -2203,6 +2860,7 @@
       <div class="shortcut-item"><kbd>L</kbd> Loop Current Song</div>
       <div class="shortcut-item"><kbd>C</kbd> Toggle Ready Countdown</div>
       <div class="shortcut-item"><kbd>W</kbd> Toggle Waveform</div>
+      <div class="shortcut-item"><kbd>V</kbd> Reference Video (1:01 Cue)</div>
     </footer>
   </div>
 
@@ -2691,6 +3349,32 @@
     const tabCurrent = document.getElementById('tabCurrent');
     const tabBackup = document.getElementById('tabBackup');
     const tabLegacy = document.getElementById('tabLegacy');
+    const tabVideo = document.getElementById('tabVideo');
+
+    // Video View Elements
+    const btnViewVideo = document.getElementById('btnViewVideo');
+    const sectionVideoPlayerView = document.getElementById('sectionVideoPlayerView');
+    const refVideo = document.getElementById('refVideo');
+    const videoCurrentTimeText = document.getElementById('videoCurrentTimeText');
+    const videoTotalTimeText = document.getElementById('videoTotalTimeText');
+    const videoPrecisionScrubber = document.getElementById('videoPrecisionScrubber');
+    const videoDirectTimeInput = document.getElementById('videoDirectTimeInput');
+    const btnVideoDirectJump = document.getElementById('btnVideoDirectJump');
+    const btnJumpToOneZeroOne = document.getElementById('btnJumpToOneZeroOne');
+    const btnSetCurrentAsCustom = document.getElementById('btnSetCurrentAsCustom');
+    const btnTheaterMode = document.getElementById('btnTheaterMode');
+    const btnVideoLoopCue = document.getElementById('btnVideoLoopCue');
+    const btnVideoLoopAll = document.getElementById('btnVideoLoopAll');
+
+    // 3 Named Custom Seek Points: 0:28 (shanthamee), 1:01 (ivalkkoruvan), 2:06 (chettikulangara)
+    const VIDEO_SEEK_POINTS = {
+      shanthamee: { time: 28.0, name: "shanthamee", label: "0:28" },
+      ivalkkoruvan: { time: 61.0, name: "ivalkkoruvan", label: "1:01" },
+      chettikulangara: { time: 126.0, name: "chettikulangara", label: "2:06" }
+    };
+    let customSeekTargetTime = 61.0;
+    let activeCueLoop = null; // null or { name, start, end }
+    let isVideoLoopAllActive = false;
     const btnPlayPause = document.getElementById('btnPlayPause');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
@@ -3183,17 +3867,26 @@
       audio.play().catch(() => {});
     }
 
-    // SWITCH VERSION FUNCTION
+    // SWITCH VERSION FUNCTION (AUDIO TAB)
     function switchRoutine(routineKey) {
-      if (currentRoutineKey === routineKey) return;
       currentRoutineKey = routineKey;
       activeRoutine = ROUTINES[routineKey];
+
+      // Show Audio Studio Layout, Hide Video Studio Layout
+      const audioLayout = document.getElementById('audioStudioLayout');
+      const videoLayout = document.getElementById('videoStudioLayout');
+      if (audioLayout) audioLayout.style.display = 'grid';
+      if (videoLayout) videoLayout.style.display = 'none';
 
       // Update tabs UI
       if (tabFinal260909) tabFinal260909.classList.toggle('active-tab', routineKey === 'final260909');
       tabCurrent.classList.toggle('active-tab', routineKey === 'current');
       tabBackup.classList.toggle('active-tab', routineKey === 'backup');
       tabLegacy.classList.toggle('active-tab', routineKey === 'legacy');
+      if (tabVideo) tabVideo.classList.remove('active-tab');
+
+      // Pause reference video
+      if (refVideo) refVideo.pause();
 
       stopAllSoloComponents();
 
@@ -3597,23 +4290,300 @@
       });
     });
 
-    // VIEW MODE SWITCHING (Timeline vs Component Studio)
+    // OPEN VIDEO TAB FUNCTION (FULL-WIDTH VIDEO TAB)
+    function openVideoTab(targetSeek = 61.0) {
+      // Pause audio routines
+      audio.pause();
+      stopAllSoloComponents();
+
+      // Hide Audio Studio Layout, Show Video Studio Layout
+      const audioLayout = document.getElementById('audioStudioLayout');
+      const videoLayout = document.getElementById('videoStudioLayout');
+      if (audioLayout) audioLayout.style.display = 'none';
+      if (videoLayout) videoLayout.style.display = 'flex';
+
+      // Update header tabs UI
+      if (tabFinal260909) tabFinal260909.classList.remove('active-tab');
+      tabCurrent.classList.remove('active-tab');
+      tabBackup.classList.remove('active-tab');
+      tabLegacy.classList.remove('active-tab');
+      if (tabVideo) tabVideo.classList.add('active-tab');
+
+      // Update download button for Video
+      if (btnHeaderDownload) {
+        btnHeaderDownload.href = 'Fusion Malayalam dance.mp4';
+        btnHeaderDownload.download = 'Fusion Malayalam dance.mp4';
+      }
+      if (headerDownloadText) headerDownloadText.textContent = 'Download Video (Fusion Malayalam dance.mp4)';
+      if (headerDownloadSize) headerDownloadSize.textContent = '28.5 MB';
+
+      // Seek to target point
+      if (targetSeek !== undefined && targetSeek !== null && refVideo) {
+        if (refVideo.readyState >= 1) {
+          seekVideoPrecise(targetSeek);
+        } else {
+          refVideo.addEventListener('loadedmetadata', () => {
+            seekVideoPrecise(targetSeek);
+          }, { once: true });
+        }
+      }
+    }
+
+    // VIEW MODE SWITCHING (Timeline vs Component Studio vs Reference Video)
     btnViewTimeline.addEventListener('click', () => {
       btnViewTimeline.classList.add('active');
       btnViewComponents.classList.remove('active');
+      if (btnViewVideo) btnViewVideo.classList.remove('active');
+      if (tabVideo) tabVideo.classList.remove('active-tab');
+
+      // Restore active routine tab
+      if (currentRoutineKey === 'final260909' && tabFinal260909) tabFinal260909.classList.add('active-tab');
+      else if (currentRoutineKey === 'current') tabCurrent.classList.add('active-tab');
+      else if (currentRoutineKey === 'backup') tabBackup.classList.add('active-tab');
+      else if (currentRoutineKey === 'legacy') tabLegacy.classList.add('active-tab');
+
+      if (refVideo) refVideo.pause();
       sectionTimelineView.style.display = 'block';
       sectionComponentStudioView.style.display = 'none';
+      if (sectionVideoPlayerView) sectionVideoPlayerView.style.display = 'none';
     });
 
-        btnViewComponents.addEventListener('click', () => {
+    btnViewComponents.addEventListener('click', () => {
       btnViewComponents.classList.add('active');
       btnViewTimeline.classList.remove('active');
+      if (btnViewVideo) btnViewVideo.classList.remove('active');
+      if (tabVideo) tabVideo.classList.remove('active-tab');
+
+      // Restore active routine tab
+      if (currentRoutineKey === 'final260909' && tabFinal260909) tabFinal260909.classList.add('active-tab');
+      else if (currentRoutineKey === 'current') tabCurrent.classList.add('active-tab');
+      else if (currentRoutineKey === 'backup') tabBackup.classList.add('active-tab');
+      else if (currentRoutineKey === 'legacy') tabLegacy.classList.add('active-tab');
+
+      if (refVideo) refVideo.pause();
       sectionTimelineView.style.display = 'none';
       sectionComponentStudioView.style.display = 'block';
+      if (sectionVideoPlayerView) sectionVideoPlayerView.style.display = 'none';
       setTimeout(() => {
         Object.values(window.compWaveRenderers).forEach(fn => fn());
       }, 50);
     });
+
+    if (tabVideo) tabVideo.addEventListener('click', () => openVideoTab(61.0));
+    if (btnViewVideo) btnViewVideo.addEventListener('click', () => openVideoTab(61.0));
+
+    // REFERENCE VIDEO CONTROLLER FUNCTIONS
+    function seekVideoPrecise(targetSeconds, autoPlay = false) {
+      if (!refVideo) return;
+      const dur = refVideo.duration || 314.72;
+      const clamped = Math.max(0, Math.min(dur, parseFloat(targetSeconds.toFixed(2))));
+      refVideo.currentTime = clamped;
+      if (videoPrecisionScrubber) videoPrecisionScrubber.value = clamped.toFixed(2);
+      if (videoCurrentTimeText) videoCurrentTimeText.textContent = formatTimePrecise(clamped);
+      if (videoDirectTimeInput) videoDirectTimeInput.value = formatTimePrecise(clamped);
+
+      // Highlight active cue card and preset
+      highlightActiveCueCard(clamped);
+
+      if (autoPlay) {
+        refVideo.play().catch(() => {});
+      }
+    }
+
+    function highlightActiveCueCard(time) {
+      const cShanthamee = document.getElementById('cueCardShanthamee');
+      const cIvalkkoruvan = document.getElementById('cueCardIvalkkoruvan');
+      const cChettikulangara = document.getElementById('cueCardChettikulangara');
+
+      const pShanthamee = document.getElementById('presetSeekShanthamee');
+      const pIvalkkoruvan = document.getElementById('presetSeekIvalkkoruvan');
+      const pChettikulangara = document.getElementById('presetSeekChettikulangara');
+
+      if (cShanthamee) cShanthamee.classList.toggle('active-cue-card', Math.abs(time - 28.0) < 1.0);
+      if (cIvalkkoruvan) cIvalkkoruvan.classList.toggle('active-cue-card', Math.abs(time - 61.0) < 1.0);
+      if (cChettikulangara) cChettikulangara.classList.toggle('active-cue-card', Math.abs(time - 126.0) < 1.0);
+
+      if (pShanthamee) pShanthamee.classList.toggle('active-preset', Math.abs(time - 28.0) < 1.0);
+      if (pIvalkkoruvan) pIvalkkoruvan.classList.toggle('active-preset', Math.abs(time - 61.0) < 1.0);
+      if (pChettikulangara) pChettikulangara.classList.toggle('active-preset', Math.abs(time - 126.0) < 1.0);
+    }
+
+    function toggleCueLoop(name, start, end) {
+      if (activeCueLoop && activeCueLoop.name === name) {
+        // Deactivate loop
+        activeCueLoop = null;
+        updateLoopButtonStyles();
+      } else {
+        // Activate this cue loop
+        activeCueLoop = { name, start, end };
+        isVideoLoopAllActive = false;
+        if (btnVideoLoopAll) btnVideoLoopAll.classList.remove('active');
+        updateLoopButtonStyles();
+        seekVideoPrecise(start, true);
+      }
+    }
+
+    function updateLoopButtonStyles() {
+      const bS = document.getElementById('btnLoopShanthamee');
+      const bI = document.getElementById('btnLoopIvalkkoruvan');
+      const bC = document.getElementById('btnLoopChettikulangara');
+
+      if (bS) bS.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'shanthamee');
+      if (bI) bI.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'ivalkkoruvan');
+      if (bC) bC.classList.toggle('active', activeCueLoop && activeCueLoop.name === 'chettikulangara');
+    }
+
+    function nudgeVideo(deltaSeconds) {
+      if (!refVideo) return;
+      seekVideoPrecise(refVideo.currentTime + deltaSeconds);
+    }
+
+    const videoSpeedSlider = document.getElementById('videoSpeedSlider');
+    const videoSpeedValueText = document.getElementById('videoSpeedValueText');
+    const btnVideoSpeedReset = document.getElementById('btnVideoSpeedReset');
+
+    function setVideoPlaybackSpeed(rate) {
+      if (!refVideo) return;
+      const clamped = Math.max(0.1, Math.min(3.0, parseFloat(rate.toFixed(2))));
+      refVideo.playbackRate = clamped;
+      if (videoSpeedSlider) videoSpeedSlider.value = clamped;
+      if (videoSpeedValueText) videoSpeedValueText.textContent = `${clamped.toFixed(2)}x`;
+
+      // Synchronize active preset button highlight
+      document.querySelectorAll('#videoSpeedPresetsRow .speed-preset-btn').forEach(btn => {
+        const s = parseFloat(btn.dataset.speed);
+        btn.classList.toggle('active', Math.abs(s - clamped) < 0.04);
+      });
+    }
+
+    function setVideoSpeed(rate) {
+      setVideoPlaybackSpeed(rate);
+    }
+
+    if (videoSpeedSlider) {
+      videoSpeedSlider.addEventListener('input', (e) => {
+        setVideoPlaybackSpeed(parseFloat(e.target.value));
+      });
+    }
+
+    if (videoSpeedValueText) {
+      videoSpeedValueText.addEventListener('click', () => setVideoPlaybackSpeed(1.0));
+    }
+
+    if (btnVideoSpeedReset) {
+      btnVideoSpeedReset.addEventListener('click', () => setVideoPlaybackSpeed(1.0));
+    }
+
+    document.querySelectorAll('#videoSpeedPresetsRow .speed-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const s = parseFloat(btn.dataset.speed);
+        setVideoPlaybackSpeed(s);
+      });
+    });
+
+    if (refVideo) {
+      refVideo.addEventListener('loadedmetadata', () => {
+        const dur = refVideo.duration || 314.72;
+        if (videoTotalTimeText) videoTotalTimeText.textContent = formatTimePrecise(dur);
+        if (videoPrecisionScrubber) videoPrecisionScrubber.max = dur.toFixed(2);
+        
+        // Update all 3 seek markers
+        const mShanthamee = document.getElementById('markerShanthamee');
+        const mIvalkkoruvan = document.getElementById('markerIvalkkoruvan');
+        const mChettikulangara = document.getElementById('markerChettikulangara');
+
+        if (mShanthamee) mShanthamee.style.left = `${(28.0 / dur) * 100}%`;
+        if (mIvalkkoruvan) mIvalkkoruvan.style.left = `${(61.0 / dur) * 100}%`;
+        if (mChettikulangara) mChettikulangara.style.left = `${(126.0 / dur) * 100}%`;
+      });
+
+      refVideo.addEventListener('timeupdate', () => {
+        const cur = refVideo.currentTime;
+        if (videoCurrentTimeText) videoCurrentTimeText.textContent = formatTimePrecise(cur);
+        if (videoPrecisionScrubber && !videoPrecisionScrubber.matches(':active')) {
+          videoPrecisionScrubber.value = cur.toFixed(2);
+        }
+
+        // Handle Active Section Cue Loops
+        if (activeCueLoop) {
+          if (cur >= activeCueLoop.end || cur < activeCueLoop.start - 0.5) {
+            refVideo.currentTime = activeCueLoop.start;
+          }
+        }
+      });
+
+      refVideo.addEventListener('ended', () => {
+        if (isVideoLoopAllActive) {
+          refVideo.currentTime = 0;
+          refVideo.play().catch(() => {});
+        }
+      });
+    }
+
+    if (videoPrecisionScrubber) {
+      videoPrecisionScrubber.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        if (refVideo) refVideo.currentTime = val;
+        if (videoCurrentTimeText) videoCurrentTimeText.textContent = formatTimePrecise(val);
+        if (videoDirectTimeInput) videoDirectTimeInput.value = formatTimePrecise(val);
+      });
+    }
+
+    if (btnJumpToOneZeroOne) {
+      btnJumpToOneZeroOne.addEventListener('click', () => {
+        seekVideoPrecise(61.0, true);
+      });
+    }
+
+    if (btnVideoDirectJump && videoDirectTimeInput) {
+      btnVideoDirectJump.addEventListener('click', () => {
+        const val = videoDirectTimeInput.value.trim();
+        let target = 0;
+        if (val.includes(':')) {
+          const parts = val.split(':');
+          const mins = parseFloat(parts[0]) || 0;
+          const secs = parseFloat(parts[1]) || 0;
+          target = mins * 60 + secs;
+        } else {
+          target = parseFloat(val) || 0;
+        }
+        seekVideoPrecise(target);
+      });
+
+      videoDirectTimeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') btnVideoDirectJump.click();
+      });
+    }
+
+    if (btnTheaterMode) {
+      btnTheaterMode.addEventListener('click', () => {
+        document.body.classList.toggle('video-theater-mode');
+        const isActive = document.body.classList.contains('video-theater-mode');
+        btnTheaterMode.textContent = isActive ? '✕ Exit Theater' : '⛶ Theater View';
+      });
+    }
+
+    if (btnVideoLoopAll) {
+      btnVideoLoopAll.addEventListener('click', () => {
+        isVideoLoopAllActive = !isVideoLoopAllActive;
+        btnVideoLoopAll.classList.toggle('active', isVideoLoopAllActive);
+        if (isVideoLoopAllActive) {
+          activeCueLoop = null;
+          updateLoopButtonStyles();
+          if (refVideo) refVideo.loop = true;
+        } else {
+          if (refVideo) refVideo.loop = false;
+        }
+      });
+    }
+
+    // Initial Tab Routing
+    if (window.location.hash === '#audio' || window.location.hash === '#final') {
+      switchRoutine('final260909');
+    } else {
+      // Default to Video Tab so user immediately sees the Video workspace
+      openVideoTab(61.0);
+    }
 
     // Window resize handler for waveform canvases
     window.addEventListener('resize', () => {
@@ -3629,13 +4599,33 @@
 
       if (e.code === 'Space') {
         e.preventDefault();
-        btnPlayPause.click();
+        if (sectionVideoPlayerView && sectionVideoPlayerView.style.display !== 'none' && refVideo) {
+          if (refVideo.paused) refVideo.play().catch(() => {});
+          else refVideo.pause();
+        } else {
+          btnPlayPause.click();
+        }
       } else if (e.code === 'ArrowLeft') {
         e.preventDefault();
-        seekToPrecise(audio.currentTime - 5);
+        if (sectionVideoPlayerView && sectionVideoPlayerView.style.display !== 'none' && refVideo) {
+          nudgeVideo(-5);
+        } else {
+          seekToPrecise(audio.currentTime - 5);
+        }
       } else if (e.code === 'ArrowRight') {
         e.preventDefault();
-        seekToPrecise(audio.currentTime + 5);
+        if (sectionVideoPlayerView && sectionVideoPlayerView.style.display !== 'none' && refVideo) {
+          nudgeVideo(5);
+        } else {
+          seekToPrecise(audio.currentTime + 5);
+        }
+      } else if (e.key.toLowerCase() === 'v') {
+        e.preventDefault();
+        if (sectionVideoPlayerView && sectionVideoPlayerView.style.display !== 'none') {
+          btnViewTimeline.click();
+        } else {
+          openVideoTab(61.0);
+        }
       } else if (e.key === '[') {
         e.preventDefault();
         document.getElementById('btnPrevSection').click();

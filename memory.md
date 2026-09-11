@@ -33,8 +33,13 @@
   - Tap-to-skip 3-second ready countdown (default OFF per dancer feedback).
   - **Audio Waveform & Beat Transient Graph:** Interactive canvas showing audio peaks and beat drops/clave spikes. Kept **OFF by default** to maximize player compactness; toggleable on/off anytime via the `📊 Waveform: OFF/ON` control button, status tag, panel header `✕ Hide`, or `W` keyboard shortcut.
   - **Real-Time Tempo Speed Slider (0.1x to 4.0x):** Dynamic smooth range slider allowing playback speed adjustments from ultra-slow motion (0.10x) up to 4.0x while playing any audio (master routine mix, individual component solo tracks, and countdown cues), with quick presets (0.25x, 0.5x, 0.75x, 1.0x, 1.25x, 1.5x, 2.0x) and single-click 1x reset.
+  - **Reference Video Rehearsal Studio (`Fusion Malayalam dance.mp4`):** Dedicated video player tab accessible via header tabs (`Video • Fusion Dance • 3 Cues`) and view switcher (`Reference Video`), hosting the 05:14 reference video with **3 named song seek points**:
+    - **`shanthamee`** at **0:28** (`00:28.00` • 8.90% marker tick)
+    - **`ivalkkoruvan`** at **1:01** (`01:01.00` • 19.38% marker tick)
+    - **`chettikulangara`** at **2:06** (`02:06.00` • 40.04% marker tick)
+    Includes individual jump cue cards, interactive timeline tick markers, quick jump presets, individual section A-B repeat loops (`shanthamee 0:28-1:01`, `ivalkkoruvan 1:01-2:06`, `chettikulangara 2:06-3:06`), 0.01s scrub slider, micro-nudges (`±0.01s` to `±5s`), **smooth real-time video playback speed slider (0.1x to 3.0x)** with live readout badge, quick presets (0.25x-2.0x), reset 1x, and theater view.
   - A-B section repeat loops.
-  - Keyboard shortcuts: Space (Play/Pause), Left/Right (Seek ±5s), `[` / `]` (Prev/Next Song), `L` (Loop Song), `C` (Countdown), `W` (Toggle Waveform).
+  - Keyboard shortcuts: Space (Play/Pause), Left/Right (Seek ±5s), `[` / `]` (Prev/Next Song), `L` (Loop Song), `C` (Countdown), `W` (Toggle Waveform), `V` (Toggle Reference Video).
 
 ---
 
