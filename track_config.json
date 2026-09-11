@@ -36,10 +36,11 @@
       "duration_note": "9.69s (first 0.56s removed)"
     },
     {
-      "file": "ivalkoruvan song.mp3",
+      "file": "ivalkoruvan_new.mp3",
       "title": "Ivalkoruvan Song",
       "badge": "Song 3",
-      "color": "#d946ef"
+      "color": "#d946ef",
+      "duration_note": "29.0s (2s fade in & 2s fade out)"
     },
     {
       "file": "Njanondaliyanum (0m12s-1m06s).mp3",
