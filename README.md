@@ -1,9 +1,19 @@
-# Onam Men's Dance 2026 - Rehearsal Studio
+# Men's Dance | Oulu Onam 2026
 
-Interactive practice hub and audio player with instant section seeking, A-B repeat loops, tempo controls, countdown ready timers, pause cue beat preview system, and multi-version routine tabs.
+Official live stage performance recordings from Oulu Onam 2026, interactive practice hub and audio player with instant section seeking, A-B repeat loops, tempo controls, countdown ready timers, pause cue beat preview system, and multi-version routine tabs.
 
-### 🌐 Live Rehearsal Player (GitHub Pages)
-👉 **[Open Dance Practice Player](https://vinchess1989.github.io/onam-mens-dance-2026/)**
+### 🌐 Live Rehearsal & Event Player (GitHub Pages)
+👉 **[Open Men's Dance Player](https://vinchess1989.github.io/onam-mens-dance-2026/)**
+
+---
+
+## 🎬 Event Videos (Live Stage Performance Recordings)
+Available directly on the home page under the **"Event videos"** tab:
+1. **Angle 1 — Side Stage Left View** (`WhatsApp Video 2026-09-12 at 17.55.13.mp4` • 05:40 • 56.2 MB)
+2. **Angle 2 — Center Stage Wide View** (`WhatsApp Video 2026-09-12 at 19.17.08.mp4` • 05:56 • 35.6 MB)
+3. **Angle 3 — Front Stage HD View** (`WhatsApp Video 2026-09-12 at 20.30.01.mp4` • 06:53 • 92.2 MB)
+
+*Includes direct in-browser **Upload Original Version** replacement links under each video to view camera 4K/HD quality footage, as well as shared cloud upload links.*
 
 ---
 
