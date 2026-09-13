@@ -1,0 +1,81 @@
+{
+  "hosting": {
+    "site": "vk-onam-dance",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "scratch/**",
+      "*.bak",
+      "*.py",
+      "*.pyc",
+      "*.code-workspace",
+      ".git/**",
+      "* (Full HD 1080p).mp4",
+      "*backup*",
+      "* (original*).*",
+      "*_extended_*.*",
+      "*_only*.*",
+      "Onam Mood with Applause*.*",
+      "Songs 2 + Dialogue 2 + Song 3.*",
+      "Njanondaliyanum*.*",
+      "Mention your Sablazki*.*",
+      "mani_and_vel_muruga.*",
+      "Applause Crowd Cheering*.*",
+      "test_*.*",
+      "chettikulangara*.*",
+      "ivalkoruvan*.*",
+      "shanthamee rathri*.*",
+      "Sablazki Dance Squad*.*",
+      "sablazki dialogue.*",
+      "pondicherry dialogue*.*",
+      "Kalyanaraman (*.*",
+      "Velmuruka Harohara (*.*",
+      "Fusion Malayalam dance.mp3",
+      "Song 1 - chettikulangara.mp3",
+      "youtube_cookies.txt",
+      "memory.md",
+      "README.md",
+      "track_config.json",
+      "Onam Mood - Sahasam (*.*"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(mp4|mov|webm)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Accept-Ranges",
+            "value": "bytes"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(mp3|wav|ogg)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Accept-Ranges",
+            "value": "bytes"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      }
+    ]
+  }
+}

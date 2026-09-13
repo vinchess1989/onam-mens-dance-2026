@@ -4,6 +4,7 @@
 **Men's Dance | Oulu Onam 2026** is the official media platform and interactive rehearsal studio for the 2026 Onam Men's stage performance routine. It hosts live multi-angle stage performance event videos recorded on September 12, 2026, a custom-engineered 9-track master audio mix, in-browser original 4K/HD video upload replacements, and a mobile-optimized web rehearsal studio with instant section seeking, A-B looping, tempo control, multi-version routine tabs, and an interactive choreography pause cue beat system.
 
 - **GitHub Repository:** `https://github.com/vinchess1989/onam-mens-dance-2026`
+- **Hosted Web Studio (Firebase Hosting):** `https://vk-onam-dance.web.app` (also `https://vk-onam-dance.firebaseapp.com`)
 - **Hosted Web Studio (GitHub Pages):** `https://vinchess1989.github.io/onam-mens-dance-2026/`
 - **Home Page Default View:** **Event videos** Tab (`WhatsApp Video 2026-09-12 at 17.55.13.mp4` / `IMG_9331.MOV` [Original Full HD 1080p 60fps], `WhatsApp Video 2026-09-12 at 19.17.08.mp4`, `WhatsApp Video 2026-09-12 at 20.30.01.mp4`)
 - **Master Audio (Baked Cues):** [`onam_mens_final_26_0909.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mens_final_26_0909.mp3) (4m 12.7s / 252.70s)
@@ -98,6 +99,12 @@ powershell -ExecutionPolicy Bypass -Command "& 'C:\Users\vinee\screen translator
 ```powershell
 powershell -ExecutionPolicy Bypass -Command "& 'C:\Users\vinee\screen translator\venv\Scripts\python.exe' 'generate_3tab_player.py'"
 ```
+
+### Deploying to Firebase Hosting (`vk-onam-dance` in `misc-vk`)
+```bash
+firebase deploy --only hosting
+```
+The site deploys instantly to `https://vk-onam-dance.web.app` with HTTP byte-range media streaming headers.
 
 ### Deploying to GitHub Pages
 ```bash
