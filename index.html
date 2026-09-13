@@ -5313,7 +5313,11 @@
           <button class="btn-revert-wa" onclick="revertFeaturedToWhatsApp()" title="Switch back to WhatsApp compressed version">↺ Restore WhatsApp Version</button>
         `;
       } else {
-        el.innerHTML = `<span class="status-badge-wa">📱 WhatsApp Version (Compressed)</span>`;
+        if (currentEventAngle === 1 || currentEventAngle === 2) {
+          el.innerHTML = `<span class="status-badge-orig" style="background:rgba(16,185,129,0.22); border:1px solid #10b981; color:#34d399; font-weight:800;">★ Original Full HD Master Active</span>`;
+        } else {
+          el.innerHTML = `<span class="status-badge-wa">📱 WhatsApp Version (Compressed)</span>`;
+        }
       }
     }
 
