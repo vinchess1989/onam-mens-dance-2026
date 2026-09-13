@@ -9,7 +9,7 @@ Official live stage performance recordings from Oulu Onam 2026, interactive prac
 
 ## 🎬 Event Videos (Live Stage Performance Recordings)
 Available directly on the home page under the **"Event videos"** tab:
-1. **Angle 1 — Side Stage Left View** (`WhatsApp Video 2026-09-12 at 17.55.13.mp4` • 05:40 • 56.2 MB)
+1. **Angle 1 — Side Stage Left View (Original Full HD 1080p 60fps)** (`WhatsApp Video 2026-09-12 at 17.55.13.mp4` / `IMG_9331.MOV` • 05:40 • ~88 MB)
 2. **Angle 2 — Center Stage Wide View** (`WhatsApp Video 2026-09-12 at 19.17.08.mp4` • 05:56 • 35.6 MB)
 3. **Angle 3 — Front Stage HD View** (`WhatsApp Video 2026-09-12 at 20.30.01.mp4` • 06:53 • 92.2 MB)
 
