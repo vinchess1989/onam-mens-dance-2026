@@ -177,6 +177,35 @@
       color: #22d3ee;
     }
 
+
+    .event-video-embed-box {
+      position: relative;
+    }
+
+    .drop-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      border: 3px dashed #fbbf24;
+      border-radius: var(--radius-md);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      pointer-events: none;
+    }
+
+    .btn-upload-original {
+      animation: subtleGlow 3s infinite;
+    }
+
+    @keyframes subtleGlow {
+      0%, 100% { box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35); }
+      50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
+    }
+
     .event-video-embed-box {
       width: 100%;
       max-height: 72vh;
@@ -3176,21 +3205,25 @@
             </div>
           </div>
 
-          <div class="event-video-embed-box">
+          <div class="event-video-embed-box" id="featuredDropZone" title="Drag & drop your original 4K/HD video here to replace the WhatsApp version">
             <video id="eventVideoFeatured" playsinline controls preload="metadata">
               <source id="featuredVideoSrc" src="WhatsApp Video 2026-09-12 at 17.55.13.mp4" type="video/mp4">
               <source id="featuredVideoFallback" src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2017.55.13.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
+            <div id="dropOverlay" class="drop-overlay" style="display: none;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" style="color:#fbbf24;"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+              <div style="font-size:1.2rem; font-weight:800; color:#fff;">Drop Original Video File to Replace WhatsApp Version</div>
+            </div>
           </div>
 
           <!-- UPLOAD LINK JUST UNDER THE VIDEO -->
           <div class="video-upload-toolbar">
             <div class="upload-toolbar-left">
-              <label class="btn-upload-original" for="featuredUploadInput" title="Upload and play your original 4K/Full HD video file directly in this player">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-                <span>Upload Original Version</span>
-                <span class="upload-btn-pill">4K / HD File</span>
+              <label class="btn-upload-original" for="featuredUploadInput" title="Select your camera 4K/Full HD video file — it immediately replaces the WhatsApp video in the player!">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+                <span>Upload Original to Replace WhatsApp Version</span>
+                <span class="upload-btn-pill">4K / Full HD</span>
               </label>
               <input type="file" id="featuredUploadInput" class="hidden-file-input" accept="video/*" onchange="handleFeaturedOriginalUpload(event)">
 
@@ -5096,15 +5129,134 @@
       }
     }
 
-    // ORIGINAL VIDEO FILE UPLOAD REPLACEMENT HANDLERS
-    function handleFeaturedOriginalUpload(e) {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
 
+    // =========================================================================
+    // INDEXEDDB VIDEO REPLACEMENT STORE (PERSIST ORIGINAL UPLOADS ACROSS RELOAD)
+    // =========================================================================
+    const DB_NAME = 'OnamEventVideosDB';
+    const DB_STORE = 'original_videos';
+
+    function openEventVideoDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(DB_STORE)) {
+            db.createObjectStore(DB_STORE, { keyPath: 'angle' });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function storeOriginalVideo(angle, file) {
+      try {
+        const db = await openEventVideoDB();
+        const tx = db.transaction(DB_STORE, 'readwrite');
+        tx.objectStore(DB_STORE).put({
+          angle: angle,
+          file: file,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          savedAt: Date.now()
+        });
+      } catch (err) {
+        console.warn('Could not store video in IndexedDB:', err);
+      }
+    }
+
+    async function getStoredOriginalVideo(angle) {
+      try {
+        const db = await openEventVideoDB();
+        return new Promise((resolve) => {
+          const tx = db.transaction(DB_STORE, 'readonly');
+          const req = tx.objectStore(DB_STORE).get(angle);
+          req.onsuccess = () => resolve(req.result || null);
+          req.onerror = () => resolve(null);
+        });
+      } catch (err) {
+        return null;
+      }
+    }
+
+    async function removeStoredOriginalVideo(angle) {
+      try {
+        const db = await openEventVideoDB();
+        const tx = db.transaction(DB_STORE, 'readwrite');
+        tx.objectStore(DB_STORE).delete(angle);
+      } catch (err) {
+        console.warn('Could not remove video from IndexedDB:', err);
+      }
+    }
+
+    // Load any previously replaced original videos on initialization
+    async function initStoredOriginalVideos() {
+      for (const angle of [1, 2, 3]) {
+        const rec = await getStoredOriginalVideo(angle);
+        if (rec && rec.file) {
+          const blobUrl = URL.createObjectURL(rec.file);
+          EVENT_VIDEOS[angle].originalFile = rec.file;
+          EVENT_VIDEOS[angle].originalBlobUrl = blobUrl;
+
+          // Update grid card if present
+          const gridVid = document.getElementById(`eventVideoGrid${angle}`);
+          if (gridVid) gridVid.src = blobUrl;
+          const gStatus = document.getElementById(`gridStatus${angle}`);
+          if (gStatus) {
+            const sizeMB = (rec.size / (1024 * 1024)).toFixed(1);
+            gStatus.innerHTML = `<span class="status-badge-orig">✅ Replaced: ${rec.name.slice(0, 14)}... (${sizeMB}MB)</span><button class="btn-revert-wa" onclick="revertGridToWhatsApp(${angle})" title="Revert to WhatsApp version">↺</button>`;
+          }
+        }
+      }
+      // Re-apply to current featured angle
+      if (EVENT_VIDEOS[currentEventAngle].originalBlobUrl && eventVideoFeatured) {
+        eventVideoFeatured.src = EVENT_VIDEOS[currentEventAngle].originalBlobUrl;
+        eventVideoFeatured.load();
+        const f = EVENT_VIDEOS[currentEventAngle].originalFile;
+        updateFeaturedUploadStatus(true, f.name, (f.size / (1024 * 1024)).toFixed(1));
+      }
+    }
+
+    // DRAG AND DROP HANDLERS OVER VIDEO
+    const dropZone = document.getElementById('featuredDropZone');
+    const dropOverlay = document.getElementById('dropOverlay');
+    if (dropZone && dropOverlay) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropOverlay.style.display = 'flex';
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropOverlay.style.display = 'none';
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0 && files[0].type.startsWith('video/')) {
+          handleFeaturedFileReplacement(files[0]);
+        }
+      }, false);
+    }
+
+    // ORIGINAL VIDEO FILE UPLOAD REPLACEMENT HANDLERS
+    function handleFeaturedFileReplacement(file) {
       const blobUrl = URL.createObjectURL(file);
       const data = EVENT_VIDEOS[currentEventAngle];
       data.originalFile = file;
       data.originalBlobUrl = blobUrl;
+
+      // Store in IndexedDB to persist across page reloads
+      storeOriginalVideo(currentEventAngle, file);
 
       if (eventVideoFeatured) {
         eventVideoFeatured.src = blobUrl;
@@ -5120,12 +5272,19 @@
       if (gridVid) gridVid.src = blobUrl;
       const gStatus = document.getElementById(`gridStatus${currentEventAngle}`);
       if (gStatus) {
-        gStatus.innerHTML = `<span class="status-badge-orig">✅ Original: ${file.name.slice(0, 16)}... (${sizeMB} MB)</span>`;
+        gStatus.innerHTML = `<span class="status-badge-orig">✅ Replaced: ${file.name.slice(0, 16)}... (${sizeMB} MB)</span><button class="btn-revert-wa" onclick="revertGridToWhatsApp(${currentEventAngle})" title="Revert to WhatsApp version">↺</button>`;
       }
+    }
+
+    function handleFeaturedOriginalUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      handleFeaturedFileReplacement(file);
     }
 
     function revertFeaturedToWhatsApp() {
       const data = EVENT_VIDEOS[currentEventAngle];
+      removeStoredOriginalVideo(currentEventAngle);
       if (data.originalBlobUrl) {
         URL.revokeObjectURL(data.originalBlobUrl);
         data.originalBlobUrl = null;
@@ -5150,11 +5309,11 @@
       if (!el) return;
       if (isOriginal) {
         el.innerHTML = `
-          <span class="status-badge-orig">✅ Playing Original Quality: ${fileName} (${sizeMB} MB)</span>
-          <button class="btn-revert-wa" onclick="revertFeaturedToWhatsApp()" title="Switch back to WhatsApp compressed version">↺ Revert</button>
+          <span class="status-badge-orig" style="background:rgba(16,185,129,0.22); border:1px solid #10b981; color:#34d399; font-weight:800;">✅ Replaced with Original Video: ${fileName} (${sizeMB} MB)</span>
+          <button class="btn-revert-wa" onclick="revertFeaturedToWhatsApp()" title="Switch back to WhatsApp compressed version">↺ Restore WhatsApp Version</button>
         `;
       } else {
-        el.innerHTML = `<span class="status-badge-wa">📱 WhatsApp Version Active (Compressed)</span>`;
+        el.innerHTML = `<span class="status-badge-wa">📱 WhatsApp Version (Compressed)</span>`;
       }
     }
 
@@ -5166,6 +5325,7 @@
       const data = EVENT_VIDEOS[angleIndex];
       data.originalFile = file;
       data.originalBlobUrl = blobUrl;
+      storeOriginalVideo(angleIndex, file);
 
       const gridVid = document.getElementById(`eventVideoGrid${angleIndex}`);
       if (gridVid) {
@@ -5192,6 +5352,7 @@
 
     function revertGridToWhatsApp(angleIndex) {
       const data = EVENT_VIDEOS[angleIndex];
+      removeStoredOriginalVideo(angleIndex);
       if (data.originalBlobUrl) {
         URL.revokeObjectURL(data.originalBlobUrl);
         data.originalBlobUrl = null;
@@ -5616,14 +5777,25 @@
     }
 
     // Initial Tab Routing
-    if (window.location.hash === '#audio' || window.location.hash === '#final') {
-      switchRoutine('final260909');
-    } else if (window.location.hash === '#refvideo' || window.location.hash === '#video') {
-      openVideoTab(61.0);
-    } else {
-      // Default to Event Videos Tab so home page immediately shows Event Videos
-      openEventVideosTab(1);
+    function handleInitialRouting() {
+      const hash = (window.location.hash || '').toLowerCase();
+      if (hash === '#audio' || hash === '#final') {
+        switchRoutine('final260909');
+      } else if (hash === '#refvideo' || hash === '#video') {
+        openVideoTab(61.0);
+      } else if (hash === '#angle2' || hash === '#event2') {
+        openEventVideosTab(2);
+      } else if (hash === '#angle3' || hash === '#event3') {
+        openEventVideosTab(3);
+      } else if (hash === '#grid' || hash === '#all') {
+        openEventVideosTab(1);
+        toggleEventViewMode('grid');
+      } else {
+        openEventVideosTab(1);
+      }
     }
+    handleInitialRouting();
+    window.addEventListener('hashchange', handleInitialRouting);
 
     // Window resize handler for waveform canvases
     window.addEventListener('resize', () => {
@@ -6332,6 +6504,7 @@
       setTimeout(() => {
         renderMasterWaveform();
       }, 100);
+      initStoredOriginalVideos();
     });
   </script>
   <!-- FULL-SCREEN WAVEFORM INSPECTOR MODAL WITH MULTI-LEVEL ZOOM (1x to 16x) -->
