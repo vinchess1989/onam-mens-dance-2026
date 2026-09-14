@@ -113,3 +113,25 @@ git commit -m "Update rehearsal studio player"
 git push origin main
 ```
 The live player at `https://vinchess1989.github.io/onam-mens-dance-2026/` updates automatically within 1–2 minutes.
+
+---
+
+## 6. 2-Minute Slow-Motion Highlights Dance Reel (`onam_dance_reel_*.mp4`)
+
+A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30fps) master performance footage with the celebratory *Onam Mood* soundtrack.
+
+- **Files**:
+  - `onam_dance_reel_2min.mp4` (Vertical 9:16, 1080×1920, 32.6 MB) — Mobile-optimized for Instagram Reels, YouTube Shorts, and WhatsApp Status with blurred ambient backdrop, gold framing, and gold/white titles.
+  - `onam_dance_reel_widescreen_2min.mp4` (Widescreen 16:9, 1920×1080, 50.2 MB) — Full-stage cinematic master with clean lower-third gold badges.
+- **Audio Track**:
+  - Mastered 120.0s cut (`01:25 → 03:25`) from `Onam Mood - Sahasam (Full HD 1080p).mp4`.
+  - Mastered with 1.0s fade-in, 2.5s smooth fade-out, and EBU R128 loudness normalization (`-14.0 LUFS`).
+- **Video Choreography Highlights**:
+  - 11 curated performance moments (Intro walk-in, Chettikulangara, Sablazki pose, Shanthamee, Pondicherry, Ivalkoruvan jump, Njanondaliyan formation, Velmuruka claps & spins, Grand finale bow & salute).
+  - Silky-smooth **0.5x slow-motion** rendered with FFmpeg `setpts=2.0*PTS`, preserving natural stage motion and expression.
+- **Player Integration**:
+  - Embedded reel viewer card (`#eventReelContainer`) in both `index.html` and `dance_practice_player.html`.
+  - Accessible via `🎬 2-Min Slow-Mo Reel` button in the Event Videos toolbar.
+  - Format toggle switch between 📱 Vertical (9:16) and 🖥️ Widescreen (16:9).
+  - Direct download links for both formats.
+

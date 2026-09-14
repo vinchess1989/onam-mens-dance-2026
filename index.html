@@ -3188,6 +3188,10 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>
               <span>All 3 Angles Grid</span>
             </button>
+            <button class="btn-angle-tab" id="btnAngleReel" onclick="toggleEventViewMode('reel')" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(217, 119, 6, 0.32)); border-color: rgba(245, 158, 11, 0.65); color: #fbbf24;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+              <span>🎬 2-Min Slow-Mo Reel</span>
+            </button>
           </div>
         </div>
 
@@ -3342,6 +3346,60 @@
               <div id="gridStatus3" class="upload-status-display">
                 <span class="status-badge-wa">WhatsApp (1280x720)</span>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2-MIN SLOW-MO REEL VIEW -->
+        <div id="eventReelContainer" class="featured-video-card" style="display: none; flex-direction: column; gap: 1.25rem;">
+          <div class="featured-video-meta">
+            <div class="featured-video-name">
+              <span id="reelTitle">🎬 2-Min Slow-Motion Highlights Reel • Onam Mood</span>
+            </div>
+            <div class="featured-meta-badges">
+              <span class="meta-pill accent-gold">⏱ 02:00</span>
+              <span class="meta-pill accent-cyan">♪ Onam Mood (Sahasam)</span>
+              <span class="meta-pill accent-green">⚡ 0.5x Slow-Motion</span>
+              <span class="meta-pill" style="background: rgba(168,85,247,0.25); color: #c084fc; border: 1px solid rgba(168,85,247,0.5);">📱 Vertical 9:16 & 16:9</span>
+            </div>
+          </div>
+
+          <!-- REEL FORMAT SELECTOR (Vertical 9:16 vs Widescreen 16:9) -->
+          <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; flex-wrap: wrap; background: rgba(255,255,255,0.03); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">Select Format:</span>
+              <button class="btn-angle-tab active" id="btnReelVertical" onclick="switchReelFormat('vertical')" style="padding: 0.4rem 0.9rem; font-size: 0.82rem; font-weight: 700;">
+                📱 Vertical 9:16 (Phone / Reel)
+              </button>
+              <button class="btn-angle-tab" id="btnReelWidescreen" onclick="switchReelFormat('widescreen')" style="padding: 0.4rem 0.9rem; font-size: 0.82rem; font-weight: 700;">
+                🖥 Widescreen 16:9 (Cinematic)
+              </button>
+            </div>
+            <div style="font-size: 0.8rem; color: #fbbf24; font-weight: 600;">
+              ⚡ 60fps Native Speed-Ramped Highlights (120s)
+            </div>
+          </div>
+
+          <!-- REEL VIDEO BOX -->
+          <div class="event-video-embed-box" id="reelVideoBox" style="display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #0f172a 0%, #030712 100%); padding: 1.25rem; border-radius: var(--radius-md); min-height: 520px;">
+            <video id="eventVideoReel" playsinline controls preload="metadata" style="max-height: 620px; max-width: 100%; border-radius: var(--radius-md); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid rgba(245, 158, 11, 0.4);" src="onam_dance_reel_2min.mp4">
+            </video>
+          </div>
+
+          <!-- REEL DOWNLOAD & ACTION TOOLBAR -->
+          <div class="video-upload-toolbar">
+            <div class="upload-toolbar-left" style="flex-wrap: wrap; gap: 0.75rem;">
+              <a id="btnDownloadVerticalReel" href="onam_dance_reel_2min.mp4" download="onam_dance_reel_2min.mp4" class="btn-download-video-file" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #090c15; font-weight: 800; border: none; padding: 0.5rem 1rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                <span>⬇ Download Vertical 9:16 Reel (32.6 MB)</span>
+              </a>
+              <a id="btnDownloadWidescreenReel" href="onam_dance_reel_widescreen_2min.mp4" download="onam_dance_reel_widescreen_2min.mp4" class="btn-download-video-file" style="background: rgba(255,255,255,0.08); border: 1px solid var(--border-glass); color: var(--text-main); padding: 0.5rem 1rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                <span>⬇ Download Widescreen 16:9 (50.2 MB)</span>
+              </a>
+            </div>
+            <div class="upload-status-display">
+              <span class="status-badge-orig">✨ Mastered 2-Minute Slow-Mo Cut</span>
             </div>
           </div>
         </div>
@@ -5054,11 +5112,15 @@
 
       const featBox = document.getElementById('eventFeaturedContainer');
       const gridBox = document.getElementById('eventGridContainer');
+      const reelBox = document.getElementById('eventReelContainer');
+      const reelVid = document.getElementById('eventVideoReel');
       if (featBox) featBox.style.display = 'flex';
       if (gridBox) gridBox.style.display = 'none';
+      if (reelBox) reelBox.style.display = 'none';
+      if (reelVid) reelVid.pause();
 
       // Update angle tab buttons
-      ['btnAngle1', 'btnAngle2', 'btnAngle3', 'btnAngleGrid'].forEach(id => {
+      ['btnAngle1', 'btnAngle2', 'btnAngle3', 'btnAngleGrid', 'btnAngleReel'].forEach(id => {
         const b = document.getElementById(id);
         if (b) b.classList.remove('active');
       });
@@ -5112,21 +5174,55 @@
       eventViewMode = mode;
       const featBox = document.getElementById('eventFeaturedContainer');
       const gridBox = document.getElementById('eventGridContainer');
+      const reelBox = document.getElementById('eventReelContainer');
+      const reelVid = document.getElementById('eventVideoReel');
 
-      ['btnAngle1', 'btnAngle2', 'btnAngle3', 'btnAngleGrid'].forEach(id => {
+      ['btnAngle1', 'btnAngle2', 'btnAngle3', 'btnAngleGrid', 'btnAngleReel'].forEach(id => {
         const b = document.getElementById(id);
         if (b) b.classList.remove('active');
       });
 
       if (mode === 'grid') {
         if (eventVideoFeatured) eventVideoFeatured.pause();
+        if (reelVid) reelVid.pause();
         if (featBox) featBox.style.display = 'none';
+        if (reelBox) reelBox.style.display = 'none';
         if (gridBox) gridBox.style.display = 'grid';
         const gBtn = document.getElementById('btnAngleGrid');
         if (gBtn) gBtn.classList.add('active');
+      } else if (mode === 'reel') {
+        if (eventVideoFeatured) eventVideoFeatured.pause();
+        if (featBox) featBox.style.display = 'none';
+        if (gridBox) gridBox.style.display = 'none';
+        if (reelBox) reelBox.style.display = 'flex';
+        const rBtn = document.getElementById('btnAngleReel');
+        if (rBtn) rBtn.classList.add('active');
       } else {
+        if (reelVid) reelVid.pause();
+        if (reelBox) reelBox.style.display = 'none';
         selectEventAngle(currentEventAngle);
       }
+    }
+
+    function switchReelFormat(fmt) {
+      const vid = document.getElementById('eventVideoReel');
+      const bVert = document.getElementById('btnReelVertical');
+      const bWide = document.getElementById('btnReelWidescreen');
+      if (!vid) return;
+      const curTime = vid.currentTime;
+      const isPaused = vid.paused;
+
+      if (fmt === 'vertical') {
+        vid.src = 'onam_dance_reel_2min.mp4';
+        if (bVert) bVert.classList.add('active');
+        if (bWide) bWide.classList.remove('active');
+      } else {
+        vid.src = 'onam_dance_reel_widescreen_2min.mp4';
+        if (bWide) bWide.classList.add('active');
+        if (bVert) bVert.classList.remove('active');
+      }
+      vid.currentTime = curTime;
+      if (!isPaused) vid.play().catch(() => {});
     }
 
 
