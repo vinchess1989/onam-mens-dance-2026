@@ -2946,12 +2946,12 @@
 
       <!-- PROMINENT DOWNLOAD BUTTON -->
       <div class="download-bar">
-        <a id="btnHeaderDownload" href="WhatsApp Video 2026-09-12 at 20.30.01.mp4" download="WhatsApp Video 2026-09-12 at 20.30.01.mp4" class="btn-download-primary" title="Download Active Stage Video">
+        <a id="btnHeaderDownload" href="WhatsApp Video 2026-09-12 at 17.55.13.mp4" download="WhatsApp Video 2026-09-12 at 17.55.13.mp4" class="btn-download-primary" title="Download Active Stage Video">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
           </svg>
-          <span id="headerDownloadText">Download Stage Video (Angle 3 Front HD • 92.2 MB)</span>
-          <span class="download-size-pill" id="headerDownloadSize">92.2 MB</span>
+          <span id="headerDownloadText">Download Stage Video (Angle 1 Side Stage • 87.1 MB)</span>
+          <span class="download-size-pill" id="headerDownloadSize">87.1 MB</span>
         </a>
       </div>
     </header>
@@ -3201,7 +3201,7 @@
             </button>
             <button class="btn-angle-tab" id="btnAngle3" onclick="selectEventAngle(3)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-              <span>Angle 3 (Front HD • 06:53)</span>
+              <span>Angle 3 (Front 60fps • 06:53)</span>
             </button>
             <button class="btn-angle-tab" id="btnAngleGrid" onclick="toggleEventViewMode('grid')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>
@@ -3339,15 +3339,15 @@
           <div class="event-card">
             <div class="event-card-header">
               <div>
-                <span style="font-size:0.75rem; font-weight:800; color:#34d399; text-transform:uppercase;">Angle 3 • Front Stage HD</span>
-                <div class="event-card-title">WhatsApp Video 20.30.01</div>
+                <span style="font-size:0.75rem; font-weight:800; color:#34d399; text-transform:uppercase;">Angle 3 • Front Stage View</span>
+                <div class="event-card-title">Original Full HD 60fps (IMG_0865.MOV)</div>
               </div>
               <span class="meta-pill accent-green">06:53</span>
             </div>
             <div class="event-card-video-box">
               <video id="eventVideoGrid3" playsinline controls preload="metadata">
-                <source src="WhatsApp Video 2026-09-12 at 20.30.01.mp4" type="video/mp4">
-                <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2020.30.01.mp4" type="video/mp4">
+                <source src="IMG_0865.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/IMG_0865.mp4" type="video/mp4">
               </video>
             </div>
             <!-- UPLOAD LINK JUST UNDER VIDEO 3 -->
@@ -3358,12 +3358,12 @@
                   <span>Upload Original</span>
                 </label>
                 <input type="file" id="gridUpload3" class="hidden-file-input" accept="video/*" onchange="handleGridOriginalUpload(3, event)">
-                <a href="WhatsApp Video 2026-09-12 at 20.30.01.mp4" download="WhatsApp Video 2026-09-12 at 20.30.01.mp4" class="btn-download-video-file">
-                  <span>⬇ 92.2 MB</span>
+                <a href="IMG_0865.mp4" download="IMG_0865.mp4" class="btn-download-video-file">
+                  <span>⬇ 92 MB (60fps)</span>
                 </a>
               </div>
               <div id="gridStatus3" class="upload-status-display">
-                <span class="status-badge-wa">WhatsApp (1280x720)</span>
+                <span class="status-badge-orig">Original 60fps Master</span>
               </div>
             </div>
           </div>
@@ -5081,13 +5081,13 @@
       },
       3: {
         id: 3,
-        title: "Angle 3 — Front Stage HD View",
-        file: "WhatsApp Video 2026-09-12 at 20.30.01.mp4",
-        fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2020.30.01.mp4",
+        title: "Angle 3 — Front Stage View (Original Full HD 60fps)",
+        file: "IMG_0865.mp4",
+        fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/IMG_0865.mp4",
         durationText: "⏱ 06:53",
-        resText: "📐 1280×720",
-        sizeText: "💾 92.2 MB",
-        downloadSize: "92.2 MB",
+        resText: "📐 1920×1080 (Original 60fps Master)",
+        sizeText: "💾 92 MB (Full HD)",
+        downloadSize: "92 MB (Full HD)",
         originalFile: null,
         originalBlobUrl: null
       }

@@ -6,7 +6,7 @@
 - **GitHub Repository:** `https://github.com/vinchess1989/onam-mens-dance-2026`
 - **Hosted Web Studio (Firebase Hosting):** `https://vk-onam-dance.web.app` (also `https://vk-onam-dance.firebaseapp.com`)
 - **Hosted Web Studio (GitHub Pages):** `https://vinchess1989.github.io/onam-mens-dance-2026/`
-- **Home Page Default View:** **Event videos** Tab (`WhatsApp Video 2026-09-12 at 17.55.13.mp4` / `IMG_9331.MOV` [Angle 1 Original Full HD 1080p 60fps], `WhatsApp Video 2026-09-12 at 19.17.08.mp4` / `IMG_8181.MOV` [Angle 2 Original Full HD 1080p 30fps], `WhatsApp Video 2026-09-12 at 20.30.01.mp4` [Angle 3 Front Stage HD])
+- **Home Page Default View:** **Event videos** Tab (`WhatsApp Video 2026-09-12 at 17.55.13.mp4` / `IMG_9331.MOV` [Angle 1 Original Full HD 1080p 60fps], `WhatsApp Video 2026-09-12 at 19.17.08.mp4` / `IMG_8181.MOV` [Angle 2 Original Full HD 1080p 30fps], `IMG_0865.mp4` / `IMG_0865.MOV` [Angle 3 Front Stage Original Full HD 1080p 60fps])
 - **Master Audio (Baked Cues):** [`onam_mens_final_26_0909.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mens_final_26_0909.mp3) (4m 12.7s / 252.70s)
 - **Previous Clean Mix:** [`onam_mens_final_26_0906.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mens_final_26_0906.mp3) (4m 09.7s / 249.70s)
 

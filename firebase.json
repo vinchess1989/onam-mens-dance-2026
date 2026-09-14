@@ -12,6 +12,8 @@
       "*.py",
       "*.pyc",
       "*.code-workspace",
+      "*.MOV",
+      "*.mov",
       ".git/**",
       "* (Full HD 1080p).mp4",
       "*backup*",
