@@ -168,19 +168,48 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
   - **Angle 2:** `https://youtu.be/Mq2H5twbho8` (Video ID: `Mq2H5twbho8`)
     - Title: `Men's Dance | Oulu Onam 2026 — Angle 2 (Center Stage View • Full HD)`
     - File: `IMG_8181.MOV` (702 MB, 1080p Full HD)
-  - **Angle 3:** `https://youtu.be/1JpmA73g1h4` (Video ID: `1JpmA73g1h4`)
+    - File: `IMG_8181.MOV` (702 MB, 1080p Full HD)
+  - **Angle 3 (Corrected 4K 60fps Master):** `https://youtu.be/caphuNKQkkQ` (Video ID: `caphuNKQkkQ`)
     - Title: `Men's Dance | Oulu Onam 2026 — Angle 3 (Front Stage View • 4K 60fps Master)`
-    - File: `IMG_0865.MOV` (1.44 GB, 4K UHD 60fps Master)
+    - File: `IMG_0865_corrected_master.mp4` (1.65 GB, 4K UHD 60fps Master)
+    - Previous/superseded upload: `1JpmA73g1h4`
   - **Visibility:** Unlisted (accessible only via link or embedded player).
   - **Upload Pipeline:** Overcame Playwright's 50MB CDP file transfer limit using native Chrome DevTools Protocol (`DOM.setFileInputFiles` with `backendNodeId`) to feed multi-gigabyte local camera master files directly to YouTube Studio without socket overhead.
 - **Stream Setup:**
   - Exclusively streams via YouTube's global CDN (`https://www.youtube-nocookie.com/embed/...`) with zero stutter, automatic 4K/1080p60 adaptive bitrate, and responsive iframes.
   - "Direct File / RAM" selector, in-memory preloader, and local MP4 download links removed from HTML (`index.html` and `dance_practice_player.html`).
   - `firebase.json` ignore list updated with `*.mp4`, `*.MP4`, `*.MOV`, `*.mov`, `*.mkv`, `*.webm` to completely exclude heavy video files from Firebase Hosting.
-- **Angle 3 Exposure Correction & Highlight Recovery (In Review):**
-  - **Root Cause:** Angle 3 (`IMG_0865.MOV`) was recorded on iPhone in 10-bit Apple HLG HDR (`yuv420p10le`, `bt2020nc/bt2020/arib-std-b67`), which stores luminance highlights up to 1,000 nits. When displayed on SDR without tone-mapping, highlights above 100 nits clip into harsh 100% white, blowing out white dhotis/mundus, stage flowers, and skin tones under incandescent spotlights.
-  - **Correction Recipe (Recipe 1):**
-    `-vf "curves=all='0/0 0.12/0.06 0.35/0.24 0.65/0.50 0.85/0.68 0.95/0.78 1/0.83',colorbalance=rm=-0.03:bm=0.04:rh=-0.06:bh=0.07,eq=contrast=1.12:brightness=-0.03:saturation=1.1"`
-  - Smooth S-curve luminance roll-off restores visible folds and creases in white fabric without clipping.
-  - Highlight color balance (`rh=-0.06:bh=0.07`) neutralizes harsh stage yellow spotlight spill.
-  - 10s side-by-side clip (`scratch/sample_10s_comparison_2560x720.mp4`) and still comparisons generated for user review before full-video processing.
+- **Angle 3 Exposure & Stage Elevation Glare Correction (Completed & Live):**
+  - **Root Cause of Blown Stage Elevation:**
+    - Angle 3 was shot right in the front row where high-intensity floor footlights pointed directly up towards the camera lens.
+    - Raw 10-bit luminance dump (`scratch/dump_luminance.py`) proved that the bottom 10% of the frame (rows 1940 to 2160) was physically saturated at the camera sensor level (luminance values average 829.6 out of 1023, variance < 0.05%), meaning zero texture (wood slats, garlands) was captured in that band.
+    - Angle 2 was filmed from ~15 meters back on an elevated tripod where footlights did not blast into the lens, clearly capturing the wooden stage lip, garlands, and white vertical slats.
+  - **Split-Timeline Clean Reframe & Grade (Rendered, Uploaded & Deployed):**
+    - `00:00 → 05:38`: Clean Reframe `crop=3306:1860:(in_w-3306)/2:0,scale=3840:2160` + Highlight roll-off & color grade (removes bottom 300px footlight glare, dancers' feet grounded).
+    - `05:38 → 06:53.77`: Dancers came down to the floor in front of the stage. **Zero crop** (full native 3840x2160) + Highlight roll-off & color grade so full bodies/legs are retained.
+    - Master Video output: `IMG_0865_corrected_master.mp4` (4K UHD 3840x2160 @ 59.94fps, 1.65 GB, 320 kbps AAC stereo, faststart enabled).
+    - Uploaded to YouTube: [`https://youtu.be/caphuNKQkkQ`](https://youtu.be/caphuNKQkkQ) (Video ID: `caphuNKQkkQ`).
+    - Web Embed & Player Updated: Both `index.html` and `dance_practice_player.html` updated and deployed to Firebase Hosting (`https://vk-onam-dance.web.app`) and pushed to GitHub `main`.
+    - 10-second full clean reframed video: `sample_10s_clean_reframed.mp4`.
+
+---
+
+## 9. Header Tab Unification & 2-Min Slow-Mo Reel Fix (Completed & Live)
+
+### Unified Header Tab Highlight
+- **Problem Solved:** Selecting "Event videos" displayed a vibrant amber/orange glow highlight, whereas clicking other tabs ("Reference Video", "Final Mix 260909", "Sep 8 Master", etc.) either did not show the orange highlight or applied different color schemes (pink, green, cyan).
+- **CSS Architecture:**
+  - Unified all active tab states under `.version-tabs-nav .tab-btn.active-tab`, `.tab-btn.active-tab`, `.tab-btn.event-btn.active-tab`, `.tab-btn.video-tab-btn.active-tab`, `.tab-btn.final-btn.active-tab`, `.tab-btn.backup-btn.active-tab`, `.tab-btn.legacy-btn.active-tab`.
+  - Signature Amber Pill Gradient: `background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;`
+  - High-Contrast Text: `color: #090c15 !important; font-weight: 800 !important;` applied to both the button and all child `span` elements.
+  - Signature Glow Halo: `box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45), 0 0 0 1px rgba(245, 158, 11, 0.5) !important;`
+  - Badges inside active tabs styled with translucent dark backing (`background: rgba(0, 0, 0, 0.22) !important; color: #090c15 !important;`).
+
+### 2-Min Slow-Mo Reel Click & Playback Fix
+- **Problem Solved:** Clicking "🎬 2-Min Slow-Mo Reel" caused nothing to happen.
+- **Root Cause & Resolution:**
+  1. **Undeclared `eventVideoFeatured` ReferenceError:** When YouTube iframes replaced the earlier `<video id="eventVideoFeatured">` tag, functions `toggleEventViewMode()`, `openVideoTab()`, and `switchRoutine()` still referenced `eventVideoFeatured.pause()`, triggering a fatal `ReferenceError: eventVideoFeatured is not defined` that terminated the click handler. Declared `let eventVideoFeatured = null;` globally to eliminate the exception.
+  2. **Firebase 404 on Reel MP4s:** `firebase.json` previously excluded `*.mp4`, which accidentally blocked the lightweight reel MP4s (`onam_dance_reel_2min.mp4` [31.1 MB] and `onam_dance_reel_widescreen_2min.mp4` [47.8 MB]). Refined `firebase.json` to explicitly ignore heavy camera master files (`IMG_*`, `WhatsApp Video*`) while allowing reel and dance reference videos.
+  3. **Auto-play & Smooth Scroll:** `toggleEventViewMode('reel')` now resets button classes, applies the amber active pill to `#btnAngleReel`, reveals `#eventReelContainer`, smoothly scrolls it into view via `reelBox.scrollIntoView({ behavior: 'smooth', block: 'start' })`, and starts playback immediately.
+  4. **Synced & Deployed:** Synchronized across `index.html` and `dance_practice_player.html`, verified live in Chrome CDP, deployed to Firebase Hosting (`https://vk-onam-dance.web.app`), and pushed to GitHub `main`.
+
