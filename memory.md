@@ -173,11 +173,14 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
     - File: `IMG_0865.MOV` (1.44 GB, 4K UHD 60fps Master)
   - **Visibility:** Unlisted (accessible only via link or embedded player).
   - **Upload Pipeline:** Overcame Playwright's 50MB CDP file transfer limit using native Chrome DevTools Protocol (`DOM.setFileInputFiles` with `backendNodeId`) to feed multi-gigabyte local camera master files directly to YouTube Studio without socket overhead.
-- **Frontend Stream Source Selector (`setEventStreamSource`):**
-  - **YouTube 4K Adaptive (Default):** Streams via YouTube's global CDN with zero stutter, automatic 4K/1080p60 adaptive bitrate, and embedded responsive iframes.
-  - **Direct File / RAM:** Allows instant switching to local HTML5 video playback with in-memory RAM preloader and direct download links.
-  - **Grid View & Featured View:** Both individual featured view and 3-angles multi-grid view provide embedded YouTube players and direct "Watch on YouTube" shortcut links.
-
-
-
-
+- **Stream Setup:**
+  - Exclusively streams via YouTube's global CDN (`https://www.youtube-nocookie.com/embed/...`) with zero stutter, automatic 4K/1080p60 adaptive bitrate, and responsive iframes.
+  - "Direct File / RAM" selector, in-memory preloader, and local MP4 download links removed from HTML (`index.html` and `dance_practice_player.html`).
+  - `firebase.json` ignore list updated with `*.mp4`, `*.MP4`, `*.MOV`, `*.mov`, `*.mkv`, `*.webm` to completely exclude heavy video files from Firebase Hosting.
+- **Angle 3 Exposure Correction & Highlight Recovery (In Review):**
+  - **Root Cause:** Angle 3 (`IMG_0865.MOV`) was recorded on iPhone in 10-bit Apple HLG HDR (`yuv420p10le`, `bt2020nc/bt2020/arib-std-b67`), which stores luminance highlights up to 1,000 nits. When displayed on SDR without tone-mapping, highlights above 100 nits clip into harsh 100% white, blowing out white dhotis/mundus, stage flowers, and skin tones under incandescent spotlights.
+  - **Correction Recipe (Recipe 1):**
+    `-vf "curves=all='0/0 0.12/0.06 0.35/0.24 0.65/0.50 0.85/0.68 0.95/0.78 1/0.83',colorbalance=rm=-0.03:bm=0.04:rh=-0.06:bh=0.07,eq=contrast=1.12:brightness=-0.03:saturation=1.1"`
+  - Smooth S-curve luminance roll-off restores visible folds and creases in white fabric without clipping.
+  - Highlight color balance (`rh=-0.06:bh=0.07`) neutralizes harsh stage yellow spotlight spill.
+  - 10s side-by-side clip (`scratch/sample_10s_comparison_2560x720.mp4`) and still comparisons generated for user review before full-video processing.
