@@ -245,6 +245,79 @@
       display: block;
     }
 
+    .event-video-embed-box iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 72vh;
+      border: none;
+      display: block;
+    }
+
+    .player-source-selector {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 0.25rem 0.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-left: auto;
+    }
+
+    .btn-source-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-source-tab:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn-source-tab.active {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(239, 68, 68, 0.45);
+    }
+
+    .btn-source-tab.direct-tab.active {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(14, 165, 233, 0.45);
+    }
+
+    .btn-youtube-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-youtube-link:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fff;
+      border-color: #ef4444;
+      transform: translateY(-1px);
+    }
+
     /* UPLOAD TOOLBAR DIRECTLY UNDER EACH VIDEO */
     .video-upload-toolbar {
       background: rgba(15, 23, 42, 0.75);
@@ -3278,14 +3351,35 @@
             </div>
             <div class="featured-meta-badges">
               <span class="meta-pill accent-gold" id="featuredDurationBadge">⏱ 05:40</span>
-              <span class="meta-pill accent-cyan" id="featuredResBadge">📐 1920×1080 (Original Full HD)</span>
-              <span class="meta-pill accent-green" id="featuredSizeBadge">💾 1.2 GB Camera Master</span>
-              <span class="meta-pill" id="featuredCodecBadge">⚡ 87 MB 1080p60 Stream</span>
+              <span class="meta-pill accent-cyan" id="featuredResBadge">📐 3840×2160 (Original 4K 60fps)</span>
+              <span class="meta-pill accent-green" id="featuredSizeBadge">💾 2.29 GB Camera Master</span>
+              <span class="meta-pill" id="featuredCodecBadge">⚡ YouTube 4K / 1080p60 Adaptive</span>
+            </div>
+            <!-- STREAM SOURCE SELECTOR (YouTube Adaptive vs Direct MP4/RAM Preload) -->
+            <div class="player-source-selector">
+              <button id="btnSourceYoutube" class="btn-source-tab active" onclick="setEventStreamSource('youtube')" title="Stream via YouTube adaptive CDN (zero stutter, automatic 4K/1080p)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>YouTube 4K Adaptive</span>
+              </button>
+              <button id="btnSourceDirect" class="btn-source-tab direct-tab" onclick="setEventStreamSource('direct')" title="Play via local file / in-memory RAM preloader">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                <span>Direct File / RAM</span>
+              </button>
             </div>
           </div>
 
           <div class="event-video-embed-box" id="featuredDropZone" title="Drag & drop your original 4K/HD video here to replace the WhatsApp version">
-            <video id="eventVideoFeatured" playsinline controls preload="auto">
+            <!-- YouTube Unlisted Embed Player (Default Active) -->
+            <iframe id="eventYoutubeFeatured"
+              src="https://www.youtube-nocookie.com/embed/Xk39waxkT3E?rel=0&modestbranding=1&enablejsapi=1"
+              title="Men's Dance Live Stage Performance • Oulu Onam 2026"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+
+            <!-- Native HTML5 Player (Direct File & In-Memory Preload) -->
+            <video id="eventVideoFeatured" playsinline controls preload="auto" style="display: none;">
               <source id="featuredVideoSrc" src="WhatsApp Video 2026-09-12 at 17.55.13.mp4" type="video/mp4">
               <source id="featuredVideoFallback" src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2017.55.13.mp4" type="video/mp4">
               Your browser does not support the video tag.
@@ -3299,7 +3393,13 @@
           <!-- UPLOAD LINK JUST UNDER THE VIDEO -->
           <div class="video-upload-toolbar">
             <div class="upload-toolbar-left">
-              <button id="btnPreloadVideo" class="btn-preload-video" onclick="preloadCurrentVideo()" title="Buffer full video into browser memory for 100% glitch-free playback and instant seeking">
+              <!-- Direct YouTube Link Button -->
+              <a id="featuredYoutubeLink" href="https://youtu.be/Xk39waxkT3E" target="_blank" rel="noopener" class="btn-youtube-link" title="Open unlisted video directly on YouTube in new tab">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>Watch on YouTube</span>
+              </a>
+
+              <button id="btnPreloadVideo" class="btn-preload-video" onclick="preloadCurrentVideo()" style="display: none;" title="Buffer full video into browser memory for 100% glitch-free playback and instant seeking">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.28-1.61 8.07-4.11l-2.54-1.51C15.95 17.76 14.12 19 12 19zm1-8.5v4.5l3.5-2.25L13 10.5z"/></svg>
                 <span id="preloadBtnText">⚡ Preload for Smooth Playback</span>
               </button>
@@ -3323,12 +3423,13 @@
             </div>
 
             <div id="featuredUploadStatus" class="upload-status-display">
-              <span class="status-badge-orig">★ Original Full HD Active (1080p 60fps)</span>
+              <span class="status-badge-orig">★ YouTube 4K Stream Active</span>
             </div>
           </div>
           <div id="preloadProgressBarContainer" class="preload-bar-container">
             <div id="preloadProgressBar" class="preload-bar-fill"></div>
           </div>
+        </div>
         </div>
 
         <!-- 3-ANGLES MULTI-GRID VIEW -->
@@ -3337,31 +3438,31 @@
           <div class="event-card">
             <div class="event-card-header">
               <div>
-                <span style="font-size:0.75rem; font-weight:800; color:#fbbf24; text-transform:uppercase;">Angle 1 • Side Stage Left (Full HD)</span>
-                <div class="event-card-title">Original Camera Master (Full HD 60fps)</div>
+                <span style="font-size:0.75rem; font-weight:800; color:#fbbf24; text-transform:uppercase;">Angle 1 • Side Stage Left (4K 60fps)</span>
+                <div class="event-card-title">Original Camera Master (4K 60fps • 2.29 GB)</div>
               </div>
               <span class="meta-pill accent-gold">05:40</span>
             </div>
             <div class="event-card-video-box">
-              <video id="eventVideoGrid1" playsinline controls preload="metadata">
-                <source src="WhatsApp Video 2026-09-12 at 17.55.13.mp4" type="video/mp4">
-                <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2017.55.13.mp4" type="video/mp4">
-              </video>
+              <iframe src="https://www.youtube-nocookie.com/embed/Xk39waxkT3E?rel=0&modestbranding=1"
+                title="Angle 1 Side Stage (4K 60fps)" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width:100%; aspect-ratio:16/9; border:none; display:block;">
+              </iframe>
             </div>
             <!-- UPLOAD LINK JUST UNDER VIDEO 1 -->
             <div class="video-upload-toolbar">
               <div class="upload-toolbar-left">
-                <label class="btn-upload-original" for="gridUpload1" title="Upload original version of Angle 1">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-                  <span>Upload Original</span>
-                </label>
-                <input type="file" id="gridUpload1" class="hidden-file-input" accept="video/*" onchange="handleGridOriginalUpload(1, event)">
+                <a href="https://youtu.be/Xk39waxkT3E" target="_blank" rel="noopener" class="btn-youtube-link" title="Open Angle 1 in YouTube">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  <span>Watch on YouTube</span>
+                </a>
                 <a href="WhatsApp Video 2026-09-12 at 17.55.13.mp4" download="WhatsApp Video 2026-09-12 at 17.55.13.mp4" class="btn-download-video-file">
-                  <span>⬇ Full HD (87.1 MB)</span>
+                  <span>⬇ MP4 (87.1 MB)</span>
                 </a>
               </div>
               <div id="gridStatus1" class="upload-status-display">
-                <span class="status-badge-orig">★ Original Full HD (1920x1080)</span>
+                <span class="status-badge-orig">★ 4K 60fps Master (2.29 GB)</span>
               </div>
             </div>
           </div>
@@ -3371,30 +3472,30 @@
             <div class="event-card-header">
               <div>
                 <span style="font-size:0.75rem; font-weight:800; color:#38bdf8; text-transform:uppercase;">Angle 2 • Center Stage Wide (Full HD)</span>
-                <div class="event-card-title">Original Full HD 1080p (IMG_8181.MOV)</div>
+                <div class="event-card-title">Original Camera Master (Full HD • 702 MB)</div>
               </div>
               <span class="meta-pill accent-cyan">05:56</span>
             </div>
             <div class="event-card-video-box">
-              <video id="eventVideoGrid2" playsinline controls preload="metadata">
-                <source src="WhatsApp Video 2026-09-12 at 19.17.08.mp4" type="video/mp4">
-                <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2019.17.08.mp4" type="video/mp4">
-              </video>
+              <iframe src="https://www.youtube-nocookie.com/embed/Mq2H5twbho8?rel=0&modestbranding=1"
+                title="Angle 2 Center Stage (Full HD)" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width:100%; aspect-ratio:16/9; border:none; display:block;">
+              </iframe>
             </div>
             <!-- UPLOAD LINK JUST UNDER VIDEO 2 -->
             <div class="video-upload-toolbar">
               <div class="upload-toolbar-left">
-                <label class="btn-upload-original" for="gridUpload2" title="Upload original version of Angle 2">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-                  <span>Upload Original</span>
-                </label>
-                <input type="file" id="gridUpload2" class="hidden-file-input" accept="video/*" onchange="handleGridOriginalUpload(2, event)">
+                <a href="https://youtu.be/Mq2H5twbho8" target="_blank" rel="noopener" class="btn-youtube-link" title="Open Angle 2 in YouTube">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  <span>Watch on YouTube</span>
+                </a>
                 <a href="WhatsApp Video 2026-09-12 at 19.17.08.mp4" download="WhatsApp Video 2026-09-12 at 19.17.08.mp4" class="btn-download-video-file">
-                  <span>⬇ 86.8 MB</span>
+                  <span>⬇ MP4 (86.8 MB)</span>
                 </a>
               </div>
               <div id="gridStatus2" class="upload-status-display">
-                <span class="status-badge-orig">Original 1080p HD</span>
+                <span class="status-badge-orig">★ 1080p Master (702 MB)</span>
               </div>
             </div>
           </div>
@@ -3403,31 +3504,31 @@
           <div class="event-card">
             <div class="event-card-header">
               <div>
-                <span style="font-size:0.75rem; font-weight:800; color:#34d399; text-transform:uppercase;">Angle 3 • Front Stage View</span>
-                <div class="event-card-title">Original 4K UHD 60fps (IMG_0865.MOV)</div>
+                <span style="font-size:0.75rem; font-weight:800; color:#34d399; text-transform:uppercase;">Angle 3 • Front Stage View (4K 60fps Master)</span>
+                <div class="event-card-title">Original 4K UHD 60fps (IMG_0865.MOV • 1.44 GB)</div>
               </div>
               <span class="meta-pill accent-green">06:53</span>
             </div>
             <div class="event-card-video-box">
-              <video id="eventVideoGrid3" playsinline controls preload="auto">
-                <source src="IMG_0865.mp4" type="video/mp4">
-                <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/IMG_0865.mp4" type="video/mp4">
-              </video>
+              <iframe src="https://www.youtube-nocookie.com/embed/1JpmA73g1h4?rel=0&modestbranding=1"
+                title="Angle 3 Front Stage (4K 60fps Master)" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width:100%; aspect-ratio:16/9; border:none; display:block;">
+              </iframe>
             </div>
             <!-- UPLOAD LINK JUST UNDER VIDEO 3 -->
             <div class="video-upload-toolbar">
               <div class="upload-toolbar-left">
-                <label class="btn-upload-original" for="gridUpload3" title="Upload original version of Angle 3">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-                  <span>Upload Original</span>
-                </label>
-                <input type="file" id="gridUpload3" class="hidden-file-input" accept="video/*" onchange="handleGridOriginalUpload(3, event)">
+                <a href="https://youtu.be/1JpmA73g1h4" target="_blank" rel="noopener" class="btn-youtube-link" title="Open Angle 3 in YouTube">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                  <span>Watch on YouTube</span>
+                </a>
                 <a href="IMG_0865.mp4" download="IMG_0865.mp4" class="btn-download-video-file">
-                  <span>⬇ 1.44 GB 4K Master (95 MB Stream)</span>
+                  <span>⬇ MP4 (95.3 MB)</span>
                 </a>
               </div>
               <div id="gridStatus3" class="upload-status-display">
-                <span class="status-badge-orig">Original 4K / 60fps Master</span>
+                <span class="status-badge-orig">★ 4K 60fps Master (1.44 GB)</span>
               </div>
             </div>
           </div>
@@ -5116,19 +5217,22 @@
 
 
     // =========================================================================
-    // EVENT VIDEOS LOGIC (LIVE STAGE PERFORMANCE RECORDINGS & UPLOADS)
+    // EVENT VIDEOS LOGIC (LIVE STAGE PERFORMANCE RECORDINGS & YOUTUBE INTEGRATION)
     // =========================================================================
     const EVENT_VIDEOS = {
       1: {
         id: 1,
-        title: "Angle 1 — Side Stage Left View (Original Full HD 60fps)",
+        title: "Angle 1 — Side Stage Left View (4K UHD 60fps Master)",
         file: "WhatsApp Video 2026-09-12 at 17.55.13.mp4",
         fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2017.55.13.mp4",
+        youtubeId: "Xk39waxkT3E",
+        youtubeUrl: "https://youtu.be/Xk39waxkT3E",
+        embedUrl: "https://www.youtube-nocookie.com/embed/Xk39waxkT3E?rel=0&modestbranding=1&enablejsapi=1",
         durationText: "⏱ 05:40",
-        resText: "📐 1920×1080 (Original 60fps Master)",
-        sizeText: "💾 1.2 GB Camera Master",
-        streamText: "⚡ 87 MB 1080p60 Stream",
-        downloadSize: "87 MB (Full HD)",
+        resText: "📐 3840×2160 (Original 4K 60fps)",
+        sizeText: "💾 2.29 GB Camera Master",
+        streamText: "⚡ YouTube 4K / 1080p60 Adaptive",
+        downloadSize: "87 MB (Full HD) • 2.29 GB (4K Master)",
         originalFile: null,
         originalBlobUrl: null
       },
@@ -5137,11 +5241,14 @@
         title: "Angle 2 — Center Stage Wide View (Original Full HD)",
         file: "WhatsApp Video 2026-09-12 at 19.17.08.mp4",
         fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2019.17.08.mp4",
+        youtubeId: "Mq2H5twbho8",
+        youtubeUrl: "https://youtu.be/Mq2H5twbho8",
+        embedUrl: "https://www.youtube-nocookie.com/embed/Mq2H5twbho8?rel=0&modestbranding=1&enablejsapi=1",
         durationText: "⏱ 05:56",
         resText: "📐 1920×1080 (Original Full HD)",
-        sizeText: "💾 1.1 GB Camera Master",
-        streamText: "⚡ 87 MB 1080p Stream",
-        downloadSize: "87 MB (Full HD)",
+        sizeText: "💾 702 MB Camera Master",
+        streamText: "⚡ YouTube 1080p Full HD Adaptive",
+        downloadSize: "87 MB (Full HD) • 702 MB (Original)",
         originalFile: null,
         originalBlobUrl: null
       },
@@ -5150,10 +5257,13 @@
         title: "Angle 3 — Front Stage View (Original 4K UHD 60fps Master)",
         file: "IMG_0865.mp4",
         fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/IMG_0865.mp4",
+        youtubeId: "1JpmA73g1h4",
+        youtubeUrl: "https://youtu.be/1JpmA73g1h4",
+        embedUrl: "https://www.youtube-nocookie.com/embed/1JpmA73g1h4?rel=0&modestbranding=1&enablejsapi=1",
         durationText: "⏱ 06:53",
         resText: "📐 3840×2160 (Original 4K 60fps Master)",
         sizeText: "💾 1.44 GB (Original 4K Master)",
-        streamText: "⚡ 95 MB 1080p60 Stream",
+        streamText: "⚡ YouTube 4K / 1080p60 Adaptive",
         downloadSize: "95 MB (Full HD Stream) • 1.44 GB (4K Master)",
         originalFile: null,
         originalBlobUrl: null
@@ -5162,7 +5272,66 @@
 
     let currentEventAngle = 1;
     let eventViewMode = 'single'; // 'single' or 'grid'
+    let eventStreamSource = 'youtube'; // 'youtube' or 'direct'
     const preloadedBlobs = {};
+
+    function setEventStreamSource(source) {
+      eventStreamSource = source;
+      const btnYt = document.getElementById('btnSourceYoutube');
+      const btnDirect = document.getElementById('btnSourceDirect');
+      const ytFrame = document.getElementById('eventYoutubeFeatured');
+      const vidTag = document.getElementById('eventVideoFeatured');
+      const btnPreload = document.getElementById('btnPreloadVideo');
+      const ytLink = document.getElementById('featuredYoutubeLink');
+      const statusDisp = document.getElementById('featuredUploadStatus');
+      const data = EVENT_VIDEOS[currentEventAngle];
+
+      if (source === 'youtube') {
+        if (btnYt) btnYt.classList.add('active');
+        if (btnDirect) btnDirect.classList.remove('active');
+        if (vidTag) {
+          vidTag.pause();
+          vidTag.style.display = 'none';
+        }
+        if (btnPreload) btnPreload.style.display = 'none';
+        if (ytLink) {
+          ytLink.style.display = 'inline-flex';
+          if (data) ytLink.href = data.youtubeUrl;
+        }
+        if (ytFrame) {
+          ytFrame.style.display = 'block';
+          if (data && (!ytFrame.src || !ytFrame.src.includes(data.youtubeId))) {
+            ytFrame.src = data.embedUrl;
+          }
+        }
+        if (statusDisp) {
+          statusDisp.innerHTML = '<span class="status-badge-orig">★ YouTube 4K Adaptive Stream Active</span>';
+        }
+      } else {
+        if (btnDirect) btnDirect.classList.add('active');
+        if (btnYt) btnYt.classList.remove('active');
+        if (ytFrame) {
+          ytFrame.style.display = 'none';
+          ytFrame.src = ''; // stop YouTube audio playback
+        }
+        if (ytLink) ytLink.style.display = 'none';
+        if (btnPreload) btnPreload.style.display = 'inline-flex';
+        if (vidTag) {
+          vidTag.style.display = 'block';
+          if (data) {
+            if (preloadedBlobs[data.file]) {
+              vidTag.src = preloadedBlobs[data.file];
+            } else if (data.originalBlobUrl) {
+              vidTag.src = data.originalBlobUrl;
+            } else {
+              vidTag.src = data.file;
+            }
+            vidTag.load();
+          }
+        }
+        updateFeaturedUploadStatus(data && !!data.originalBlobUrl);
+      }
+    }
 
     function openEventVideosTab(angle = 1) {
       // Pause master audio and solo decks
@@ -5226,7 +5395,7 @@
       if (durEl) durEl.textContent = data.durationText;
       if (resEl) resEl.textContent = data.resText;
       if (sizeEl) sizeEl.textContent = data.sizeText;
-      if (codecEl) codecEl.textContent = data.streamText || "⚡ 1080p60 Web Stream";
+      if (codecEl) codecEl.textContent = data.streamText || "⚡ YouTube 4K / 1080p60 Adaptive";
 
       if (dlLink) {
         dlLink.href = data.file;
@@ -5242,34 +5411,69 @@
       if (headerDownloadText) headerDownloadText.textContent = `Download Stage Video (${data.title} • ${data.downloadSize})`;
       if (headerDownloadSize) headerDownloadSize.textContent = data.downloadSize;
 
-      // Check if preloaded in memory
-      const pBtn = document.getElementById('btnPreloadVideo');
-      const pTxt = document.getElementById('preloadBtnText');
-      if (preloadedBlobs[data.file]) {
-        eventVideoFeatured.src = preloadedBlobs[data.file];
-        if (pBtn) {
-          pBtn.classList.add('preload-complete');
-          pBtn.disabled = false;
-        }
-        if (pTxt) pTxt.textContent = '⚡ 100% in RAM (Glitch-Free)';
-        updateFeaturedUploadStatus(false);
-      } else {
-        if (pBtn) {
-          pBtn.classList.remove('preload-complete');
-          pBtn.disabled = false;
-        }
-        if (pTxt) pTxt.textContent = '⚡ Preload for Smooth Playback';
+      // Synchronize Stream Player (YouTube vs Direct)
+      const ytFrame = document.getElementById('eventYoutubeFeatured');
+      const vidTag = document.getElementById('eventVideoFeatured');
+      const ytLink = document.getElementById('featuredYoutubeLink');
+      const btnPreload = document.getElementById('btnPreloadVideo');
+      const statusDisp = document.getElementById('featuredUploadStatus');
 
-        // Update video source (check if original uploaded)
-        if (data.originalBlobUrl) {
-          eventVideoFeatured.src = data.originalBlobUrl;
-          updateFeaturedUploadStatus(true, data.originalFile.name, (data.originalFile.size / (1024*1024)).toFixed(1));
-        } else {
-          eventVideoFeatured.src = data.file;
-          updateFeaturedUploadStatus(false);
+      if (eventStreamSource === 'youtube') {
+        if (vidTag) {
+          vidTag.pause();
+          vidTag.style.display = 'none';
+        }
+        if (btnPreload) btnPreload.style.display = 'none';
+        if (ytLink) {
+          ytLink.style.display = 'inline-flex';
+          ytLink.href = data.youtubeUrl;
+        }
+        if (ytFrame) {
+          ytFrame.style.display = 'block';
+          if (!ytFrame.src || !ytFrame.src.includes(data.youtubeId)) {
+            ytFrame.src = data.embedUrl;
+          }
+        }
+        if (statusDisp) {
+          statusDisp.innerHTML = '<span class="status-badge-orig">★ YouTube 4K Adaptive Stream Active</span>';
+        }
+      } else {
+        if (ytFrame) {
+          ytFrame.style.display = 'none';
+          ytFrame.src = '';
+        }
+        if (ytLink) ytLink.style.display = 'none';
+        if (btnPreload) btnPreload.style.display = 'inline-flex';
+        if (vidTag) {
+          vidTag.style.display = 'block';
+          const pBtn = document.getElementById('btnPreloadVideo');
+          const pTxt = document.getElementById('preloadBtnText');
+          if (preloadedBlobs[data.file]) {
+            vidTag.src = preloadedBlobs[data.file];
+            if (pBtn) {
+              pBtn.classList.add('preload-complete');
+              pBtn.disabled = false;
+            }
+            if (pTxt) pTxt.textContent = '⚡ 100% in RAM (Glitch-Free)';
+            updateFeaturedUploadStatus(false);
+          } else {
+            if (pBtn) {
+              pBtn.classList.remove('preload-complete');
+              pBtn.disabled = false;
+            }
+            if (pTxt) pTxt.textContent = '⚡ Preload for Smooth Playback';
+
+            if (data.originalBlobUrl) {
+              vidTag.src = data.originalBlobUrl;
+              updateFeaturedUploadStatus(true, data.originalFile.name, (data.originalFile.size / (1024*1024)).toFixed(1));
+            } else {
+              vidTag.src = data.file;
+              updateFeaturedUploadStatus(false);
+            }
+          }
+          vidTag.load();
         }
       }
-      eventVideoFeatured.load();
     }
 
     async function preloadCurrentVideo() {

@@ -156,3 +156,28 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
   - Caches preloaded blob URLs in `preloadedBlobs[angle]` so switching angles maintains immediate RAM playback without re-downloading.
   - Guarantees 0ms seek latency, zero frame drops, and 100% glitch-free 60fps playback even offline.
 
+---
+
+## 8. YouTube Unlisted Embeds & GitHub Pages Decommissioning
+- **Primary Hosting:** Exclusively on Firebase Hosting (`https://vk-onam-dance.web.app`).
+- **GitHub Pages Decommissioned:** Successfully unpublished and deleted via GitHub API (`DELETE /repos/vinchess1989/onam-mens-dance-2026/pages` returned HTTP 204). The GitHub Pages site (`https://vinchess1989.github.io/onam-mens-dance-2026/`) returns HTTP 404 (fully decommissioned).
+- **YouTube Unlisted Uploads (Vineeth Kaimal Channel `UCjNp0glIgwtrXNuADhMQAIg`):**
+  - **Angle 1:** `https://youtu.be/Xk39waxkT3E` (Video ID: `Xk39waxkT3E`)
+    - Title: `Men's Dance | Oulu Onam 2026 — Angle 1 (Side Stage View • 4K 60fps)`
+    - File: `IMG_9331.MOV` (2.29 GB, 4K UHD 60fps)
+  - **Angle 2:** `https://youtu.be/Mq2H5twbho8` (Video ID: `Mq2H5twbho8`)
+    - Title: `Men's Dance | Oulu Onam 2026 — Angle 2 (Center Stage View • Full HD)`
+    - File: `IMG_8181.MOV` (702 MB, 1080p Full HD)
+  - **Angle 3:** `https://youtu.be/1JpmA73g1h4` (Video ID: `1JpmA73g1h4`)
+    - Title: `Men's Dance | Oulu Onam 2026 — Angle 3 (Front Stage View • 4K 60fps Master)`
+    - File: `IMG_0865.MOV` (1.44 GB, 4K UHD 60fps Master)
+  - **Visibility:** Unlisted (accessible only via link or embedded player).
+  - **Upload Pipeline:** Overcame Playwright's 50MB CDP file transfer limit using native Chrome DevTools Protocol (`DOM.setFileInputFiles` with `backendNodeId`) to feed multi-gigabyte local camera master files directly to YouTube Studio without socket overhead.
+- **Frontend Stream Source Selector (`setEventStreamSource`):**
+  - **YouTube 4K Adaptive (Default):** Streams via YouTube's global CDN with zero stutter, automatic 4K/1080p60 adaptive bitrate, and embedded responsive iframes.
+  - **Direct File / RAM:** Allows instant switching to local HTML5 video playback with in-memory RAM preloader and direct download links.
+  - **Grid View & Featured View:** Both individual featured view and 3-angles multi-grid view provide embedded YouTube players and direct "Watch on YouTube" shortcut links.
+
+
+
+
