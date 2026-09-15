@@ -342,6 +342,62 @@
       color: #fff;
     }
 
+    .btn-preload-video {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0.55rem 1.15rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .btn-preload-video:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.55);
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    }
+
+    .btn-preload-video:active {
+      transform: scale(0.97);
+    }
+
+    .btn-preload-video:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none;
+    }
+
+    .btn-preload-video.preload-complete {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border-color: rgba(16, 185, 129, 0.6);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .preload-bar-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    .preload-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #10b981);
+      transition: width 0.15s ease;
+    }
+
     .upload-status-display {
       display: flex;
       align-items: center;
@@ -3223,13 +3279,13 @@
             <div class="featured-meta-badges">
               <span class="meta-pill accent-gold" id="featuredDurationBadge">⏱ 05:40</span>
               <span class="meta-pill accent-cyan" id="featuredResBadge">📐 1920×1080 (Original Full HD)</span>
-              <span class="meta-pill accent-green" id="featuredSizeBadge">💾 87.1 MB (Full HD)</span>
-              <span class="meta-pill">MP4 H.264 / AAC 60fps</span>
+              <span class="meta-pill accent-green" id="featuredSizeBadge">💾 1.2 GB Camera Master</span>
+              <span class="meta-pill" id="featuredCodecBadge">⚡ 87 MB 1080p60 Stream</span>
             </div>
           </div>
 
           <div class="event-video-embed-box" id="featuredDropZone" title="Drag & drop your original 4K/HD video here to replace the WhatsApp version">
-            <video id="eventVideoFeatured" playsinline controls preload="metadata">
+            <video id="eventVideoFeatured" playsinline controls preload="auto">
               <source id="featuredVideoSrc" src="WhatsApp Video 2026-09-12 at 17.55.13.mp4" type="video/mp4">
               <source id="featuredVideoFallback" src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2017.55.13.mp4" type="video/mp4">
               Your browser does not support the video tag.
@@ -3243,9 +3299,14 @@
           <!-- UPLOAD LINK JUST UNDER THE VIDEO -->
           <div class="video-upload-toolbar">
             <div class="upload-toolbar-left">
+              <button id="btnPreloadVideo" class="btn-preload-video" onclick="preloadCurrentVideo()" title="Buffer full video into browser memory for 100% glitch-free playback and instant seeking">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.28-1.61 8.07-4.11l-2.54-1.51C15.95 17.76 14.12 19 12 19zm1-8.5v4.5l3.5-2.25L13 10.5z"/></svg>
+                <span id="preloadBtnText">⚡ Preload for Smooth Playback</span>
+              </button>
+
               <label class="btn-upload-original" for="featuredUploadInput" title="Select your camera 4K/Full HD video file — it immediately replaces the WhatsApp video in the player!">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-                <span>Upload Original to Replace WhatsApp Version</span>
+                <span>Upload Original</span>
                 <span class="upload-btn-pill">4K / Full HD</span>
               </label>
               <input type="file" id="featuredUploadInput" class="hidden-file-input" accept="video/*" onchange="handleFeaturedOriginalUpload(event)">
@@ -3264,6 +3325,9 @@
             <div id="featuredUploadStatus" class="upload-status-display">
               <span class="status-badge-orig">★ Original Full HD Active (1080p 60fps)</span>
             </div>
+          </div>
+          <div id="preloadProgressBarContainer" class="preload-bar-container">
+            <div id="preloadProgressBar" class="preload-bar-fill"></div>
           </div>
         </div>
 
@@ -3340,12 +3404,12 @@
             <div class="event-card-header">
               <div>
                 <span style="font-size:0.75rem; font-weight:800; color:#34d399; text-transform:uppercase;">Angle 3 • Front Stage View</span>
-                <div class="event-card-title">Original Full HD 60fps (IMG_0865.MOV)</div>
+                <div class="event-card-title">Original 4K UHD 60fps (IMG_0865.MOV)</div>
               </div>
               <span class="meta-pill accent-green">06:53</span>
             </div>
             <div class="event-card-video-box">
-              <video id="eventVideoGrid3" playsinline controls preload="metadata">
+              <video id="eventVideoGrid3" playsinline controls preload="auto">
                 <source src="IMG_0865.mp4" type="video/mp4">
                 <source src="https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/IMG_0865.mp4" type="video/mp4">
               </video>
@@ -3359,11 +3423,11 @@
                 </label>
                 <input type="file" id="gridUpload3" class="hidden-file-input" accept="video/*" onchange="handleGridOriginalUpload(3, event)">
                 <a href="IMG_0865.mp4" download="IMG_0865.mp4" class="btn-download-video-file">
-                  <span>⬇ 92 MB (60fps)</span>
+                  <span>⬇ 1.44 GB 4K Master (95 MB Stream)</span>
                 </a>
               </div>
               <div id="gridStatus3" class="upload-status-display">
-                <span class="status-badge-orig">Original 60fps Master</span>
+                <span class="status-badge-orig">Original 4K / 60fps Master</span>
               </div>
             </div>
           </div>
@@ -5057,13 +5121,14 @@
     const EVENT_VIDEOS = {
       1: {
         id: 1,
-        title: "Angle 1 — Side Stage Left View (Original Full HD)",
+        title: "Angle 1 — Side Stage Left View (Original Full HD 60fps)",
         file: "WhatsApp Video 2026-09-12 at 17.55.13.mp4",
         fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2017.55.13.mp4",
         durationText: "⏱ 05:40",
-        resText: "📐 1920×1080 (Original Full HD)",
-        sizeText: "💾 87.1 MB (Full HD)",
-        downloadSize: "87.1 MB (Full HD)",
+        resText: "📐 1920×1080 (Original 60fps Master)",
+        sizeText: "💾 1.2 GB Camera Master",
+        streamText: "⚡ 87 MB 1080p60 Stream",
+        downloadSize: "87 MB (Full HD)",
         originalFile: null,
         originalBlobUrl: null
       },
@@ -5074,20 +5139,22 @@
         fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/WhatsApp%20Video%202026-09-12%20at%2019.17.08.mp4",
         durationText: "⏱ 05:56",
         resText: "📐 1920×1080 (Original Full HD)",
-        sizeText: "💾 86.8 MB (Full HD)",
-        downloadSize: "86.8 MB (Full HD)",
+        sizeText: "💾 1.1 GB Camera Master",
+        streamText: "⚡ 87 MB 1080p Stream",
+        downloadSize: "87 MB (Full HD)",
         originalFile: null,
         originalBlobUrl: null
       },
       3: {
         id: 3,
-        title: "Angle 3 — Front Stage View (Original Full HD 60fps)",
+        title: "Angle 3 — Front Stage View (Original 4K UHD 60fps Master)",
         file: "IMG_0865.mp4",
         fallback: "https://raw.githubusercontent.com/vinchess1989/onam-mens-dance-2026/main/IMG_0865.mp4",
         durationText: "⏱ 06:53",
-        resText: "📐 1920×1080 (Original 60fps Master)",
-        sizeText: "💾 92 MB (Full HD)",
-        downloadSize: "92 MB (Full HD)",
+        resText: "📐 3840×2160 (Original 4K 60fps Master)",
+        sizeText: "💾 1.44 GB (Original 4K Master)",
+        streamText: "⚡ 95 MB 1080p60 Stream",
+        downloadSize: "95 MB (Full HD Stream) • 1.44 GB (4K Master)",
         originalFile: null,
         originalBlobUrl: null
       }
@@ -5095,10 +5162,7 @@
 
     let currentEventAngle = 1;
     let eventViewMode = 'single'; // 'single' or 'grid'
-
-    const tabEventVideos = document.getElementById('tabEventVideos');
-    const eventVideosStudioLayout = document.getElementById('eventVideosStudioLayout');
-    const eventVideoFeatured = document.getElementById('eventVideoFeatured');
+    const preloadedBlobs = {};
 
     function openEventVideosTab(angle = 1) {
       // Pause master audio and solo decks
@@ -5154,6 +5218,7 @@
       const durEl = document.getElementById('featuredDurationBadge');
       const resEl = document.getElementById('featuredResBadge');
       const sizeEl = document.getElementById('featuredSizeBadge');
+      const codecEl = document.getElementById('featuredCodecBadge');
       const dlLink = document.getElementById('featuredDownloadLink');
       const dlText = document.getElementById('featuredDownloadText');
 
@@ -5161,6 +5226,7 @@
       if (durEl) durEl.textContent = data.durationText;
       if (resEl) resEl.textContent = data.resText;
       if (sizeEl) sizeEl.textContent = data.sizeText;
+      if (codecEl) codecEl.textContent = data.streamText || "⚡ 1080p60 Web Stream";
 
       if (dlLink) {
         dlLink.href = data.file;
@@ -5176,8 +5242,25 @@
       if (headerDownloadText) headerDownloadText.textContent = `Download Stage Video (${data.title} • ${data.downloadSize})`;
       if (headerDownloadSize) headerDownloadSize.textContent = data.downloadSize;
 
-      // Update video source (check if original uploaded)
-      if (eventVideoFeatured) {
+      // Check if preloaded in memory
+      const pBtn = document.getElementById('btnPreloadVideo');
+      const pTxt = document.getElementById('preloadBtnText');
+      if (preloadedBlobs[data.file]) {
+        eventVideoFeatured.src = preloadedBlobs[data.file];
+        if (pBtn) {
+          pBtn.classList.add('preload-complete');
+          pBtn.disabled = false;
+        }
+        if (pTxt) pTxt.textContent = '⚡ 100% in RAM (Glitch-Free)';
+        updateFeaturedUploadStatus(false);
+      } else {
+        if (pBtn) {
+          pBtn.classList.remove('preload-complete');
+          pBtn.disabled = false;
+        }
+        if (pTxt) pTxt.textContent = '⚡ Preload for Smooth Playback';
+
+        // Update video source (check if original uploaded)
         if (data.originalBlobUrl) {
           eventVideoFeatured.src = data.originalBlobUrl;
           updateFeaturedUploadStatus(true, data.originalFile.name, (data.originalFile.size / (1024*1024)).toFixed(1));
@@ -5185,7 +5268,83 @@
           eventVideoFeatured.src = data.file;
           updateFeaturedUploadStatus(false);
         }
-        eventVideoFeatured.load();
+      }
+      eventVideoFeatured.load();
+    }
+
+    async function preloadCurrentVideo() {
+      const data = EVENT_VIDEOS[currentEventAngle];
+      if (!data) return;
+      const fileUrl = data.file;
+
+      const btn = document.getElementById('btnPreloadVideo');
+      const txt = document.getElementById('preloadBtnText');
+      const barContainer = document.getElementById('preloadProgressBarContainer');
+      const bar = document.getElementById('preloadProgressBar');
+
+      if (preloadedBlobs[fileUrl]) {
+        eventVideoFeatured.src = preloadedBlobs[fileUrl];
+        if (txt) txt.textContent = '⚡ 100% in RAM (Glitch-Free)';
+        if (btn) btn.classList.add('preload-complete');
+        return;
+      }
+
+      if (btn) btn.disabled = true;
+      if (barContainer) barContainer.style.display = 'block';
+      if (bar) bar.style.width = '0%';
+      if (txt) txt.textContent = '⏳ Buffering: 0%...';
+
+      try {
+        const response = await fetch(fileUrl);
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const headerLen = response.headers.get('Content-Length');
+        const contentLength = headerLen ? +headerLen : (data.id === 3 ? 95322374 : (data.id === 2 ? 91010397 : 91282088));
+
+        const reader = response.body.getReader();
+        let receivedLength = 0;
+        const chunks = [];
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          receivedLength += value.length;
+          const pct = Math.min(99, Math.round((receivedLength / contentLength) * 100));
+          const mbRec = (receivedLength / (1024 * 1024)).toFixed(1);
+          const mbTot = (contentLength / (1024 * 1024)).toFixed(1);
+          if (bar) bar.style.width = pct + '%';
+          if (txt) txt.textContent = `⏳ Buffering: ${pct}% (${mbRec} MB / ${mbTot} MB)`;
+        }
+
+        const blob = new Blob(chunks, { type: 'video/mp4' });
+        const blobUrl = URL.createObjectURL(blob);
+        preloadedBlobs[fileUrl] = blobUrl;
+
+        const curTime = eventVideoFeatured.currentTime || 0;
+        const wasPlaying = !eventVideoFeatured.paused;
+
+        eventVideoFeatured.src = blobUrl;
+        eventVideoFeatured.currentTime = curTime;
+        if (wasPlaying) {
+          eventVideoFeatured.play().catch(() => {});
+        }
+
+        if (bar) bar.style.width = '100%';
+        setTimeout(() => {
+          if (barContainer) barContainer.style.display = 'none';
+        }, 1500);
+
+        if (txt) txt.textContent = '⚡ 100% in RAM (Glitch-Free)';
+        if (btn) {
+          btn.disabled = false;
+          btn.classList.add('preload-complete');
+        }
+      } catch (err) {
+        console.error('Preload failed:', err);
+        if (txt) txt.textContent = '⚠️ Preload Error — Using Direct Stream';
+        if (btn) btn.disabled = false;
+        if (barContainer) barContainer.style.display = 'none';
       }
     }
 
