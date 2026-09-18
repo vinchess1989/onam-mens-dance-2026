@@ -47,6 +47,23 @@
 
 ---
 
+## Major Features
+1. **Interactive Rehearsal Studio (0.01s Precision):** Frame-accurate jog shuttle, numeric timecode seek input, 0.01s step scrubber, and micro-nudging (`±0.01s` to `±1.00s`).
+2. **Multi-Angle 4K/Full HD Stage Performance Viewer:** Responsive multi-angle stage recording player (Angles 1–3) with in-browser video upload replacements.
+3. **9-Track EBU R128 Master Audio Mix:** High-fidelity VBR MP3 mix normalized to `-10.8 LUFS` across 9 song and dialogue segments with dedicated stage pause cue beats.
+4. **Individual Component Studio (11 Solo Decks):** Isolated decks for every dialogue and song track with local scrubbing, individual downloads, and master timeline synchronization.
+5. **Multi-Version Routine Switcher:** Instant toggling across 4 historical performance iterations (Final Mix 260909, Sep 8 Master, Previous Mix, Legacy Mix).
+
+---
+
+## Minor Features & Utilities
+- **Interactive Audio Waveform & Beat Canvas:** Real-time canvas rendering peak levels and rhythm drops with instant hotkey toggling (`W`).
+- **Smooth Speed Pitch-Preserving Slider:** Continuous tempo adjustment from 0.1x to 4.0x across audio and reference video.
+- **Reference Video Player with 5 Named Song Cues:** Synchronized reference choreography video with pre-marked song transitions.
+- **Automated Skill Pipeline (`update_final`):** One-command rebuild calculating track durations, backing up previous mixes, and updating player seek points.
+
+---
+
 ## 3. Final Master Routine Timeline (9 Tracks + 2 Stage Pauses • 04:12.70 / 252.70s)
 
 | # | Track Title | Badge | Start | End | Duration | Notes |
@@ -213,3 +230,52 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
   3. **Auto-play & Smooth Scroll:** `toggleEventViewMode('reel')` now resets button classes, applies the amber active pill to `#btnAngleReel`, reveals `#eventReelContainer`, smoothly scrolls it into view via `reelBox.scrollIntoView({ behavior: 'smooth', block: 'start' })`, and starts playback immediately.
   4. **Synced & Deployed:** Synchronized across `index.html` and `dance_practice_player.html`, verified live in Chrome CDP, deployed to Firebase Hosting (`https://vk-onam-dance.web.app`), and pushed to GitHub `main`.
 
+---
+
+## 10. Photo Gallery & Multi-Track Slow-Mo Reel Director Studio (`reel_tuner.html`) (Completed & Live)
+
+### 1. 25-Photo Stage Performance Gallery & Fullscreen Lightbox
+- **Photographs Source:** 25 pristine high-resolution stage performance photos taken on September 12, 2026 by Rakesh (`DSC06893.jpg` to `DSC07025.jpg`), located in [`Photos-Rakesh/`](file:///c:/Users/vinee/Video%20Editing/Photos-Rakesh/).
+- **Archive ZIP Download:** Bundled all 25 images into [`Photos-Rakesh.zip`](file:///c:/Users/vinee/Video%20Editing/Photos-Rakesh.zip) (10.5 MB) for single-click full download directly from the gallery toolbar.
+- **Navigation & Tab:**
+  - Added dedicated `#tabPhotoGallery` button (`📸 Photo Gallery • 25 Photos • Rakesh`) to the main header navigation in [`index.html`](file:///c:/Users/vinee/Video%20Editing/index.html) and [`dance_practice_player.html`](file:///c:/Users/vinee/Video%20Editing/dance_practice_player.html).
+  - Unified with the signature active amber pill highlight (`.tab-btn.gallery-btn.active-tab`).
+- **Interactive Lightbox Modal (`#photoLightboxModal`):**
+  - Fullscreen dark glass backdrop (`rgba(5, 8, 18, 0.96)`) with blur (`20px`).
+  - Photo counter (`Photo X of 25`), filename badge, individual high-res download button, and close button.
+  - Previous/Next navigation buttons and full keyboard support (`←` Previous, `→` Next, `Esc` Close).
+  - Dynamic DOM querying implemented to eliminate closures across script tags.
+
+### 2. Temporary Removal of 2-Min Reel Button
+- Per user instruction, removed `#btnAngleReel` ("🎬 2-Min Slow-Mo Reel") from the live event video angle bar until fine-tuning is completed via the director studio.
+
+### 3. Multi-Track Slow-Mo Reel Director Studio ([`reel_tuner.html`](file:///c:/Users/vinee/Video%20Editing/reel_tuner.html))
+- **Dedicated NLE Web Application:** Built a standalone, interactive timeline director studio allowing the user to visually inspect, trim, nudge, add, and reorder slow-motion clips and photo slides across all 3 stage performance camera angles.
+- **3-Angle Video Decks:**
+  - Angle 1 (Side Stage - 340s / 05:40), Angle 2 (Center Stage - 356s / 05:56), and Angle 3 (Front Stage - 413s / 06:53).
+  - Synchronized seeking, micro-nudges (`-1s`, `-0.1s`, `+0.1s`, `+1s`), and "➕ Add Clip Here" deck buttons.
+- **Multi-Track Timeline with Colorful Selection Rectangles:**
+  - Dynamic zoom slider (`1.0x` to `5.0x`).
+  - Color-coded clips: Sky Cyan for Angle 1, Amber Gold for Angle 2, Emerald Green for Angle 3.
+  - Pre-populated with the 11 curated slow-motion clips totaling exactly 120.00s.
+  - **Interactive Dragging:** Drag the body to shift start time (`ss`).
+  - **Interactive Resizing:** Drag left/right handles to trim/extend in-point and out-point (`dur`).
+  - Double-click empty track area to instantiate a new clip at that exact second.
+- **Photo Slide Library Track:**
+  - Horizontal scroller with all 25 Rakesh photos.
+  - "➕ Reel (3s)" button inserts any photo as a slow cinematic slide into the sequence.
+- **Bottom 120s Master Reel Assembly Dock:**
+  - Real-time gauge comparing output duration against the 120.00s target (`Current: 120.00s / Target: 120.00s`).
+  - Embedded **Soundtrack Preview Player** pre-loaded with [`onam_mood_2min.mp3`](file:///c:/Users/vinee/Video%20Editing/onam_mood_2min.mp3) (the 2-minute Onam Mood cut with applause fade-out).
+  - Storyboard sequence strip with drag-to-reorder, clip labels, speeds, rendered durations, and quick delete (`✕`).
+- **Clip Inspector Modal:**
+  - Fine-tune label, angle track, start time (`ss`), source duration (`dur`), and speed presets (`0.25x`, `0.33x`, `0.50x`, `0.75x`, `1.00x`).
+  - In-deck 5-second snippet preview button.
+- **Export & Persistence:**
+  - Auto-saves changes to `localStorage` (`onam_reel_tuner_items`).
+  - "💾 Download Config": Generates [`reel_config.json`](file:///c:/Users/vinee/Video%20Editing/reel_config.json) formatted for direct rendering with `build_onam_reel.py`.
+  - "📋 Copy JSON" button for quick clipboard sharing.
+  - "🔄 Reset" restores the pristine 11 clips.
+- **Deployed & Live:**
+  - Deployed to Firebase Hosting (`https://vk-onam-dance.web.app/reel_tuner.html`).
+  - Committed to Git `main` (commit `9dc2a99`).
