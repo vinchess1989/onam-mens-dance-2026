@@ -321,3 +321,38 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
   - Deployed to Firebase Hosting (`https://vk-onam-dance.web.app`).
   - Synced between `index.html` and `dance_practice_player.html`.
 
+---
+
+## 12. Mobile Videos Tab Bottom Nav Visibility Fix (< 768px) (Completed & Live)
+
+### 1. Root Cause Analysis
+- **Problem:** On mobile devices (e.g. iPhone 16 viewport `393x852`), opening the "Videos" tab pushed the fixed bottom navigation bar down to `y = 1781px`, requiring the user to scroll down ~1000px through an empty black void before the bottom navigation became visible.
+- **Underlying Cause:**
+  1. The `.event-angle-selector` flex container contained 4 buttons (`Angle 1`, `Angle 2`, `Angle 3`, `All 3 Angles Grid`) spanning a total min-content width of `814px`.
+  2. Because the flex hierarchy (`#eventVideosStudioLayout`, `.event-videos-hero`, `.event-hero-header`, `.event-angle-selector`) lacked explicit `width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box;`, the flex container expanded to its content width (`814px`).
+  3. Consequently, the document's layout width expanded from `393px` to `847px`, prompting mobile Chrome to scale out the layout viewport from `393x852` to `847x1837`.
+  4. The fixed bottom bar (`bottom: 0`) was positioned relative to the inflated `1837px` viewport height rather than the initial `852px` screen height.
+  5. The `#countdownOverlay` element had `display: flex` and `opacity: 0` without `visibility: hidden`, contributing to the layout container height.
+
+### 2. Implementation & Fix
+1. **Mobile Root Viewport Locks (`@media (max-width: 768px)`):**
+   - Added `html { width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }`.
+   - Set `body { width: 100% !important; max-width: 100vw !important; padding: 0 0 calc(64px + env(safe-area-inset-bottom, 0px)) 0 !important; margin: 0 !important; overflow-x: hidden !important; }`.
+   - Constrained `.container { width: 100% !important; max-width: 100vw !important; min-width: 0 !important; gap: 0.75rem !important; box-sizing: border-box !important; overflow-x: hidden !important; }`.
+2. **Event Videos Mobile Container Constraints:**
+   - Constrained `#eventVideosStudioLayout`, `.event-videos-tab-layout`, `.event-videos-hero`, `.event-hero-header`, `#eventFeaturedContainer`, `.featured-video-card`, and `.event-videos-grid` with `width: 100% !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important;`.
+   - Configured `.event-angle-selector` with `width: 100% !important; max-width: 100% !important; min-width: 0 !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; box-sizing: border-box !important;` so the 4 angle buttons scroll horizontally within the mobile width without expanding the page.
+3. **Bottom Navigation GPU Composite Layer & Max Z-Index:**
+   - Updated `.mobile-app-bottom-nav` with `width: 100vw !important; max-width: 100vw !important; transform: translateZ(0) !important; -webkit-transform: translateZ(0) !important; will-change: transform !important; z-index: 99999 !important; box-sizing: border-box !important;`.
+4. **Inactive Countdown Overlay Cleanup:**
+   - Added `visibility: hidden` (and `visibility: visible` on `.show`) to `.countdown-overlay` so that it doesn't participate in viewport or hit-test calculations when hidden.
+
+### 3. Verification & Metrics
+- Ran Chrome DevTools Protocol automation emulating iPhone 16 (`393x852`):
+  - `Videos`: `innerW: 393`, `innerH: 852`, `docScrollW: 393`, `docScrollH: 852`, `navTop: 796`, `navBottom: 852` (Fit to screen, pinned at bottom with zero scroll!).
+  - `Photos`: `innerW: 393`, `innerH: 852`, `docScrollW: 393`, `docScrollH: 1985`, `navTop: 796`, `navBottom: 852` (Pinned at bottom!).
+  - `Music`: `innerW: 393`, `innerH: 852`, `docScrollW: 393`, `docScrollH: 852`, `navTop: 796`, `navBottom: 852` (Pinned at bottom!).
+  - `Reference`: `innerW: 393`, `innerH: 852`, `docScrollW: 393`, `docScrollH: 852`, `navTop: 796`, `navBottom: 852` (Pinned at bottom!).
+- Desktop view check (`>= 768px`): Bottom bar remains `display: none`, all 2-column desktop controls, waveforms, shuttles, and solo decks remain 100% functional.
+- Synchronized `index.html` and `dance_practice_player.html`.
+
