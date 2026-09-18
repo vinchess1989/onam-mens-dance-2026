@@ -391,4 +391,37 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
 - **Desktop (`1440 x 900`):**
   - Displays full titles (`Angle 1 (Side Stage • 05:40)`, etc.) with zero regressions.
 
+---
+
+## 14. Mobile Landscape Orientation App Shell & Responsive Layout Optimization (`<= 550px` height) (Completed & Live)
+
+### 1. User Feedback & Problem
+- In landscape view on mobile devices (e.g., iPhone 16 in landscape `852 x 393`), viewport width exceeds `768px` (`852 > 768`), causing the browser to fall back to the **desktop layout**.
+- As a result:
+  - The massive desktop header, subtitle, and 8 desktop version tabs rendered, taking up the entire `393px` vertical screen height.
+  - The native mobile bottom navigation bar (`#mobileAppBottomNav`) was hidden (`display: none`).
+  - Videos and content overflowed vertically and horizontally, requiring awkward vertical scrolling to reach playback controls.
+- Requirement: Support mobile landscape mode seamlessly by activating the app shell, suppressing desktop clutter, pinning a compact bottom navigation bar, and optimizing player/gallery layouts for widescreen aspect ratios.
+
+### 2. Architecture & Solution
+- **Media Query Expansion:**
+  - Extended core mobile app shell styles to `@media (max-width: 768px), (max-height: 550px) and (orientation: landscape)`.
+  - Suppressed desktop tabs (`.tabs { display: none !important; }`), desktop subtitle, and footer badges in landscape mode.
+  - Activated `#mobileAppBottomNav` with `display: flex !important;`.
+- **Landscape-Specific Optimizations (`@media (max-height: 550px) and (orientation: landscape)`):**
+  - **Ultra-Compact Header:** Scaled header title to `0.92rem` and padding to `0.2rem 0.5rem`, using `< 34px` vertical space.
+  - **Compact Bottom Navigation Bar:** Height reduced to `42px`, with horizontal icon + text layout (`flex-direction: row; gap: 5px; font-size: 0.7rem;`) to save vertical real estate.
+  - **Videos Tab:** Constrained `.event-video-embed-box` with `max-height: calc(100dvh - 140px); aspect-ratio: 16 / 9; width: auto; margin: 0 auto;` so the 16:9 video fits on screen alongside the angle selector.
+  - **Photos Tab:** Responsive 4-column photo grid (`grid-template-columns: repeat(4, 1fr);`) with compact header toolbar.
+  - **Music Studio Tab:** 2-column side-by-side layout (`grid-template-columns: 310px 1fr;`) with left sticky player card and right scrollable tracklist.
+  - **Reference Video Tab:** Centered 16:9 player with `max-height: calc(100dvh - 140px)` and single-row 5 cue cards (`flex: 1 1 0; min-width: 0;`).
+  - **Zero Horizontal Overflow:** Enforced `overflow-x: hidden !important; max-width: 100vw !important; min-width: 0 !important;` on all root and container elements.
+
+### 3. Automated CDP Verification (iPhone 16 Landscape `852 x 393`)
+- **Videos Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
+- **Photos Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
+- **Music Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
+- **Reference Video Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
+- **Desktop Check (`1440 x 900`):** Bottom navigation remains `display: none`, desktop header and 2-column studio layout remain 100% untouched.
+
 
