@@ -133,6 +133,14 @@
       color: #fbbf24;
     }
 
+    .btn-label-desk {
+      display: inline;
+    }
+
+    .btn-label-mob {
+      display: none;
+    }
+
     .btn-angle-tab.reel-tab-btn:hover {
       background: rgba(245, 158, 11, 0.22);
       border-color: rgba(245, 158, 11, 0.6);
@@ -3483,35 +3491,55 @@
         box-sizing: border-box !important;
       }
 
+      .btn-label-desk {
+        display: none !important;
+      }
+      .btn-label-mob {
+        display: inline !important;
+      }
+
       .event-angle-selector {
         display: flex !important;
+        flex-direction: row !important;
         flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        scrollbar-width: none !important;
+        justify-content: space-between !important;
+        align-items: center !important;
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0 !important;
         box-sizing: border-box !important;
-        gap: 0.4rem !important;
-        padding: 0.2rem 0 !important;
+        gap: 0.35rem !important;
+        padding: 0 !important;
+        margin-bottom: 0.45rem !important;
+        overflow-x: hidden !important;
       }
       .event-angle-selector::-webkit-scrollbar {
         display: none !important;
       }
 
       .btn-angle-tab {
-        font-size: 0.74rem !important;
-        padding: 0.42rem 0.8rem !important;
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        padding: 0.45rem 0.2rem !important;
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
         white-space: nowrap !important;
-        border-radius: 9999px !important;
-        flex-shrink: 0 !important;
+        border-radius: 8px !important;
         background: rgba(255, 255, 255, 0.08) !important;
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
         color: #cbd5e1 !important;
         display: inline-flex !important;
         align-items: center !important;
-        gap: 0.35rem !important;
+        justify-content: center !important;
+        gap: 0.25rem !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+      }
+
+      .btn-angle-tab svg {
+        flex-shrink: 0 !important;
+        width: 12px !important;
+        height: 12px !important;
       }
 
       .btn-angle-tab.active {
@@ -3539,12 +3567,18 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
       }
 
       .featured-video-name {
         font-size: 0.88rem !important;
         font-weight: 800 !important;
         color: #fbbf24 !important;
+        max-width: 100% !important;
+        word-break: break-word !important;
+        white-space: normal !important;
       }
 
       .event-video-embed-box {
@@ -4239,19 +4273,23 @@
           <div class="event-angle-selector">
             <button class="btn-angle-tab active" id="btnAngle1" onclick="selectEventAngle(1)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-              <span>Angle 1 (Side Stage • 05:40)</span>
+              <span class="btn-label-desk">Angle 1 (Side Stage • 05:40)</span>
+              <span class="btn-label-mob">Angle 1</span>
             </button>
             <button class="btn-angle-tab" id="btnAngle2" onclick="selectEventAngle(2)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-              <span>Angle 2 (Center Stage • 05:56)</span>
+              <span class="btn-label-desk">Angle 2 (Center Stage • 05:56)</span>
+              <span class="btn-label-mob">Angle 2</span>
             </button>
             <button class="btn-angle-tab" id="btnAngle3" onclick="selectEventAngle(3)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-              <span>Angle 3 (Front 60fps • 06:53)</span>
+              <span class="btn-label-desk">Angle 3 (Front 60fps • 06:53)</span>
+              <span class="btn-label-mob">Angle 3</span>
             </button>
             <button class="btn-angle-tab" id="btnAngleGrid" onclick="toggleEventViewMode('grid')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>
-              <span>All 3 Angles Grid</span>
+              <span class="btn-label-desk">All 3 Angles Grid</span>
+              <span class="btn-label-mob">Grid</span>
             </button>
           </div>
         </div>

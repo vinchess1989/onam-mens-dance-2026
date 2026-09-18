@@ -356,3 +356,39 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
 - Desktop view check (`>= 768px`): Bottom bar remains `display: none`, all 2-column desktop controls, waveforms, shuttles, and solo decks remain 100% functional.
 - Synchronized `index.html` and `dance_practice_player.html`.
 
+---
+
+## 13. Mobile Single-Row Angle Selector & Zero-Overflow Layout (< 768px) (Completed & Live)
+
+### 1. User Feedback & Problem
+- In mobile view on the Videos tab, buttons `Angle 1`, `Angle 2`, and `Angle 3` could not all be seen simultaneously without clicking and dragging towards the left.
+- Full desktop labels (`Angle 1 (Side Stage • 05:40)`, `Angle 2 (Center Stage • 05:56)`, `Angle 3 (Front 60fps • 06:53)`, `All 3 Angles Grid`) took ~814px combined width, forcing horizontal drag/scroll behavior.
+- Requirement: All angle buttons (`Angle 1`, `Angle 2`, `Angle 3`, and `Grid`) must be visible simultaneously in a single clean row within the viewport, with zero horizontal dragging/scrolling and zero overflow beyond screen width.
+
+### 2. Architecture & Solution
+- **Dual Label Structure:**
+  - Added `.btn-label-desk` and `.btn-label-mob` spans inside each button:
+    - Desktop: Shows full technical details (`Angle 1 (Side Stage • 05:40)`).
+    - Mobile: Shows clean, punchy segmented control labels (`Angle 1`, `Angle 2`, `Angle 3`, `Grid`).
+- **Full-Width Equal Segmented Control (`@media (max-width: 768px)`):**
+  - `.event-angle-selector`: `display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; justify-content: space-between !important; width: 100% !important; overflow-x: hidden !important; gap: 0.35rem !important;`.
+  - `.btn-angle-tab`: `flex: 1 1 0 !important; min-width: 0 !important; padding: 0.45rem 0.2rem !important; font-size: 0.72rem !important; border-radius: 8px !important; text-align: center !important; justify-content: center !important;`.
+  - `.btn-angle-tab svg`: Compact `12px` width/height with `flex-shrink: 0`.
+- **Text & Meta Overflow Protection:**
+  - `.featured-video-meta`: `max-width: 100% !important; width: 100% !important; box-sizing: border-box !important;`.
+  - `.featured-video-name`: `max-width: 100% !important; word-break: break-word !important; white-space: normal !important;`.
+
+### 3. Verification Across Screen Widths
+- **iPhone 16 (`393 x 852`):**
+  - `btnAngle1`: `left: 10px, right: 99px` (Width: 89px)
+  - `btnAngle2`: `left: 105px, right: 194px` (Width: 89px)
+  - `btnAngle3`: `left: 199px, right: 288px` (Width: 89px)
+  - `btnAngleGrid`: `left: 294px, right: 383px` (Width: 89px)
+  - `overflowingCount`: **0**
+- **Narrow 360px Screen (`360 x 740`):**
+  - All 4 buttons fit neatly across `10px → 350px`.
+  - `overflowingCount`: **0**
+- **Desktop (`1440 x 900`):**
+  - Displays full titles (`Angle 1 (Side Stage • 05:40)`, etc.) with zero regressions.
+
+
