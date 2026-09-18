@@ -279,3 +279,45 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
 - **Deployed & Live:**
   - Deployed to Firebase Hosting (`https://vk-onam-dance.web.app/reel_tuner.html`).
   - Committed to Git `main` (commit `9dc2a99`).
+
+---
+
+## 11. Native Mobile App Shell & Clutter-Free Redesign (< 768px) (Completed & Live)
+
+### 1. Architectural Motivation & User Feedback
+- Per user request: *"can you make the mobile browser view like an app instead of a downward scrolling dirty looking html. keep the page as simple as possible. avoid all the unnecessary detail and buttons"*.
+- The desktop view has rich, dense rehearsal tools (0.01s jog shuttles, 11-track solo component decks, multi-track waveform analyzer, countdown overlays, multi-version routine switchers, keyboard shortcut reference), but on mobile screens (`< 768px`) these created massive vertical clutter and awkward double-scrollbars.
+
+### 2. Core Implementation
+- **Fixed Glassmorphism Bottom App Bar (`#mobileAppBottomNav`):**
+  - Stays pinned at `bottom: 0` on mobile viewports with 5 touch-optimized navigation tabs:
+    1. `[🎬 Videos]` — Toggles Event Videos hero with angle pill bar.
+    2. `[📸 Photos]` — Toggles 2-column Photo Gallery with fullscreen lightbox.
+    3. `[🎵 Music]` — Toggles Spotify-style routine audio player & playlist.
+    4. `[🎥 Reference]` — Toggles Reference Video player with horizontal cue pills.
+    5. `[🎛️ Reel]` — Directly links to the Slow-Mo Reel Director Studio (`reel_tuner.html`).
+  - Styled with glowing amber indicator on the active tab and subtle scale down on tap (`:active`).
+- **Sticky Minimal Header:**
+  - Compact sticky top bar featuring only the gradient title `Men's Dance | Oulu Onam 2026`.
+  - All desktop pills, subtitles, and version tabs hidden on mobile.
+- **Aggressive Clutter Elimination on Mobile:**
+  - Unconditionally hidden on `< 768px`:
+    - Desktop version tab switcher (`.version-tabs-nav`), subtitle badges (`.badge-pill`), download banner (`.download-bar`).
+    - View mode switcher box (`#desktopViewModeBox` with `Routine Timeline View`, `Component Studio`, `Reference Video` buttons).
+    - 0.01s jog shuttle micro-nudges (`±0.01s` to `±1.00s`), direct timecode inputs, countdown status indicators, tempo sliders.
+    - Master waveform canvas section (`#masterWaveformSection`) and component studio solo decks (`#sectionComponentStudioView`).
+    - Event video tech metadata pills (`⏱ 05:40`, `📐 3840×2160`, `💾 2.29 GB`, `⚡ YouTube 4K`), cloud upload buttons, and video upload toolbar.
+    - Keyboard shortcuts reference footer (`.shortcuts-footer`).
+    - Reference video 8-button nudge shuttle (`.video-shuttle-row`), secondary speed sliders (`#videoSpeedSliderContainer`), and 6 section loop toggles (`.video-loop-group`).
+    - Routine segment time ranges (`Range: 00:00.00 -> 00:09.50`), baked riser notes, and 3-button per card actions (`Start`, `End`, `Loop`).
+- **Clean Mobile Screens:**
+  - **Videos:** Clean horizontal pill bar (`Angle 1`, `Angle 2`, `Angle 3`, `All Angles`) directly above 16:9 responsive YouTube player.
+  - **Photos:** Responsive 2-column grid (`repeat(2, 1fr)`) with compact header (`25 Photos • Download ZIP`) and tap-to-open fullscreen lightbox.
+  - **Music:** Sleek Spotify-style player card (title, progress scrubber, 5-button touch transport) above single-row tap-to-play playlist rows (`#Number Title Duration`).
+  - **Reference Video:** Responsive 16:9 video player at the top with a horizontal scrolling pill selector below (`0:28 shanthamee`, `1:01 ivalkkoruvan`, `2:06 chettikulangara`, `2:50 njanondaliyan`, `3:25 vel muruka`).
+- **Desktop Integrity Preserved (100%):**
+  - Verified via Chrome DevTools Protocol at `1920x1080`: `#mobileAppBottomNav` is `display: none`, all 2-column desktop controls, waveform canvas, 11-track component studio, and jog shuttles remain fully functional.
+- **Deployed & Live:**
+  - Deployed to Firebase Hosting (`https://vk-onam-dance.web.app`).
+  - Synced between `index.html` and `dance_practice_player.html`.
+

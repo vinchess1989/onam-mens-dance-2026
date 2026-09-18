@@ -3334,6 +3334,542 @@
       font-weight: 800;
     }
 
+  
+    /* ===================================================
+       NATIVE MOBILE APP SHELL & CLUTTER-FREE UX (< 768px)
+       =================================================== */
+    @media (max-width: 768px) {
+      /* Native App Viewport */
+      body {
+        padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+        background: #060913 !important;
+        overflow-x: hidden !important;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      .container {
+        padding: 0.35rem 0.55rem !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+
+      /* Compact Native App Bar */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(6, 9, 19, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0.5rem 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      header h1 {
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 1.15rem !important;
+        margin: 0 !important;
+        font-weight: 800 !important;
+        background: linear-gradient(135deg, #ffffff 40%, #fbbf24 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.01em;
+      }
+
+      /* ===================================================
+         CRITICAL: ELIMINATE ALL UNNECESSARY CLUTTER & DETAIL
+         =================================================== */
+      header .badge-pill,
+      header .subtitle,
+      header .version-tabs-nav,
+      .download-bar,
+      .view-mode-selector,
+      .status-indicators,
+      .precision-shuttle-box,
+      .practice-toggles,
+      .tempo-slider-container,
+      #masterWaveformSection,
+      #sectionComponentStudioView,
+      #desktopViewModeBox,
+      .event-hero-title-group,
+      .featured-meta-badges,
+      .video-upload-toolbar,
+      .shortcuts-footer,
+      .cloud-drive-modal,
+      #btnTheaterMode,
+      #sectionVideoPlayerView .section-title > div:last-child,
+      #activeRoutineSubtext,
+      .track-card .track-time-range,
+      .track-card .card-actions,
+      .track-card .card-progress-bg,
+      .cue-card .btn-cue-jump,
+      #btnGalleryReelStudio,
+      .photo-inspect-hint,
+      .video-controls-panel {
+        display: none !important;
+      }
+
+      /* Containers follow JS display states */
+      #audioStudioLayout[style*="display: none"],
+      #videoStudioLayout[style*="display: none"],
+      #eventVideosStudioLayout[style*="display: none"],
+      #photoGalleryStudioLayout[style*="display: none"] {
+        display: none !important;
+      }
+
+      #audioStudioLayout:not([style*="display: none"]) {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+      }
+
+      .studio-col-left, .studio-col-right {
+        position: static !important;
+        width: 100% !important;
+      }
+
+      /* ===================================================
+         TAB 1: EVENT VIDEOS — CLEAN APP VIEW
+         =================================================== */
+      .event-videos-hero {
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      .event-hero-header {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 0.4rem !important;
+      }
+
+      .event-angle-selector {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        gap: 0.4rem !important;
+        padding: 0.2rem 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+      }
+      .event-angle-selector::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .btn-angle-tab {
+        font-size: 0.74rem !important;
+        padding: 0.42rem 0.8rem !important;
+        white-space: nowrap !important;
+        border-radius: 9999px !important;
+        flex-shrink: 0 !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #cbd5e1 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+      }
+
+      .btn-angle-tab.active {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+        color: #090c15 !important;
+        font-weight: 800 !important;
+        border-color: transparent !important;
+        box-shadow: 0 2px 10px rgba(245, 158, 11, 0.45) !important;
+      }
+
+      .featured-video-card {
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      .featured-video-meta {
+        margin-bottom: 0.45rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+
+      .featured-video-name {
+        font-size: 0.88rem !important;
+        font-weight: 800 !important;
+        color: #fbbf24 !important;
+      }
+
+      .event-video-embed-box {
+        border-radius: 14px !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+
+      .event-videos-grid {
+        gap: 0.85rem !important;
+      }
+
+      .event-card {
+        border-radius: 12px !important;
+      }
+
+      /* ===================================================
+         TAB 2: MUSIC (AUDIO) — SPOTIFY/APPLE MUSIC CARD & LIST
+         =================================================== */
+      .player-card {
+        padding: 1.1rem 1rem !important;
+        border-radius: 16px !important;
+        background: linear-gradient(180deg, rgba(20, 29, 52, 0.9) 0%, rgba(11, 16, 30, 0.96) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+      }
+
+      .now-playing-row {
+        margin-bottom: 0.65rem !important;
+        text-align: center;
+      }
+
+      .now-playing-label {
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        color: #fbbf24 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .now-playing-title {
+        font-size: 1.25rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin-top: 0.15rem;
+      }
+
+      .timeline-container {
+        margin: 0.5rem 0 0.75rem 0 !important;
+      }
+
+      .time-readout {
+        font-size: 0.78rem !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        color: #94a3b8 !important;
+        margin-top: 0.35rem !important;
+      }
+      .time-readout span.current-time-bold {
+        color: #fff !important;
+        font-weight: 700 !important;
+      }
+      .time-readout span:last-child {
+        display: none !important;
+      }
+
+      /* Centered Touch Audio Transport */
+      .controls-row {
+        margin-top: 0.4rem !important;
+      }
+
+      .playback-buttons {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.9rem !important;
+        width: 100% !important;
+      }
+
+      .btn-prev, .btn-next, .btn-seek-step {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.05rem !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 50% !important;
+        color: #ffffff !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .btn-play {
+        width: 62px !important;
+        height: 62px !important;
+        font-size: 1.55rem !important;
+        background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important;
+        color: #090c15 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 6px 22px rgba(245, 158, 11, 0.55) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* Clean Spotify-like Tracklist */
+      .studio-col-right .section-title {
+        font-size: 0.85rem !important;
+        font-weight: 800 !important;
+        color: #94a3b8 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0.4rem 0 0.35rem 0 !important;
+        padding: 0 0.2rem !important;
+      }
+
+      .tracks-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.35rem !important;
+      }
+
+      .track-card {
+        padding: 0.65rem 0.85rem !important;
+        border-radius: 12px !important;
+        background: rgba(14, 20, 36, 0.75) !important;
+        border: 1px solid rgba(255, 255, 255, 0.07) !important;
+        cursor: pointer !important;
+        transition: background 0.15s ease, border-color 0.15s ease !important;
+      }
+
+      .track-card:active {
+        transform: scale(0.985) !important;
+        background: rgba(245, 158, 11, 0.18) !important;
+      }
+
+      .track-card.active-card {
+        background: rgba(245, 158, 11, 0.14) !important;
+        border-color: #fbbf24 !important;
+      }
+
+      .track-card .card-top {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.65rem !important;
+        width: 100% !important;
+      }
+
+      .track-card .track-number {
+        font-size: 0.72rem !important;
+        font-weight: 800 !important;
+        color: #94a3b8 !important;
+        min-width: 24px !important;
+      }
+
+      .track-card .track-title {
+        font-size: 0.86rem !important;
+        font-weight: 700 !important;
+        color: #f8fafc !important;
+        flex: 1 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .track-card .track-duration-pill {
+        font-size: 0.68rem !important;
+        font-weight: 700 !important;
+        padding: 0.18rem 0.5rem !important;
+        border-radius: 999px !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #fbbf24 !important;
+      }
+
+      /* ===================================================
+         TAB 3: REFERENCE VIDEO — VIDEO ON TOP + CUE PILLS
+         =================================================== */
+      #sectionVideoPlayerView .section-title {
+        margin-bottom: 0.4rem !important;
+      }
+      #sectionVideoPlayerView .section-title-left span:first-child {
+        font-size: 0.92rem !important;
+        font-weight: 800 !important;
+      }
+      #sectionVideoPlayerView .section-title-left .section-count {
+        display: none !important;
+      }
+
+      .video-studio-card {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.65rem !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      .video-container-wrapper {
+        order: 1 !important; /* Video FIRST */
+        border-radius: 14px !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+
+      .video-cues-deck {
+        order: 2 !important; /* Horizontal Cue Pill Bar Under Video */
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        gap: 0.4rem !important;
+        padding: 0.2rem 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        margin-top: 0.2rem !important;
+      }
+      .video-cues-deck::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .cue-card {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.45rem !important;
+        padding: 0.45rem 0.75rem !important;
+        border-radius: 9999px !important;
+        flex-shrink: 0 !important;
+        border: 1px solid var(--cue-border-color, rgba(255,255,255,0.15)) !important;
+        background: rgba(15, 23, 42, 0.9) !important;
+        cursor: pointer !important;
+      }
+
+      .cue-card:active {
+        transform: scale(0.95) !important;
+      }
+
+      .cue-card .cue-card-header {
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.4rem !important;
+      }
+
+      .cue-card .cue-title-text {
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        color: #fff !important;
+        white-space: nowrap !important;
+      }
+
+      .cue-card .cue-badge {
+        font-size: 0.66rem !important;
+        padding: 0.1rem 0.4rem !important;
+        border-radius: 999px !important;
+      }
+
+      /* ===================================================
+         TAB 4: PHOTOS — COMPACT TOOLBAR & 2-COL GRID
+         =================================================== */
+      .photo-gallery-hero {
+        padding: 0.65rem 0.75rem !important;
+        border-radius: 12px !important;
+        margin-bottom: 0.5rem !important;
+      }
+
+      .photo-gallery-toolbar {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+
+      .btn-download-all-photos {
+        font-size: 0.72rem !important;
+        padding: 0.4rem 0.75rem !important;
+      }
+
+      .photo-gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.45rem !important;
+      }
+
+      .photo-card {
+        border-radius: 10px !important;
+      }
+
+      .photo-card-footer {
+        padding: 0.35rem 0.45rem !important;
+        font-size: 0.65rem !important;
+      }
+    }
+
+    /* Fixed Bottom App Navigation Bar */
+    .mobile-app-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-app-bottom-nav {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+        background: rgba(8, 12, 24, 0.96) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        z-index: 9999 !important;
+        padding: 0 0.5rem env(safe-area-inset-bottom, 0px) 0.5rem !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6) !important;
+      }
+
+      .mobile-nav-item {
+        background: none !important;
+        border: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        color: #94a3b8 !important;
+        padding: 0.3rem 0.4rem !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+        font-family: inherit !important;
+        transition: all 0.15s ease !important;
+        flex: 1 !important;
+        max-width: 75px !important;
+      }
+
+      .mobile-nav-item:active {
+        transform: scale(0.92) !important;
+      }
+
+      .mobile-nav-item.active {
+        color: #fbbf24 !important;
+      }
+
+      .mobile-nav-item.active .mobile-nav-icon {
+        color: #fbbf24 !important;
+        filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)) !important;
+      }
+
+      .mobile-nav-icon {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .mobile-nav-label {
+        font-size: 0.65rem !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.01em !important;
+        white-space: nowrap !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -3571,7 +4107,7 @@
     </main>
 
 <!-- VIEW MODE SWITCHER (ROUTINE TIMELINE vs INDIVIDUAL COMPONENT STUDIO) -->
-    <div style="display:flex; flex-direction:column; gap:0.75rem; background:rgba(15,23,42,0.6); padding:1rem; border-radius:var(--radius-md); border:1px solid var(--border-glass);">
+    <div id="desktopViewModeBox" style="display:flex; flex-direction:column; gap:0.75rem; background:rgba(15,23,42,0.6); padding:1rem; border-radius:var(--radius-md); border:1px solid var(--border-glass);">
       <div class="view-mode-nav" style="width:100%; justify-content:center;">
         <button class="btn-view-mode active" id="btnViewTimeline">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
@@ -4115,7 +4651,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
               <span>Download All Photos (.ZIP • 10.5 MB)</span>
             </a>
-            <a href="reel_tuner.html" class="btn-download-all-photos" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-left:0.5rem;" title="Tune slow-motion reel and include these photos">
+            <a href="reel_tuner.html" id="btnGalleryReelStudio" id="btnGalleryReelStudio" class="btn-download-all-photos" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-left:0.5rem;" title="Tune slow-motion reel and include these photos">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
               <span>🎬 Slow-Mo Reel Studio</span>
             </a>
@@ -5237,6 +5773,11 @@
             </button>
           </div>
         `;
+                card.addEventListener('click', (e) => {
+          if (!e.target.closest('button')) {
+            playWithCountdown(sec.start, idx);
+          }
+        });
         tracksGrid.appendChild(card);
       });
     }
@@ -5476,6 +6017,7 @@
 
     // SWITCH VERSION FUNCTION (AUDIO TAB)
     function switchRoutine(routineKey) {
+      if (typeof updateMobileNavActive === 'function') updateMobileNavActive('audio');
       currentRoutineKey = routineKey;
       activeRoutine = ROUTINES[routineKey];
 
@@ -5971,7 +6513,25 @@
       }
     }
 
+    
+    function updateMobileNavActive(tabKey) {
+      const items = {
+        videos: document.getElementById('btnMobVideos'),
+        photos: document.getElementById('btnMobPhotos'),
+        audio: document.getElementById('btnMobAudio'),
+        refvideo: document.getElementById('btnMobRefVideo'),
+        reel: document.getElementById('btnMobReel')
+      };
+      Object.values(items).forEach(btn => {
+        if (btn) btn.classList.remove('active');
+      });
+      if (items[tabKey]) {
+        items[tabKey].classList.add('active');
+      }
+    }
+
     function openEventVideosTab(angle = 1) {
+      if (typeof updateMobileNavActive === 'function') updateMobileNavActive('videos');
       // Pause master audio and solo decks
       if (audio) audio.pause();
       stopAllSoloComponents();
@@ -6006,6 +6566,7 @@
     let currentPhotoIndex = 0;
 
     function openPhotoGalleryTab() {
+      if (typeof updateMobileNavActive === 'function') updateMobileNavActive('photos');
       // Pause audio & videos
       if (audio) audio.pause();
       stopAllSoloComponents();
@@ -6712,6 +7273,7 @@
 
     // OPEN VIDEO TAB FUNCTION (FULL-WIDTH VIDEO TAB)
     function openVideoTab(targetSeek = 61.0) {
+      if (typeof updateMobileNavActive === 'function') updateMobileNavActive('refvideo');
       // Pause audio routines
       audio.pause();
       stopAllSoloComponents();
@@ -7917,6 +8479,40 @@
       <span>Keyboard: <kbd>←</kbd> Previous • <kbd>→</kbd> Next • <kbd>Esc</kbd> Close</span>
     </div>
   </div>
+
+  <!-- NATIVE MOBILE APP BOTTOM NAVIGATION BAR -->
+  <nav id="mobileAppBottomNav" class="mobile-app-bottom-nav" aria-label="Mobile Navigation">
+    <button class="mobile-nav-item active" id="btnMobVideos" onclick="openEventVideosTab(1)">
+      <div class="mobile-nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m18 4 2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+      </div>
+      <span class="mobile-nav-label">Videos</span>
+    </button>
+    <button class="mobile-nav-item" id="btnMobPhotos" onclick="openPhotoGalleryTab()">
+      <div class="mobile-nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+      </div>
+      <span class="mobile-nav-label">Photos</span>
+    </button>
+    <button class="mobile-nav-item" id="btnMobAudio" onclick="switchRoutine('final260909')">
+      <div class="mobile-nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <span class="mobile-nav-label">Music</span>
+    </button>
+    <button class="mobile-nav-item" id="btnMobRefVideo" onclick="openVideoTab(61.0)">
+      <div class="mobile-nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+      </div>
+      <span class="mobile-nav-label">Reference</span>
+    </button>
+    <a href="reel_tuner.html" class="mobile-nav-item" id="btnMobReel" style="text-decoration:none;">
+      <div class="mobile-nav-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+      </div>
+      <span class="mobile-nav-label">Reel</span>
+    </a>
+  </nav>
 
 </body>
 </html>
