@@ -414,14 +414,18 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
   - **Videos Tab:** Constrained `.event-video-embed-box` with `max-height: calc(100dvh - 140px); aspect-ratio: 16 / 9; width: auto; margin: 0 auto;` so the 16:9 video fits on screen alongside the angle selector.
   - **Photos Tab:** Responsive 4-column photo grid (`grid-template-columns: repeat(4, 1fr);`) with compact header toolbar.
   - **Music Studio Tab:** 2-column side-by-side layout (`grid-template-columns: 310px 1fr;`) with left sticky player card and right scrollable tracklist.
-  - **Reference Video Tab:** Centered 16:9 player with `max-height: calc(100dvh - 140px)` and single-row 5 cue cards (`flex: 1 1 0; min-width: 0;`).
+  - **Reference Video Tab (Zero Downward Scrolling):**
+    - Moved the 5 cue cards (`.video-cues-deck`) to `order: 1 !important;` directly above the video for instant tap access and visual consistency with the Videos tab's angle selector.
+    - Constrained `.video-container-wrapper` with `order: 2 !important; height: calc(100dvh - 155px) !important; max-height: calc(100dvh - 155px) !important; aspect-ratio: 16 / 9 !important; width: auto !important; margin: 0 auto !important; display: flex !important; align-items: center !important; justify-content: center !important;`.
+    - Inner video set to `width: 100% !important; height: 100% !important; object-fit: contain !important;`.
+    - Compacted section title and container gaps so total content height strictly matches viewport height (`scrollHeight <= window.innerHeight`).
   - **Zero Horizontal Overflow:** Enforced `overflow-x: hidden !important; max-width: 100vw !important; min-width: 0 !important;` on all root and container elements.
 
-### 3. Automated CDP Verification (iPhone 16 Landscape `852 x 393`)
-- **Videos Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
-- **Photos Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
-- **Music Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
-- **Reference Video Tab:** `winW: 852, winH: 393, docScrollW: 852, navTop: 351, navBottom: 393, overflowCount: 0`.
-- **Desktop Check (`1440 x 900`):** Bottom navigation remains `display: none`, desktop header and 2-column studio layout remain 100% untouched.
+### 3. Automated Multi-Device Landscape Verification
+- **iPhone SE Landscape (`667 x 375`):** `winH: 375, scrollH: 375, isScrollable: false, navTop: 333, navBottom: 375`.
+- **iPhone 16 Landscape (`852 x 393`):** `winH: 393, scrollH: 393, isScrollable: false, navTop: 351, navBottom: 393`.
+- **Galaxy S20 Landscape (`915 x 412`):** `winH: 412, scrollH: 412, isScrollable: false, navTop: 370, navBottom: 412`.
+- **Mobile Portrait Check (`393 x 852`):** `winW: 393, winH: 852, scrollH: 852, navTop: 796, navBottom: 852`.
+- **Desktop Check (`1440 x 900`):** Bottom navigation remains `display: none`, desktop 2-column studio, 5-cue desktop grid, and video controls panel remain 100% untouched.
 
 

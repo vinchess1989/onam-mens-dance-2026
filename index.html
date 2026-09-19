@@ -4091,39 +4091,80 @@
       }
 
       /* Reference Video in Landscape */
-      #sectionVideoPlayerView video {
-        max-height: calc(100dvh - 140px) !important;
-        max-height: calc(100vh - 140px) !important;
-        aspect-ratio: 16 / 9 !important;
-        width: auto !important;
-        margin: 0 auto !important;
+      #videoStudioLayout {
+        gap: 0.15rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      #sectionVideoPlayerView .section-title {
+        margin: 0 0 0.15rem 0 !important;
+        padding: 0 0.25rem !important;
+      }
+
+      #sectionVideoPlayerView .section-title-left span:first-child {
+        font-size: 0.8rem !important;
+      }
+
+      .video-studio-card {
+        gap: 0.2rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
 
       .video-cues-deck {
+        order: 1 !important;
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         justify-content: space-between !important;
         overflow-x: hidden !important;
-        gap: 0.35rem !important;
+        gap: 0.3rem !important;
         width: 100% !important;
+        margin: 0 0 0.15rem 0 !important;
+        padding: 0 !important;
       }
 
-      .cue-card {
+      .video-cues-deck .cue-card {
         flex: 1 1 0 !important;
         min-width: 0 !important;
-        padding: 0.28rem 0.35rem !important;
+        padding: 0.22rem 0.3rem !important;
         justify-content: center !important;
         box-sizing: border-box !important;
+        gap: 0.25rem !important;
       }
 
-      .cue-card .cue-title-text {
-        font-size: 0.7rem !important;
+      .video-cues-deck .cue-card .cue-title-text {
+        font-size: 0.68rem !important;
       }
 
-      .cue-card .cue-badge {
-        font-size: 0.65rem !important;
-        padding: 0.05rem 0.3rem !important;
+      .video-cues-deck .cue-card .cue-badge {
+        font-size: 0.62rem !important;
+        padding: 0.04rem 0.25rem !important;
+      }
+
+      .video-container-wrapper {
+        order: 2 !important;
+        height: calc(100dvh - 155px) !important;
+        max-height: calc(100dvh - 155px) !important;
+        max-height: calc(100vh - 155px) !important;
+        aspect-ratio: 16 / 9 !important;
+        width: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #000 !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+      }
+
+      #refVideo {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
       }
     }
   </style>
