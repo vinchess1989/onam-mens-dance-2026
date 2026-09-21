@@ -428,4 +428,58 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
 - **Mobile Portrait Check (`393 x 852`):** `winW: 393, winH: 852, scrollH: 852, navTop: 796, navBottom: 852`.
 - **Desktop Check (`1440 x 900`):** Bottom navigation remains `display: none`, desktop 2-column studio, 5-cue desktop grid, and video controls panel remain 100% untouched.
 
+---
+
+## 15. Mobile App Shell Extracted as a Reusable Global Skill (Completed)
+
+### 1. Motivation
+- The mobile work in sections 11-14 (app shell, viewport inflation fix, single-row segmented control, landscape support) was solved once here but is generic to any desktop-first HTML page. Extracted into a portable skill so other projects get the same treatment without re-deriving the root causes.
+
+### 2. Location & Contents
+- **Skill:** `C:\Users\vinee\.claude\skills\mobile-app-shell\` (personal/global — available in every project, not checked into this repo).
+- `SKILL.md` — 7-step workflow: inventory desktop views → measure breakage → append additive mobile block → hide clutter by explicit name → relabel instead of shrink → wire bottom nav to existing tab functions → verify at 3 viewports.
+- `references/app-shell.css` — complete annotated CSS scaffold (viewport locks, sticky app bar, fixed bottom nav, segmented control, dual labels, landscape block, safe areas, touch targets, iOS input zoom).
+- `references/patterns.md` — 11 sections on the *why* plus recurring failure modes (viewport inflation, unreachable fixed bar, landscape→desktop fallback, `vh`/`dvh`/`svh`, `opacity:0` vs `visibility:hidden`, CSS-vs-JS display conflicts, tab selection).
+- `scripts/audit_mobile.js` — CDP/DevTools diagnostic returning JSON: width offenders **plus the unshrinkable flex ancestors that let them grow**, height offenders, ghost overlays, bottom-nav reachability, sub-44px tap targets, sub-16px inputs, and a plain-language verdict.
+
+### 3. Core Insight Encoded
+- The headline lesson from section 12 is generalized: a fixed bottom bar sitting far below the fold is almost never a bottom-bar bug — it is one flex row lacking `min-width: 0` inflating the document width, which makes mobile Chrome zoom the layout viewport out. The audit script therefore names the *ancestor chain*, not just the overflowing element.
+- Skill is strictly additive: it appends one mobile block and never edits desktop rules, with the desktop viewport pass as the regression test.
+
+---
+
+## 16. Desktop-Only & Google Authenticated Gating for Reel Studio (Vineethkaimal1989@gmail.com) (Completed & Live)
+
+### 1. Motivation & Requirement
+- The **Slow-Mo Reel Director Studio** (`reel_tuner.html` and `#tabReelStudio` / `#btnGalleryReelStudio`) is an advanced private authoring tool that should only be accessible on desktop browsers, and strictly when opened by Vineeth (`Vineethkaimal1989@gmail.com`).
+- Public visitors and mobile users must never see the Reel Studio tabs, buttons, or access the tuner route.
+
+### 2. Architecture & Implementation
+1. **Desktop & Mobile CSS/HTML Gating:**
+   - Completely removed `#btnMobReel` from the mobile app bottom navigation bar (`#mobileAppBottomNav`). Mobile navigation now cleanly contains 4 equal buttons (`Videos`, `Photos`, `Music`, `Reference`).
+   - `#tabReelStudio` and `#btnGalleryReelStudio` default to `display: none !important;` in HTML and CSS.
+   - Media query `@media (min-width: 1024px)` reveals them only when `body.admin-authorized` is active.
+   - Media query `@media (max-width: 1023px)` strictly suppresses `#headerAuthContainer`, `#tabReelStudio`, and `#btnGalleryReelStudio`.
+2. **Firebase Google Authentication:**
+   - Integrated Firebase v10 Compat App & Auth SDK (`misc-vk.firebaseapp.com`) in [index.html](file:///c:/Users/vinee/Video%20Editing/index.html) and [reel_tuner.html](file:///c:/Users/vinee/Video%20Editing/reel_tuner.html).
+   - Added discreet `🔒 Admin` login button in the desktop top-right header.
+   - On click, triggers `signInWithPopup(GoogleAuthProvider)` with account picker.
+   - Identity Check: `user.email.toLowerCase() === 'vineethkaimal1989@gmail.com'`.
+   - If verified on desktop (`window.innerWidth >= 1024`):
+     - Adds `body.admin-authorized`.
+     - Displays avatar and `Vineeth ✕` badge in header with one-click logout.
+     - Dynamically reveals **🎬 Reel Studio** tab in desktop header and gallery toolbar.
+     - Persists session in `indexedDB`/`localStorage` across browser restarts and page reloads.
+   - If unauthorized Google account signs in: Immediately logs out, shows alert, and keeps Reel Studio hidden.
+3. **Route Protection in `reel_tuner.html`:**
+   - Client-side viewport check: If `window.innerWidth < 1024`, alerts and redirects to `index.html#videos`.
+   - Firebase Auth check: Verifies `user.email === 'vineethkaimal1989@gmail.com'`. If unauthorized or timed out after 4s, blocks access and redirects to `index.html#videos`.
+
+### 3. Automated Verification Across Devices
+- **Desktop Unauthenticated (`1440 x 900`):** `#tabReelStudio` display is `none`, `#headerAuthContainer` is `flex` with `#btnAdminLogin` visible.
+- **Desktop Authenticated as Vineeth:** `body.admin-authorized` present, `#tabReelStudio` is `flex`, `#btnGalleryReelStudio` is `inline-flex`, header shows `Vineeth ✕`.
+- **Mobile Portrait (`393 x 852`) & Landscape (`852 x 393`):** `#tabReelStudio` is `none`, `#headerAuthContainer` is `none`, `#btnMobReel` does not exist, bottom nav has 4 clean buttons.
+- **Direct Navigation to `reel_tuner.html`:** Unauthenticated or mobile visits immediately redirect to `index.html#videos`.
+
+
 

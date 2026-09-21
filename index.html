@@ -27,6 +27,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase App & Auth SDK (v10 Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+
   <style>
 
     /* EVENT VIDEOS TAB STYLING */
@@ -708,6 +713,110 @@
       flex-direction: column;
       align-items: center;
       gap: 0.75rem;
+      position: relative;
+    }
+
+    /* HEADER ADMIN AUTH */
+    .header-auth-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .btn-admin-auth {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+      user-select: none;
+    }
+
+    .btn-admin-auth:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .admin-user-badge {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 0.22rem 0.6rem 0.22rem 0.35rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      user-select: none;
+    }
+
+    .admin-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      object-fit: cover;
+    }
+
+    .admin-user-name {
+      color: #6ee7b7;
+      font-weight: 600;
+    }
+
+    .btn-admin-logout {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+
+    .btn-admin-logout:hover {
+      color: #f43f5e;
+    }
+
+    /* Reel Studio Private Desktop Gating */
+    #tabReelStudio,
+    #btnGalleryReelStudio {
+      display: none !important;
+    }
+
+    @media (min-width: 1024px) {
+      body.admin-authorized #tabReelStudio {
+        display: inline-flex !important;
+      }
+      body.admin-authorized #btnGalleryReelStudio {
+        display: inline-flex !important;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .header-auth-container {
+        display: none !important;
+      }
+      #tabReelStudio,
+      #btnGalleryReelStudio,
+      #btnMobReel {
+        display: none !important;
+      }
     }
 
     .badge-pill {
@@ -4181,6 +4290,17 @@
   <div class="container">
     <!-- HEADER -->
     <header>
+      <div class="header-auth-container" id="headerAuthContainer">
+        <button id="btnAdminLogin" class="btn-admin-auth" title="Admin Login (Vineethkaimal1989@gmail.com)" onclick="handleAdminLogin()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          <span>Admin</span>
+        </button>
+        <div id="adminUserBadge" class="admin-user-badge" style="display: none;">
+          <img id="adminUserAvatar" class="admin-avatar" src="" alt="Avatar" style="display: none;">
+          <span id="adminUserEmail" class="admin-user-name">Vineeth</span>
+          <button id="btnAdminLogout" class="btn-admin-logout" title="Sign Out" onclick="handleAdminLogout()">✕</button>
+        </div>
+      </div>
       <div class="badge-pill">
         <span class="badge-pulse"></span>
         Oulu Onam 2026 • Men's Dance
@@ -4200,7 +4320,7 @@
           <span>Photo Gallery</span>
           <span class="tab-badge" style="background:rgba(168,85,247,0.25); color:#c084fc;">25 Photos • Rakesh</span>
         </button>
-        <a href="reel_tuner.html" class="tab-btn reel-studio-btn" title="Open 3-Angle Multi-Track Slow-Mo Reel Director Studio" style="text-decoration:none; color:#38bdf8;">
+        <a href="reel_tuner.html" class="tab-btn reel-studio-btn" id="tabReelStudio" title="Open 3-Angle Multi-Track Slow-Mo Reel Director Studio" style="text-decoration:none; color:#38bdf8; display: none;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
           <span>🎬 Reel Studio</span>
           <span class="tab-badge" style="background:rgba(56,189,248,0.25); color:#7dd3fc;">Timeline Tuner</span>
@@ -4952,7 +5072,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
               <span>Download All Photos (.ZIP • 10.5 MB)</span>
             </a>
-            <a href="reel_tuner.html" id="btnGalleryReelStudio" id="btnGalleryReelStudio" class="btn-download-all-photos" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-left:0.5rem;" title="Tune slow-motion reel and include these photos">
+            <a href="reel_tuner.html" id="btnGalleryReelStudio" class="btn-download-all-photos" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-left:0.5rem; display: none;" title="Tune slow-motion reel and include these photos">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
               <span>🎬 Slow-Mo Reel Studio</span>
             </a>
@@ -8630,6 +8750,111 @@
       }, 100);
       initStoredOriginalVideos();
     });
+
+    /* ===================================================
+       FIREBASE AUTH & REEL STUDIO DESKTOP ADMIN GATING
+       =================================================== */
+    const firebaseConfig = {
+      apiKey: "AIzaSyCPqdOZeE73yzDTpPpW_dli5J_hMMvA90c",
+      authDomain: "misc-vk.firebaseapp.com",
+      projectId: "misc-vk",
+      appId: "1:74086160540:web:c3d3172c62b67bcffeb559"
+    };
+
+    let firebaseAuth = null;
+    const ADMIN_EMAIL = "vineethkaimal1989@gmail.com";
+
+    function isDesktopDevice() {
+      return window.innerWidth >= 1024;
+    }
+
+    function updateReelStudioAdminUI(user) {
+      const isAuthorized = !!(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL && isDesktopDevice());
+      const tabReel = document.getElementById('tabReelStudio');
+      const btnGalleryReel = document.getElementById('btnGalleryReelStudio');
+      const loginBtn = document.getElementById('btnAdminLogin');
+      const userBadge = document.getElementById('adminUserBadge');
+      const userAvatar = document.getElementById('adminUserAvatar');
+      const userName = document.getElementById('adminUserEmail');
+
+      if (isAuthorized) {
+        document.body.classList.add('admin-authorized');
+        if (tabReel) tabReel.style.display = 'inline-flex';
+        if (btnGalleryReel) btnGalleryReel.style.display = 'inline-flex';
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (userBadge) userBadge.style.display = 'inline-flex';
+        if (userAvatar) {
+          if (user.photoURL) {
+            userAvatar.src = user.photoURL;
+            userAvatar.style.display = 'block';
+          } else {
+            userAvatar.style.display = 'none';
+          }
+        }
+        if (userName) {
+          userName.textContent = user.displayName ? user.displayName.split(' ')[0] : 'Vineeth';
+        }
+      } else {
+        document.body.classList.remove('admin-authorized');
+        if (tabReel) tabReel.style.display = 'none';
+        if (btnGalleryReel) btnGalleryReel.style.display = 'none';
+        if (loginBtn) loginBtn.style.display = isDesktopDevice() ? 'inline-flex' : 'none';
+        if (userBadge) userBadge.style.display = 'none';
+      }
+    }
+
+    try {
+      if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        firebaseAuth = firebase.auth();
+        firebaseAuth.onAuthStateChanged(user => {
+          if (user) {
+            if (user.email && user.email.toLowerCase() === ADMIN_EMAIL) {
+              updateReelStudioAdminUI(user);
+            } else {
+              firebaseAuth.signOut().then(() => {
+                alert("Access restricted: Only " + ADMIN_EMAIL + " is authorized for Reel Studio.");
+                updateReelStudioAdminUI(null);
+              });
+            }
+          } else {
+            updateReelStudioAdminUI(null);
+          }
+        });
+      }
+    } catch (e) {
+      console.warn("Firebase Auth init error:", e);
+    }
+
+    window.addEventListener('resize', () => {
+      const user = firebaseAuth ? firebaseAuth.currentUser : null;
+      updateReelStudioAdminUI(user);
+    });
+
+    window.handleAdminLogin = function() {
+      if (!firebaseAuth) {
+        alert("Firebase Auth is loading, please try again in a moment.");
+        return;
+      }
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      firebaseAuth.signInWithPopup(provider).catch(err => {
+        if (err.code !== 'auth/popup-closed-by-user') {
+          console.error("Firebase auth error:", err);
+          alert("Login error: " + err.message);
+        }
+      });
+    };
+
+    window.handleAdminLogout = function() {
+      if (firebaseAuth) {
+        firebaseAuth.signOut().then(() => {
+          updateReelStudioAdminUI(null);
+        });
+      }
+    };
   </script>
   <!-- FULL-SCREEN WAVEFORM INSPECTOR MODAL WITH MULTI-LEVEL ZOOM (1x to 16x) -->
   <div id="waveformInspectorModal" class="waveform-inspector-modal" role="dialog" aria-modal="true" style="display: none;">
@@ -8807,12 +9032,6 @@
       </div>
       <span class="mobile-nav-label">Reference</span>
     </button>
-    <a href="reel_tuner.html" class="mobile-nav-item" id="btnMobReel" style="text-decoration:none;">
-      <div class="mobile-nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-      </div>
-      <span class="mobile-nav-label">Reel</span>
-    </a>
   </nav>
 
 </body>

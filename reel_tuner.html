@@ -7,6 +7,50 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase App & Auth SDK (v10 Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script>
+    (function() {
+      // Desktop check
+      if (window.innerWidth < 1024) {
+        alert("Reel Studio is restricted to desktop browsers.");
+        window.location.replace("index.html#videos");
+        return;
+      }
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCPqdOZeE73yzDTpPpW_dli5J_hMMvA90c",
+        authDomain: "misc-vk.firebaseapp.com",
+        projectId: "misc-vk",
+        appId: "1:74086160540:web:c3d3172c62b67bcffeb559"
+      };
+      if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const ADMIN_EMAIL = "vineethkaimal1989@gmail.com";
+
+        auth.onAuthStateChanged(user => {
+          if (user && user.email && user.email.toLowerCase() === ADMIN_EMAIL && window.innerWidth >= 1024) {
+            const gate = document.getElementById('authGateOverlay');
+            if (gate) gate.style.display = 'none';
+          } else {
+            alert("Reel Studio is private. Please sign in as " + ADMIN_EMAIL + " on the main page.");
+            window.location.replace("index.html#videos");
+          }
+        });
+
+        setTimeout(() => {
+          const user = auth.currentUser;
+          if (!user || !user.email || user.email.toLowerCase() !== ADMIN_EMAIL) {
+            window.location.replace("index.html#videos");
+          }
+        }, 4000);
+      }
+    })();
+  </script>
+
   <style>
     :root {
       --bg-main: #060913;
@@ -977,6 +1021,13 @@
   </style>
 </head>
 <body>
+
+  <!-- AUTHORIZATION GATE OVERLAY -->
+  <div id="authGateOverlay" style="position: fixed; inset: 0; background: #060913; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: #94a3b8; font-family: sans-serif;">
+    <div style="width: 36px; height: 36px; border: 3px solid rgba(56,189,248,0.2); border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+    <div style="font-size: 0.9rem; font-weight: 600; color: #e2e8f0;">Verifying Vineeth's credentials...</div>
+    <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+  </div>
 
   <!-- HEADER -->
   <header class="studio-header">
