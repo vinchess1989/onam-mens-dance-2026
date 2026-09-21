@@ -473,13 +473,21 @@ A dedicated cinematic 2-minute dance reel produced from high-framerate (60fps/30
    - If unauthorized Google account signs in: Immediately logs out, shows alert, and keeps Reel Studio hidden.
 3. **Route Protection in `reel_tuner.html`:**
    - Client-side viewport check: If `window.innerWidth < 1024`, alerts and redirects to `index.html#videos`.
-   - Firebase Auth check: Verifies `user.email === 'vineethkaimal1989@gmail.com'`. If unauthorized or timed out after 4s, blocks access and redirects to `index.html#videos`.
+   - Firebase Auth / Passkey check: Verifies `user.email === 'vineethkaimal1989@gmail.com'` or `localStorage.getItem('vk_dance_admin_auth') === 'vineeth_verified'`. If unauthorized or timed out after 4s, blocks access and redirects to `index.html#videos`.
+4. **Inline Admin Auth Modal & Instant Passkey Unlock (Fix for Async Prompt Suppression):**
+   - **Root Cause of Unresponsive Admin Button:** When Chrome blocks popups or GCP referrer restrictions are propagating, calling `window.prompt()` inside an asynchronous catch handler (`.catch(...)`) causes modern Chromium to silently suppress/drop the prompt dialog due to expired user activation. The button appeared unresponsive with zero on-screen feedback.
+   - **Resolution:** Replaced all `window.prompt()` usage with an in-page, glassmorphic `#adminAuthModal`:
+     - Synchronous opening on `#btnAdminLogin` click (`openAdminAuthModal()`).
+     - **Option 1 (Instant 1-Click Passkey):** Pre-fills `vineeth1989` with a one-click `[ Unlock Studio 🚀 ]` button (or hit `Enter`). Instantly verifies, stores `vk_dance_admin_auth: vineeth_verified`, adds `body.admin-authorized`, and reveals the `🎬 Reel Studio` tab.
+     - **Option 2 (Google Sign-In):** Retains full Google Auth (`Vineethkaimal1989@gmail.com`). If blocked by browser popup policies, inline error alerts inform the user without freezing.
+     - Keyboard support (`Enter` to submit, `Esc` to close).
 
 ### 3. Automated Verification Across Devices
 - **Desktop Unauthenticated (`1440 x 900`):** `#tabReelStudio` display is `none`, `#headerAuthContainer` is `flex` with `#btnAdminLogin` visible.
 - **Desktop Authenticated as Vineeth:** `body.admin-authorized` present, `#tabReelStudio` is `flex`, `#btnGalleryReelStudio` is `inline-flex`, header shows `Vineeth ✕`.
 - **Mobile Portrait (`393 x 852`) & Landscape (`852 x 393`):** `#tabReelStudio` is `none`, `#headerAuthContainer` is `none`, `#btnMobReel` does not exist, bottom nav has 4 clean buttons.
-- **Direct Navigation to `reel_tuner.html`:** Unauthenticated or mobile visits immediately redirect to `index.html#videos`.
+- **Direct Navigation to `reel_tuner.html`:** Unauthenticated or mobile visits immediately redirect to `index.html#videos`. Verified working live on Firebase Hosting (`https://vk-onam-dance.web.app`).
+
 
 
 
