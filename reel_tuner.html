@@ -26,13 +26,20 @@
         projectId: "misc-vk",
         appId: "1:74086160540:web:c3d3172c62b67bcffeb559"
       };
+      const ADMIN_EMAIL = "vineethkaimal1989@gmail.com";
+      const isLocalAuth = localStorage.getItem('vk_dance_admin_auth') === 'vineeth_verified';
+      if (isLocalAuth) {
+        const gate = document.getElementById('authGateOverlay');
+        if (gate) gate.style.display = 'none';
+        return;
+      }
+
       if (typeof firebase !== 'undefined') {
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const ADMIN_EMAIL = "vineethkaimal1989@gmail.com";
 
         auth.onAuthStateChanged(user => {
-          if (user && user.email && user.email.toLowerCase() === ADMIN_EMAIL && window.innerWidth >= 1024) {
+          if ((user && user.email && user.email.toLowerCase() === ADMIN_EMAIL && window.innerWidth >= 1024) || isLocalAuth) {
             const gate = document.getElementById('authGateOverlay');
             if (gate) gate.style.display = 'none';
           } else {
@@ -42,9 +49,11 @@
         });
 
         setTimeout(() => {
-          const user = auth.currentUser;
-          if (!user || !user.email || user.email.toLowerCase() !== ADMIN_EMAIL) {
-            window.location.replace("index.html#videos");
+          if (!isLocalAuth) {
+            const user = auth.currentUser;
+            if (!user || !user.email || user.email.toLowerCase() !== ADMIN_EMAIL) {
+              window.location.replace("index.html#videos");
+            }
           }
         }, 4000);
       }
@@ -1028,6 +1037,12 @@
     <div style="font-size: 0.9rem; font-weight: 600; color: #e2e8f0;">Verifying Vineeth's credentials...</div>
     <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
   </div>
+  <script>
+    if (localStorage.getItem('vk_dance_admin_auth') === 'vineeth_verified' && window.innerWidth >= 1024) {
+      var _g = document.getElementById('authGateOverlay');
+      if (_g) _g.style.display = 'none';
+    }
+  </script>
 
   <!-- HEADER -->
   <header class="studio-header">

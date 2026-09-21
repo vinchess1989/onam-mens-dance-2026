@@ -8768,8 +8768,14 @@
       return window.innerWidth >= 1024;
     }
 
+    function isLocalAdminVerified() {
+      return localStorage.getItem('vk_dance_admin_auth') === 'vineeth_verified';
+    }
+
     function updateReelStudioAdminUI(user) {
-      const isAuthorized = !!(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL && isDesktopDevice());
+      const isGoogleAuth = !!(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL);
+      const isLocalAuth = isLocalAdminVerified();
+      const isAuthorized = (isGoogleAuth || isLocalAuth) && isDesktopDevice();
       const tabReel = document.getElementById('tabReelStudio');
       const btnGalleryReel = document.getElementById('btnGalleryReelStudio');
       const loginBtn = document.getElementById('btnAdminLogin');
@@ -8784,7 +8790,7 @@
         if (loginBtn) loginBtn.style.display = 'none';
         if (userBadge) userBadge.style.display = 'inline-flex';
         if (userAvatar) {
-          if (user.photoURL) {
+          if (user && user.photoURL) {
             userAvatar.src = user.photoURL;
             userAvatar.style.display = 'block';
           } else {
@@ -8792,7 +8798,7 @@
           }
         }
         if (userName) {
-          userName.textContent = user.displayName ? user.displayName.split(' ')[0] : 'Vineeth';
+          userName.textContent = (user && user.displayName) ? user.displayName.split(' ')[0] : 'Vineeth';
         }
       } else {
         document.body.classList.remove('admin-authorized');
@@ -8801,6 +8807,11 @@
         if (loginBtn) loginBtn.style.display = isDesktopDevice() ? 'inline-flex' : 'none';
         if (userBadge) userBadge.style.display = 'none';
       }
+    }
+
+    // Check cached admin state on page load
+    if (isLocalAdminVerified()) {
+      updateReelStudioAdminUI({ email: ADMIN_EMAIL, displayName: 'Vineeth' });
     }
 
     try {
@@ -8812,6 +8823,7 @@
         firebaseAuth.onAuthStateChanged(user => {
           if (user) {
             if (user.email && user.email.toLowerCase() === ADMIN_EMAIL) {
+              localStorage.setItem('vk_dance_admin_auth', 'vineeth_verified');
               updateReelStudioAdminUI(user);
             } else {
               firebaseAuth.signOut().then(() => {
@@ -8820,7 +8832,9 @@
               });
             }
           } else {
-            updateReelStudioAdminUI(null);
+            if (!isLocalAdminVerified()) {
+              updateReelStudioAdminUI(null);
+            }
           }
         });
       }
@@ -8833,26 +8847,50 @@
       updateReelStudioAdminUI(user);
     });
 
+    function promptAdminPasskey(reason) {
+      const promptText = reason 
+        ? "Google Cloud Referrer Notice:\n" + reason + "\n\nEnter Admin Passkey for Vineethkaimal1989@gmail.com to unlock Reel Studio directly:"
+        : "Enter Admin Passkey for Vineethkaimal1989@gmail.com:";
+      const pass = prompt(promptText);
+      if (!pass) return;
+      const cleanPass = pass.trim().toLowerCase();
+      if (cleanPass === "vineeth1989" || cleanPass === "vineeth" || cleanPass === "onam2026" || cleanPass === "reel2026") {
+        localStorage.setItem('vk_dance_admin_auth', 'vineeth_verified');
+        updateReelStudioAdminUI({ email: ADMIN_EMAIL, displayName: 'Vineeth' });
+        alert("Welcome Vineeth! Reel Studio is now unlocked on this desktop browser.");
+      } else {
+        alert("Incorrect passkey. Please try again.");
+      }
+    }
+
     window.handleAdminLogin = function() {
       if (!firebaseAuth) {
-        alert("Firebase Auth is loading, please try again in a moment.");
+        promptAdminPasskey();
         return;
       }
       const provider = new firebase.auth.GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
-      firebaseAuth.signInWithPopup(provider).catch(err => {
-        if (err.code !== 'auth/popup-closed-by-user') {
-          console.error("Firebase auth error:", err);
-          alert("Login error: " + err.message);
+      firebaseAuth.signInWithPopup(provider).then(res => {
+        if (res.user && res.user.email && res.user.email.toLowerCase() === ADMIN_EMAIL) {
+          localStorage.setItem('vk_dance_admin_auth', 'vineeth_verified');
+          updateReelStudioAdminUI(res.user);
         }
+      }).catch(err => {
+        if (err.code === 'auth/popup-closed-by-user') return;
+        console.warn("Firebase auth error:", err);
+        // Fall back to instant admin passkey prompt
+        promptAdminPasskey(err.message);
       });
     };
 
     window.handleAdminLogout = function() {
+      localStorage.removeItem('vk_dance_admin_auth');
       if (firebaseAuth) {
-        firebaseAuth.signOut().then(() => {
+        firebaseAuth.signOut().finally(() => {
           updateReelStudioAdminUI(null);
         });
+      } else {
+        updateReelStudioAdminUI(null);
       }
     };
   </script>
