@@ -808,6 +808,218 @@
       }
     }
 
+    /* ADMIN AUTH MODAL */
+    .admin-auth-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .admin-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .admin-modal-window {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.98) 0%, rgba(15, 23, 42, 0.99) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 158, 11, 0.15);
+      padding: 1.5rem;
+      animation: adminModalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+    @keyframes adminModalFadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .admin-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .admin-modal-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .admin-modal-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .admin-modal-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f8fafc;
+      font-family: 'Outfit', sans-serif;
+    }
+    .admin-modal-subtitle {
+      margin: 2px 0 0 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+    .btn-admin-modal-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .btn-admin-modal-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .admin-modal-alert {
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .admin-modal-alert.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+    .admin-modal-alert.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+    .admin-auth-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .admin-input-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 0.5rem;
+    }
+    .admin-input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .admin-passkey-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .admin-passkey-input:focus {
+      border-color: #f59e0b;
+    }
+    .btn-primary-unlock {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-primary-unlock:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+    .admin-passkey-hint {
+      margin: 0.5rem 0 0 0;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+    .admin-passkey-hint code {
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.15);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .admin-modal-divider {
+      position: relative;
+      text-align: center;
+      margin: 1.25rem 0;
+    }
+    .admin-modal-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .admin-modal-divider span {
+      position: relative;
+      background: #0e1526;
+      padding: 0 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #64748b;
+    }
+    .btn-google-auth {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      color: #f1f5f9;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-google-auth:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
     @media (max-width: 1023px) {
       .header-auth-container {
         display: none !important;
@@ -8847,26 +9059,72 @@
       updateReelStudioAdminUI(user);
     });
 
-    function promptAdminPasskey(reason) {
-      const promptText = reason 
-        ? "Google Cloud Referrer Notice:\n" + reason + "\n\nEnter Admin Passkey for Vineethkaimal1989@gmail.com to unlock Reel Studio directly:"
-        : "Enter Admin Passkey for Vineethkaimal1989@gmail.com:";
-      const pass = prompt(promptText);
-      if (!pass) return;
-      const cleanPass = pass.trim().toLowerCase();
-      if (cleanPass === "vineeth1989" || cleanPass === "vineeth" || cleanPass === "onam2026" || cleanPass === "reel2026") {
-        localStorage.setItem('vk_dance_admin_auth', 'vineeth_verified');
-        updateReelStudioAdminUI({ email: ADMIN_EMAIL, displayName: 'Vineeth' });
-        alert("Welcome Vineeth! Reel Studio is now unlocked on this desktop browser.");
-      } else {
-        alert("Incorrect passkey. Please try again.");
+    function openAdminAuthModal() {
+      const modal = document.getElementById('adminAuthModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        const alertBox = document.getElementById('adminModalAlert');
+        if (alertBox) {
+          alertBox.style.display = 'none';
+          alertBox.textContent = '';
+        }
+        const passInput = document.getElementById('adminPasskeyInput');
+        if (passInput) {
+          setTimeout(() => {
+            passInput.focus();
+            passInput.select();
+          }, 50);
+        }
       }
     }
 
-    window.handleAdminLogin = function() {
+    function closeAdminAuthModal() {
+      const modal = document.getElementById('adminAuthModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function submitAdminPasskey() {
+      const passInput = document.getElementById('adminPasskeyInput');
+      const pass = passInput ? passInput.value.trim().toLowerCase() : '';
+      const alertBox = document.getElementById('adminModalAlert');
+
+      if (pass === 'vineeth1989' || pass === 'vineeth' || pass === 'onam2026' || pass === 'reel2026') {
+        localStorage.setItem('vk_dance_admin_auth', 'vineeth_verified');
+        updateReelStudioAdminUI({ email: ADMIN_EMAIL, displayName: 'Vineeth' });
+        if (alertBox) {
+          alertBox.className = 'admin-modal-alert success';
+          alertBox.textContent = '✓ Verified as Vineeth! Unlocking Reel Studio...';
+          alertBox.style.display = 'block';
+        }
+        setTimeout(() => {
+          closeAdminAuthModal();
+        }, 400);
+      } else {
+        if (alertBox) {
+          alertBox.className = 'admin-modal-alert error';
+          alertBox.textContent = 'Incorrect passkey. Please use vineeth1989';
+          alertBox.style.display = 'block';
+        }
+      }
+    }
+
+    function handleGoogleSignIn() {
+      const alertBox = document.getElementById('adminModalAlert');
       if (!firebaseAuth) {
-        promptAdminPasskey();
+        if (alertBox) {
+          alertBox.className = 'admin-modal-alert error';
+          alertBox.textContent = 'Firebase is unavailable. Please use the Passkey unlock above!';
+          alertBox.style.display = 'block';
+        }
         return;
+      }
+      if (alertBox) {
+        alertBox.className = 'admin-modal-alert';
+        alertBox.style.background = 'rgba(56, 189, 248, 0.15)';
+        alertBox.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+        alertBox.style.color = '#7dd3fc';
+        alertBox.textContent = 'Opening Google sign-in...';
+        alertBox.style.display = 'block';
       }
       const provider = new firebase.auth.GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
@@ -8874,13 +9132,37 @@
         if (res.user && res.user.email && res.user.email.toLowerCase() === ADMIN_EMAIL) {
           localStorage.setItem('vk_dance_admin_auth', 'vineeth_verified');
           updateReelStudioAdminUI(res.user);
+          if (alertBox) {
+            alertBox.className = 'admin-modal-alert success';
+            alertBox.textContent = '✓ Google Sign-in verified as Vineeth! Unlocking Reel Studio...';
+            alertBox.style.display = 'block';
+          }
+          setTimeout(() => {
+            closeAdminAuthModal();
+          }, 400);
+        } else {
+          if (alertBox) {
+            alertBox.className = 'admin-modal-alert error';
+            alertBox.textContent = 'Signed in as ' + (res.user ? res.user.email : 'other account') + ', but only ' + ADMIN_EMAIL + ' is authorized.';
+            alertBox.style.display = 'block';
+          }
         }
       }).catch(err => {
-        if (err.code === 'auth/popup-closed-by-user') return;
-        console.warn("Firebase auth error:", err);
-        // Fall back to instant admin passkey prompt
-        promptAdminPasskey(err.message);
+        if (err.code === 'auth/popup-closed-by-user') {
+          if (alertBox) alertBox.style.display = 'none';
+          return;
+        }
+        console.warn("Google popup error:", err);
+        if (alertBox) {
+          alertBox.className = 'admin-modal-alert error';
+          alertBox.textContent = 'Google sign-in was blocked by browser. Please use the instant Passkey unlock above!';
+          alertBox.style.display = 'block';
+        }
       });
+    }
+
+    window.handleAdminLogin = function() {
+      openAdminAuthModal();
     };
 
     window.handleAdminLogout = function() {
@@ -8893,7 +9175,64 @@
         updateReelStudioAdminUI(null);
       }
     };
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAdminAuthModal();
+      }
+    });
   </script>
+
+  <!-- ADMIN AUTH MODAL -->
+  <div id="adminAuthModal" class="admin-auth-modal" role="dialog" aria-modal="true" style="display: none;">
+    <div class="admin-modal-backdrop" onclick="closeAdminAuthModal()"></div>
+    <div class="admin-modal-window">
+      <div class="admin-modal-header">
+        <div class="admin-modal-title-group">
+          <div class="admin-modal-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <div>
+            <h3 class="admin-modal-title">Admin Access</h3>
+            <p class="admin-modal-subtitle">Unlock 🎬 Reel Studio on this desktop browser</p>
+          </div>
+        </div>
+        <button class="btn-admin-modal-close" onclick="closeAdminAuthModal()" title="Close (Esc)">✕</button>
+      </div>
+
+      <div class="admin-modal-body">
+        <div id="adminModalAlert" class="admin-modal-alert" style="display: none;"></div>
+
+        <!-- Option 1: Quick Unlock with Passkey -->
+        <div class="admin-auth-card">
+          <label class="admin-input-label" for="adminPasskeyInput">Admin Passkey (Vineeth):</label>
+          <div class="admin-input-row">
+            <input type="password" id="adminPasskeyInput" class="admin-passkey-input" placeholder="Enter passkey..." autocomplete="current-password" value="vineeth1989" onkeydown="if(event.key === 'Enter') submitAdminPasskey()">
+            <button id="btnSubmitPasskey" class="btn-primary-unlock" onclick="submitAdminPasskey()">
+              <span>Unlock Studio</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <p class="admin-passkey-hint">Preset passkey: <code>vineeth1989</code></p>
+        </div>
+
+        <div class="admin-modal-divider">
+          <span>OR SIGN IN WITH GOOGLE</span>
+        </div>
+
+        <!-- Option 2: Google Sign-In -->
+        <button id="btnGoogleSignIn" class="btn-google-auth" onclick="handleGoogleSignIn()">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+          </svg>
+          <span>Sign in with Google (Vineethkaimal1989@gmail.com)</span>
+        </button>
+      </div>
+    </div>
+  </div>
   <!-- FULL-SCREEN WAVEFORM INSPECTOR MODAL WITH MULTI-LEVEL ZOOM (1x to 16x) -->
   <div id="waveformInspectorModal" class="waveform-inspector-modal" role="dialog" aria-modal="true" style="display: none;">
     <div class="inspector-backdrop" onclick="closeWaveformInspector()"></div>
